@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "561884152123",
+    "project_id": "project-med-8c1df",
+    "storage_bucket": "project-med-8c1df.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:561884152123:android:324f1cb1cd23967ed6371e",
+        "android_client_info": {
+          "package_name": "com.example.project_med"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDABG1DtaYxfQuIAS6YxakOWFE7SGw7C-E"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
