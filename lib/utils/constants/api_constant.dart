@@ -1,1 +1,3 @@
-//! put it inside a class
+class APIConstants {
+
+}
