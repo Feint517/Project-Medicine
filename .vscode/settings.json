@@ -1,0 +1,17 @@
+{
+  "files.exclude": {
+    "**/.dart_tool": true,
+    "**/.idea": true,
+    "**/linux": true,
+    "**/macos": true,
+    "**/web": true,
+    "**/windows": true,
+    "**/.flutter-plugins": true,
+    "**/.flutter-plugins-dependencies": true,
+    "**/.gitignore": true,
+    "**/.metadata": true,
+    "**/project_med.iml": true,
+    "**/analysis_options.yaml": true,
+    "**/pubspec.lock": true
+  }
+}
