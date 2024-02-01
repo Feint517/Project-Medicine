@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:project_med/utils/theme/custom_themes/checkbox_theme.dart';
 import 'package:project_med/utils/theme/custom_themes/elevated_button_theme.dart';
+import 'package:project_med/utils/theme/custom_themes/text_field_theme.dart';
 import 'package:project_med/utils/theme/custom_themes/text_theme.dart';
 
 class TAppTheme {
@@ -13,6 +15,8 @@ class TAppTheme {
     scaffoldBackgroundColor: Colors.white,
     textTheme: TTextTheme.lightTextTheme,
     elevatedButtonTheme: TElevatedButtonTheme.lightElevatedButtonTheme,
+    checkboxTheme: TCheckboxTheme.lightCheckboxTheme,
+    inputDecorationTheme: TTextFormFieldTheme.lightInputDecorationTheme,
   );
 
   static ThemeData darkTheme = ThemeData(
@@ -23,5 +27,7 @@ class TAppTheme {
     scaffoldBackgroundColor: Colors.black,
     textTheme: TTextTheme.darkTextTheme,
     elevatedButtonTheme: TElevatedButtonTheme.darkElevatedButtonTheme,
+    checkboxTheme: TCheckboxTheme.darkCheckboxTheme,
+    inputDecorationTheme: TTextFormFieldTheme.darkInputDecorationTheme,
   );
 }

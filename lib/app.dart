@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:project_med/features/authentication/screens/onboarding/onboarding.dart';
 import 'package:project_med/utils/theme/theme.dart';
 
 class App extends StatelessWidget {
@@ -6,12 +8,12 @@ class App extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: MaterialApp(
-        themeMode: ThemeMode.system,
-        theme: TAppTheme.ligtTheme,
-        darkTheme: TAppTheme.darkTheme,
-      ),
+    return GetMaterialApp(
+      debugShowCheckedModeBanner: false,
+      themeMode: ThemeMode.system,
+      theme: TAppTheme.ligtTheme,
+      darkTheme: TAppTheme.darkTheme,
+      home: const OnBoardingScreen(),
     );
   }
 }

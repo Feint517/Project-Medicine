@@ -45,6 +45,8 @@ dependencies:
   http: ^1.1.2
   logger: ^2.0.2+1
   get_storage: ^2.1.1
+  gap: ^3.0.1
+  iconsax: ^0.0.8
 
 dev_dependencies:
   flutter_test:
