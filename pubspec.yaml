@@ -74,7 +74,8 @@ flutter:
   assets:
     - assets/fonts/
     - assets/icons/
-    - assets/images/
+    - assets/images/animations/
+    - assets/logos/
     - assets/lottie/on_boarding_animations/
 
 

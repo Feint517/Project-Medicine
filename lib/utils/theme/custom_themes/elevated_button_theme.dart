@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 class TElevatedButtonTheme {
   TElevatedButtonTheme._();
 
-
   //light theme
   static final lightElevatedButtonTheme = ElevatedButtonThemeData(
     style: ElevatedButton.styleFrom(

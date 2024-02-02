@@ -9,6 +9,9 @@ class TColors {
   static const Color accent = Color(0xFFb0c7ff);
   
 
+  static const Color grey = Color(0xFF576062);
+  static const Color darkGrey = Color(0xFF3D4141);
+
   //text colors
   static const Color textPrimary = Color(0xFF333333);
   static const Color textSecondary = Color(0xFF6C757D);
