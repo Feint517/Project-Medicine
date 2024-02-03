@@ -28,9 +28,7 @@ class LoginScreen extends StatelessWidget {
               const LoginForm(),
 
               //? devider
-              FormDivider(
-                dividerText: TTexts.orSignInWith.capitalize!,
-              ),
+              FormDivider(dividerText: TTexts.orSignInWith.capitalize!),
               const Gap(TSizes.spaceBtwSections),
 
               //? footer

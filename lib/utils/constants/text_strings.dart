@@ -4,9 +4,11 @@ class TTexts {
   static const String onBoardingTitle2 = "what if";
   static const String onBoardingTitle3 = "idk";
 
-  static const String onBoardingSubTitle1 = "klbvkbdevlksdbvlkbl";
+  static const String onBoardingSubTitle1 =
+      "just a place holder for the moment";
   static const String onBoardingSubTitle2 = "kdvdjbvdvlkdbdvd";
-  static const String onBoardingSubTitle3 = "vdbvdiosbvoshbvshb";
+  static const String onBoardingSubTitle3 =
+      "i have nothing to say here at the moment";
 
   //? authentication Forum text
   static const String firstName = "First Name";
@@ -27,27 +29,32 @@ class TTexts {
   static const String and = "and";
   static const String terms = "Terms of use";
 
-
   //? authentication heading text
   static const String loginTitle = "Welcome Back";
-  static const String loginSubtitle = "vdnvsdbvkblkrwjbrwjviwjbvjb";
+  static const String loginSubtitle = "idk what to say here tbh";
   static const String signUpTitile = "Let's create your account";
-  static const String forgetPasswordTitle = "vdbjklbvklbvskbrovbreobih";
+
+  //* forgot password screen
+  static const String forgetPasswordTitle = "Forgot your password?";
   static const String forgetPasswordSubTitle =
-      "vdbkvldbvbdvbswekbvwbvowbhevoiewboepgi4oi";
+      "Write your email down so we can send you a reset link";
+  static const String submit = "Submit";
+
   static const String changeYourPasswordTitle = "Passwrod reset email sent!";
   static const String changeYourPasswordSubTitle =
-      "dvkldvlbwvjbwobvewobvoweowrbvwob";
+      "i honestly have nothing to say here";
+  static const String sayDone = "Done";
+  static const String resendEmail = "Resend Email";
+
   static const String confirmEmail = "Verify your email address!";
   static const String confirmEmailSubtitle =
       "Congratulations! Your account awaits, please verify your email to start using it";
 
   static const String sayContine = "Continue";
-  static const String resendEmail = "Resend Email";
 
   //* success screen
-  static const String yourAccountCreatedTitle = "Your Account was created successfully!";
-  static const String yourAccountCreatedSubtitle = "Congratulations, you can now start exploring the app";
-
-
+  static const String yourAccountCreatedTitle =
+      "Your Account was created successfully!";
+  static const String yourAccountCreatedSubtitle =
+      "Congratulations, you can now start exploring the app";
 }

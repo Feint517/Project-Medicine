@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
+import 'package:project_med/features/authentication/screens/password_configuration/forget_password.dart';
 import 'package:project_med/features/authentication/screens/signup/signup.dart';
+import 'package:project_med/navigation_menu.dart';
 import 'package:project_med/utils/constants/sizes.dart';
 import 'package:project_med/utils/constants/text_strings.dart';
 
@@ -39,7 +41,7 @@ class LoginForm extends StatelessWidget {
             ),
             const Gap(TSizes.spaceBtwInputFields / 2),
 
-            //? remember me and forgot password
+            //* remember me and forgot password
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -51,26 +53,28 @@ class LoginForm extends StatelessWidget {
                   ],
                 ),
 
-                //? forget password
+                //* forget password
                 TextButton(
-                    onPressed: () {}, child: const Text(TTexts.forgetPassword)),
+                  onPressed: () => Get.to(() => const ForgetPassword()),
+                  child: const Text(TTexts.forgetPassword),
+                ),
               ],
             ),
             const Gap(TSizes.spaceBtwSections),
 
-            //? sign in button
+            //* sign in button
             SizedBox(
-              width: double.infinity, //* to make the sized button full width
+              width: double.infinity, //? to make the sized button full width
               child: ElevatedButton(
-                onPressed: () {},
+                onPressed: () => Get.to(() => const NavigationMenu()),
                 child: const Text(TTexts.signIn),
               ),
             ),
             const Gap(TSizes.spaceBtwItems),
 
-            //? create account button
+            //* create account button
             SizedBox(
-              width: double.infinity, //* to make the sized button full width
+              width: double.infinity, //? to make the sized button full width
               child: OutlinedButton(
                 onPressed: () => Get.to(() => const SignupScreen()),
                 child: const Text(TTexts.createAccount),

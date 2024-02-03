@@ -12,4 +12,8 @@ class TImages {
       "assets/images/animations/email_capture_dark.gif";
   static const String appreciationLight = "assets/images/animations/appreciation_light.gif";
   static const String appreciationDark = "assets/images/animations/appreciation_dark.gif";
+
+  //* password reset
+  static const String forgotPasswordLight = "assets/images/animations/forgot_password_light.gif";
+  static const String forgotPasswordDark = "assets/images/animations/forgot_password_dark.gif"; 
 }

@@ -24,7 +24,8 @@ class OnBoardingController extends GetxController {
   void nextPage() {
     //! change the value depending on how many pages we do have
     if (currentPageIndex.value == 1) {
-      Get.offAll(const LoginScreen());
+      Get.offAll(() => const LoginScreen());
+      //?  Using a widget function instead of a widget fully guarantees that the widget and its controllers will be removed from memory when they are no longer used.
     } else {
       int page = currentPageIndex.value + 1;
       pageController.jumpToPage(page);

@@ -3,6 +3,7 @@
     "**/.dart_tool": true,
     "**/.idea": true,
     "**/linux": true,
+    "**/ios": true,
     "**/macos": true,
     "**/web": true,
     "**/windows": true,
@@ -12,6 +13,8 @@
     "**/.metadata": true,
     "**/project_med.iml": true,
     "**/analysis_options.yaml": true,
-    "**/pubspec.lock": true
-  }
+    "**/pubspec.lock": true,
+    "**/README.md": true,
+  },
+  "java.compile.nullAnalysis.mode": "disabled"
 }

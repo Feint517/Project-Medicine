@@ -1,28 +1,39 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
-import 'package:project_med/common/styles/spacing_styles.dart';
+import 'package:get/get.dart';
+import 'package:project_med/utils/constants/image_strings.dart';
 import 'package:project_med/utils/constants/sizes.dart';
 import 'package:project_med/utils/constants/text_strings.dart';
 import 'package:project_med/utils/helpers/helper_functions.dart';
 
-class SuccessScreen extends StatelessWidget {
-  const SuccessScreen({super.key, required this.title, required this.subtitle, required this.onPressed, required this.imageLight, required this.imageDark});
-
-  final String imageLight,imageDark, title, subtitle;
-  final VoidCallback onPressed;
+class ResetPassword extends StatelessWidget {
+  const ResetPassword({super.key});
 
   @override
   Widget build(BuildContext context) {
     final dark = THelperFunctions.isDarkMode(context);
     return Scaffold(
+      appBar: AppBar(
+        automaticallyImplyLeading: false,
+        actions: [
+          IconButton(
+            onPressed: () => Get.back(),
+            icon: const Icon(CupertinoIcons.clear),
+          ),
+        ],
+      ),
       body: SingleChildScrollView(
         child: Padding(
-          padding: TSpacingStyle.paddingWithAppBarHeight * 2,
+          padding: const EdgeInsets.all(TSizes.defaultSpace),
           child: Column(
             children: [
+              //* image with 68% sceen width
               Image(
                 image: AssetImage(
-                  dark ? imageDark : imageLight,
+                  dark
+                      ? TImages.forgotPasswordDark
+                      : TImages.forgotPasswordLight,
                 ),
                 width: THelperFunctions.screenWidth() * 0.6,
               ),
@@ -30,24 +41,33 @@ class SuccessScreen extends StatelessWidget {
 
               //* title and subtitle
               Text(
-                title,
+                TTexts.changeYourPasswordTitle,
                 style: Theme.of(context).textTheme.headlineMedium,
                 textAlign: TextAlign.center,
               ),
               const Gap(TSizes.spaceBtwItems),
 
               Text(
-                subtitle,
+                TTexts.changeYourPasswordSubTitle,
                 style: Theme.of(context).textTheme.labelMedium,
                 textAlign: TextAlign.center,
               ),
               const Gap(TSizes.spaceBtwSections),
 
+              //* buttons
               SizedBox(
                 width: double.infinity,
                 child: ElevatedButton(
-                  onPressed: onPressed,
-                  child: const Text(TTexts.sayContine),
+                  onPressed: () {},
+                  child: const Text(TTexts.sayDone),
+                ),
+              ),
+              const Gap(TSizes.spaceBtwItems),
+              SizedBox(
+                width: double.infinity,
+                child: TextButton(
+                  onPressed: () {},
+                  child: const Text(TTexts.resendEmail),
                 ),
               ),
             ],
