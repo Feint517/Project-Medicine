@@ -57,4 +57,8 @@ class TTexts {
       "Your Account was created successfully!";
   static const String yourAccountCreatedSubtitle =
       "Congratulations, you can now start exploring the app";
+
+  //* home appbar title
+  static const String homeAppbarTitle = "Good morning";
+  static const String homeAppbarSubtitle = "Feeling good today?";
 }
