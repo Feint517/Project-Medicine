@@ -5,7 +5,10 @@ import 'package:project_med/utils/constants/colors.dart';
 class UserProfileTile extends StatelessWidget {
   const UserProfileTile({
     super.key,
+    required this.onPressed,
   });
+
+  final VoidCallback onPressed;
 
   @override
   Widget build(BuildContext context) {
@@ -25,9 +28,10 @@ class UserProfileTile extends StatelessWidget {
             Theme.of(context).textTheme.bodyMedium!.apply(color: TColors.white),
       ),
       trailing: IconButton(
-          onPressed: () {},
-          icon: const Icon(Iconsax.edit),
-          color: TColors.white),
+        onPressed: onPressed,
+        icon: const Icon(Iconsax.edit),
+        color: TColors.white,
+      ),
     );
   }
 }

@@ -16,4 +16,7 @@ class TImages {
   //* password reset
   static const String forgotPasswordLight = "assets/images/animations/forgot_password_light.gif";
   static const String forgotPasswordDark = "assets/images/animations/forgot_password_dark.gif"; 
+
+  //* avatar
+  static const String avatar = "assets/images/misc/avatar.jpg";
 }
