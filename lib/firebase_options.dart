@@ -25,7 +25,10 @@ class DefaultFirebaseOptions {
       case TargetPlatform.iOS:
         return ios;
       case TargetPlatform.macOS:
-        return macos;
+        throw UnsupportedError(
+          'DefaultFirebaseOptions have not been configured for macos - '
+          'you can reconfigure this by running the FlutterFire CLI again.',
+        );
       case TargetPlatform.windows:
         throw UnsupportedError(
           'DefaultFirebaseOptions have not been configured for windows - '
@@ -67,15 +70,8 @@ class DefaultFirebaseOptions {
     messagingSenderId: '561884152123',
     projectId: 'project-med-8c1df',
     storageBucket: 'project-med-8c1df.appspot.com',
+    androidClientId: '561884152123-b31e8tgi0dajcba8h5doqtovuib00jqk.apps.googleusercontent.com',
+    iosClientId: '561884152123-th11j3v4fuef3lfupvlkpundnvkilar7.apps.googleusercontent.com',
     iosBundleId: 'com.example.projectMed',
-  );
-
-  static const FirebaseOptions macos = FirebaseOptions(
-    apiKey: 'AIzaSyDmOapmqvsTrNqzOTtcEt7IFcZFYa-cbeU',
-    appId: '1:561884152123:ios:b5207b3a59da2263d6371e',
-    messagingSenderId: '561884152123',
-    projectId: 'project-med-8c1df',
-    storageBucket: 'project-med-8c1df.appspot.com',
-    iosBundleId: 'com.example.projectMed.RunnerTests',
   );
 }
