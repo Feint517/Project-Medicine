@@ -1,10 +1,15 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:project_med/features/authentication/screens/login/login.dart';
 import 'package:project_med/features/authentication/screens/onboarding/onboarding.dart';
+import 'package:project_med/utils/exceptions/firebase_auth_exceptions.dart';
+import 'package:project_med/utils/exceptions/firebase_exceptions.dart';
+import 'package:project_med/utils/exceptions/format_exceptions.dart';
+import 'package:project_med/utils/exceptions/platform_exceptions.dart';
 
 class AuthenticationRepository extends GetxController {
   static AuthenticationRepository get instance => Get.find();
@@ -40,7 +45,8 @@ class AuthenticationRepository extends GetxController {
     String email,
     String password,
   ) async {
-    return await _auth.createUserWithEmailAndPassword(email: email, password: password);
+    return await _auth.createUserWithEmailAndPassword(
+        email: email, password: password);
     // try {
     //   return await _auth.createUserWithEmailAndPassword(
     //       email: email, password: password);
@@ -57,11 +63,26 @@ class AuthenticationRepository extends GetxController {
     // }
   }
 
+  //* [Email verification] - email verification
+  Future<void> sendEmailVerification() async {
+    try {
+    await _auth.currentUser?.sendEmailVerification();
+    } on FirebaseAuthException catch (e) {
+      throw CustomFirebaseAuthException(e.code).message;
+    } on FirebaseException catch (e) {
+      throw CustomFirebaseException(e.code).message;
+    } on FormatException catch (_) {
+      throw const CustomFormatException();
+    } on PlatformException catch (e) {
+      throw CustomPlatformException(e.code).message;
+    } catch (e) {
+      throw ('Something went wrong, please try again');
+    }
+  }
+
   //* [Email authentication] - signin
 
   //* [Email authentication] - Reauthenticate user
-
-  //* [Email verification] - email verification
 
   //* [Re-authentication] - signin
 
