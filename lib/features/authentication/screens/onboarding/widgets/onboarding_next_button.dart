@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
-import 'package:project_med/features/authentication/controllers/onboarding_controller.dart';
+import 'package:project_med/features/authentication/controllers/onboarding/onboarding_controller.dart';
 import 'package:project_med/utils/constants/colors.dart';
 import 'package:project_med/utils/device/device_utility.dart';
 import 'package:project_med/utils/helpers/helper_functions.dart';

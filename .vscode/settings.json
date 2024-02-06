@@ -2,6 +2,7 @@
   "files.exclude": {
     "**/.dart_tool": true,
     "**/.idea": true,
+    "**/build": true,
     "**/linux": true,
     "**/ios": true,
     "**/macos": true,
@@ -14,7 +15,8 @@
     "**/project_med.iml": true,
     "**/analysis_options.yaml": true,
     "**/pubspec.lock": true,
-    "**/README.md": true,
+    "**/README.md": true
   },
-  "java.compile.nullAnalysis.mode": "disabled"
+  "java.compile.nullAnalysis.mode": "disabled",
+  "java.configuration.updateBuildConfiguration": "interactive"
 }

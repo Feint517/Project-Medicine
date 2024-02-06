@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:project_med/features/authentication/screens/onboarding/onboarding.dart';
+import 'package:project_med/bindings/general_bindings.dart';
+import 'package:project_med/utils/constants/colors.dart';
 import 'package:project_med/utils/theme/theme.dart';
 
 class App extends StatelessWidget {
@@ -13,7 +14,14 @@ class App extends StatelessWidget {
       themeMode: ThemeMode.system,
       theme: TAppTheme.ligtTheme,
       darkTheme: TAppTheme.darkTheme,
-      home: const OnBoardingScreen(),
+      //? when the app runs, it will automatically initiate all the methods in GeneralBindings
+      initialBinding: GeneralBindings(), 
+      home: const Scaffold(
+        backgroundColor: TColors.primary,
+        body: Center(
+          child: CircularProgressIndicator(color: Colors.white),
+        ),
+      ),
     );
   }
 }
