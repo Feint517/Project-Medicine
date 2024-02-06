@@ -50,7 +50,7 @@ class TTexts {
   static const String confirmEmailSubtitle =
       "Congratulations! Your account awaits, please verify your email to start using it";
 
-  static const String sayContine = "Continue";
+  static const String sayContinue = "Continue";
 
   //* success screen
   static const String yourAccountCreatedTitle =

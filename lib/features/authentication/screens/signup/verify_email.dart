@@ -2,18 +2,21 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
-import 'package:project_med/common/widgets/success_screen/success_screen.dart';
-import 'package:project_med/features/authentication/screens/login/login.dart';
+import 'package:project_med/data/repositories/authentication_repository.dart';
+import 'package:project_med/features/authentication/controllers/signup/verify_email_controller.dart';
 import 'package:project_med/utils/constants/image_strings.dart';
 import 'package:project_med/utils/constants/sizes.dart';
 import 'package:project_med/utils/constants/text_strings.dart';
 import 'package:project_med/utils/helpers/helper_functions.dart';
 
 class VerifyEmailScreen extends StatelessWidget {
-  const VerifyEmailScreen({super.key});
+  const VerifyEmailScreen({super.key, this.email});
+
+  final String? email;
 
   @override
   Widget build(BuildContext context) {
+    final controller = Get.put(VerifyEmailController());
     final dark = THelperFunctions.isDarkMode(context);
     return Scaffold(
       appBar: AppBar(
@@ -21,7 +24,7 @@ class VerifyEmailScreen extends StatelessWidget {
             false, //? to remove the back arrow from the appBar
         actions: [
           IconButton(
-            onPressed: () => Get.offAll(() => const LoginScreen()),
+            onPressed: () => AuthenticationRepository.instance.logout(),
             icon: const Icon(CupertinoIcons.clear),
           ),
         ],
@@ -50,7 +53,7 @@ class VerifyEmailScreen extends StatelessWidget {
               ),
               const Gap(TSizes.spaceBtwItems),
               Text(
-                "test@gmail.com",
+                email ?? '', //? if email is null, display nothing
                 style: Theme.of(context).textTheme.labelLarge,
                 textAlign: TextAlign.center,
               ),
@@ -66,23 +69,15 @@ class VerifyEmailScreen extends StatelessWidget {
               SizedBox(
                 width: double.infinity,
                 child: ElevatedButton(
-                  onPressed: () => Get.to(
-                    () => SuccessScreen(
-                      imageDark: TImages.appreciationDark,
-                      imageLight: TImages.appreciationLight,
-                      title: TTexts.yourAccountCreatedTitle,
-                      subtitle: TTexts.yourAccountCreatedSubtitle,
-                      onPressed: () => Get.to(() => const LoginScreen()),
-                    ),
-                  ),
-                  child: const Text(TTexts.sayContine),
+                  onPressed: () => controller.checkEmailVerificationStatus(),
+                  child: const Text(TTexts.sayContinue),
                 ),
               ),
               const Gap(TSizes.spaceBtwItems),
               SizedBox(
                 width: double.infinity,
                 child: TextButton(
-                  onPressed: () {},
+                  onPressed: () => controller.sendEmailVerification(),
                   child: const Text(TTexts.resendEmail),
                 ),
               ),

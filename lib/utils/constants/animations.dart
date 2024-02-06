@@ -10,4 +10,5 @@ class TAnimations {
 
   //* misc animations
   static const String check = "assets/lottie/misc/loading_dots.json";
+  static const String success = "assets/lottie/misc/success.json";
 }

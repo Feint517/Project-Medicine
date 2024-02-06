@@ -1,31 +1,44 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
+import 'package:lottie/lottie.dart';
 import 'package:project_med/common/styles/spacing_styles.dart';
 import 'package:project_med/utils/constants/sizes.dart';
 import 'package:project_med/utils/constants/text_strings.dart';
 import 'package:project_med/utils/helpers/helper_functions.dart';
 
 class SuccessScreen extends StatelessWidget {
-  const SuccessScreen({super.key, required this.title, required this.subtitle, required this.onPressed, required this.imageLight, required this.imageDark});
+  const SuccessScreen({
+    super.key,
+    required this.title,
+    required this.subtitle,
+    required this.onPressed,
+    // required this.imageLight,
+    // required this.imageDark,
+    required this.image,
+  });
 
-  final String imageLight,imageDark, title, subtitle;
+  final String image, title, subtitle;
   final VoidCallback onPressed;
 
   @override
   Widget build(BuildContext context) {
-    final dark = THelperFunctions.isDarkMode(context);
+    //final dark = THelperFunctions.isDarkMode(context);
     return Scaffold(
       body: SingleChildScrollView(
         child: Padding(
           padding: TSpacingStyle.paddingWithAppBarHeight * 2,
           child: Column(
             children: [
-              Image(
-                image: AssetImage(
-                  dark ? imageDark : imageLight,
-                ),
-                width: THelperFunctions.screenWidth() * 0.6,
+              Lottie.asset(
+                image,
+                width: MediaQuery.of(context).size.width * 0.6,
               ),
+              // Image(
+              //   image: AssetImage(
+              //     dark ? imageDark : imageLight,
+              //   ),
+              //   width: THelperFunctions.screenWidth() * 0.6,
+              // ),
               const Gap(TSizes.spaceBtwSections),
 
               //* title and subtitle
@@ -47,7 +60,7 @@ class SuccessScreen extends StatelessWidget {
                 width: double.infinity,
                 child: ElevatedButton(
                   onPressed: onPressed,
-                  child: const Text(TTexts.sayContine),
+                  child: const Text(TTexts.sayContinue),
                 ),
               ),
             ],
