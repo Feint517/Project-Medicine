@@ -49,6 +49,7 @@ android {
         targetSdkVersion flutter.targetSdkVersion
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
+        multiDexEnabled true
     }
 
     buildTypes {
@@ -58,6 +59,11 @@ android {
             signingConfig signingConfigs.debug
         }
     }
+    allprojects {
+        tasks.withType(JavaCompile){
+            options.compilerArgs << "-Xlint:deprecation"
+        }
+    }
 }
 
 flutter {
@@ -65,10 +71,10 @@ flutter {
 }
 
 dependencies {
-  implementation 'com.android.support:multidex:2.0.1'
+    implementation 'com.android.support:multidex:2.0.1'
 }
-android {
-    defaultConfig {
-        multiDexEnabled true
-    }
-}
+// android {
+//     defaultConfig {
+//         multiDexEnabled true
+//     }
+// }

@@ -8,6 +8,7 @@ class UserModel {
   String lastName;
   final String username;
   final String email;
+  final String password;
   String phoneNumber;
   String profilePicture;
 
@@ -17,6 +18,7 @@ class UserModel {
     required this.lastName,
     required this.username,
     required this.email,
+    required this.password,
     required this.phoneNumber,
     required this.profilePicture,
   });
@@ -49,6 +51,7 @@ class UserModel {
         username: '',
         email: '',
         phoneNumber: '',
+        password: '',
         profilePicture: '',
       );
 
@@ -60,6 +63,7 @@ class UserModel {
       'Username': username,
       'Email': email,
       'PhoneNumber': phoneNumber,
+      'Password': password,
       'ProfilePicture': profilePicture,
     };
   }
@@ -76,6 +80,7 @@ class UserModel {
         lastName: data['LastName'] ?? '',
         username: data['Username'] ?? '',
         email: data['Email'] ?? '',
+        password: data['Password'],
         phoneNumber: data['PhoneNumber'] ?? '',
         profilePicture: data['profilePicture'] ?? '',
       );
@@ -86,6 +91,7 @@ class UserModel {
       lastName: '',
       username: '',
       email: '',
+      password: '',
       phoneNumber: '',
       profilePicture: '',
     );

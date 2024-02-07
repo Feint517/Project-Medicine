@@ -30,7 +30,9 @@ class SignupController extends GetxController {
     try {
       //* start loading
       CustomFullscreenLoader.openLoadingDialog(
-          'We are processing your information...', TAnimations.check);
+        'We are processing your information...',
+        TAnimations.check,
+      );
 
       //* check internet connection
       final isConnected = await NetworkManager.instance.isConnected();
@@ -52,6 +54,7 @@ class SignupController extends GetxController {
           message:
               'In order to create your account you have to accept our privacy policy',
         );
+        CustomFullscreenLoader.stopLoading();
         return;
       }
 
@@ -69,6 +72,7 @@ class SignupController extends GetxController {
         lastName: lastName.text.trim(),
         username: userName.text.trim(),
         email: email.text.trim(),
+        password: password.text.trim(),
         phoneNumber: phoneNumber.text.trim(),
         profilePicture: '',
       );

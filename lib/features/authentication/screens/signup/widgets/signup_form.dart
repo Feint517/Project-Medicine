@@ -99,9 +99,11 @@ class SignupForm extends StatelessWidget {
                 suffixIcon: IconButton(
                   onPressed: () => controller.hidePassword.value =
                       !controller.hidePassword.value,
-                  icon: Icon(controller.hidePassword.value
-                      ? Iconsax.eye_slash
-                      : Iconsax.eye),
+                  icon: Icon(
+                    controller.hidePassword.value
+                        ? Iconsax.eye_slash
+                        : Iconsax.eye,
+                  ),
                 ),
               ),
             ),

@@ -4,7 +4,6 @@ import 'package:lottie/lottie.dart';
 import 'package:project_med/common/styles/spacing_styles.dart';
 import 'package:project_med/utils/constants/sizes.dart';
 import 'package:project_med/utils/constants/text_strings.dart';
-import 'package:project_med/utils/helpers/helper_functions.dart';
 
 class SuccessScreen extends StatelessWidget {
   const SuccessScreen({

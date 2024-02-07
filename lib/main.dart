@@ -36,4 +36,3 @@ Future<void> main() async {
 
 //! known issues:
 //!    - success animation doesn't support light and dark mode
-//!    - not checking the privacy policy will send the app to infinite loop in the processing screen

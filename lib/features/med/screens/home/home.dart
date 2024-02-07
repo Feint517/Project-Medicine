@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import 'package:project_med/common/widgets/appbar/appbar.dart';
 import 'package:project_med/common/widgets/custon_shapes/container/primary_header_container.dart';
 import 'package:project_med/features/personalization/screens/settings/settings.dart';
 import 'package:project_med/utils/constants/colors.dart';
+import 'package:project_med/utils/constants/sizes.dart';
 import 'package:project_med/utils/constants/text_strings.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -46,9 +48,20 @@ class HomeScreen extends StatelessWidget {
                       )
                     ],
                   ),
+                  const Gap(TSizes.spaceBtwSections),
+                  Text(
+                    'Just a placeholder',
+                    style: Theme.of(context)
+                        .textTheme
+                        .headlineSmall!
+                        .apply(color: TColors.white),
+                  ),
+                  const Gap(TSizes.spaceBtwSections),
+                  const Gap(TSizes.spaceBtwSections),
                 ],
               ),
             ),
+            const Text('just a place holder 2'),
           ],
         ),
       ),
