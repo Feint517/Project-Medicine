@@ -36,4 +36,6 @@ Future<void> main() async {
 
 //! known issues:
 //!    - success animation doesn't support light and dark mode
-//!    - password doesn't update when reseting it in the firestore
+//!    - password doesn't update in the firestore when reseting it 
+//!    - it shows defaut profile picture while signin in with google instead of actural account picture
+

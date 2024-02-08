@@ -48,6 +48,8 @@ dependencies:
   url_launcher: ^6.2.4
   google_sign_in: ^6.2.1
   connectivity_plus: ^5.0.2
+  image_picker: ^1.0.7
+  cached_network_image: ^3.3.1
 
   # State management
   get: ^4.6.6
@@ -57,6 +59,7 @@ dependencies:
   firebase_core: ^2.24.2
   firebase_auth: ^4.15.3
   cloud_firestore: ^4.15.3
+  firebase_storage: ^11.6.5
 
 dev_dependencies:
   flutter_test:
