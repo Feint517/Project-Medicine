@@ -18,7 +18,7 @@ class UserModel {
     required this.lastName,
     required this.username,
     required this.email,
-    required this.password,
+    this.password = '',
     required this.phoneNumber,
     required this.profilePicture,
   });
