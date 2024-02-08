@@ -84,16 +84,8 @@ class UserModel {
         phoneNumber: data['PhoneNumber'] ?? '',
         profilePicture: data['profilePicture'] ?? '',
       );
+    } else {
+      return UserModel.empty();
     }
-    return UserModel(
-      id: '',
-      firstName: '',
-      lastName: '',
-      username: '',
-      email: '',
-      password: '',
-      phoneNumber: '',
-      profilePicture: '',
-    );
   }
 }

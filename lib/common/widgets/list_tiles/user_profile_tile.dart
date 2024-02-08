@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
+import 'package:project_med/features/personalization/controllers/user_controller.dart';
 import 'package:project_med/utils/constants/colors.dart';
 
 class UserProfileTile extends StatelessWidget {
@@ -12,18 +13,19 @@ class UserProfileTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final controller = UserController.instance;
     return ListTile(
       leading:
           const Icon(Icons.arrow_back), //! this will be the image of the user
       title: Text(
-        "User name",
+        controller.user.value.fullName,
         style: Theme.of(context)
             .textTheme
             .headlineSmall!
             .apply(color: TColors.white),
       ),
       subtitle: Text(
-        "test@gmail.com",
+        controller.user.value.email,
         style:
             Theme.of(context).textTheme.bodyMedium!.apply(color: TColors.white),
       ),

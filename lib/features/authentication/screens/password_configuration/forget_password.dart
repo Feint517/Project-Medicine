@@ -3,7 +3,6 @@ import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:project_med/features/authentication/controllers/forget_password/forget_password_contorller.dart';
-import 'package:project_med/features/authentication/screens/password_configuration/reset_password.dart';
 import 'package:project_med/utils/constants/sizes.dart';
 import 'package:project_med/utils/constants/text_strings.dart';
 import 'package:project_med/utils/validators/validators.dart';

@@ -37,10 +37,9 @@ dependencies:
   lottie: ^2.7.0
   flutter_native_splash: ^2.3.8
   smooth_page_indicator: ^1.1.0
-  
   gap: ^3.0.1
   iconsax: ^0.0.8
-  connectivity_plus: ^5.0.2
+  shimmer: ^3.0.0
 
   # utility
   intl: ^0.19.0
@@ -48,6 +47,7 @@ dependencies:
   logger: ^2.0.2+1
   url_launcher: ^6.2.4
   google_sign_in: ^6.2.1
+  connectivity_plus: ^5.0.2
 
   # State management
   get: ^4.6.6

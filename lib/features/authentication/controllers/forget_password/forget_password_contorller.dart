@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:project_med/common/styles/loaders.dart';
 import 'package:project_med/data/repositories/authentication_repository.dart';
-import 'package:project_med/features/authentication/screens/password_configuration/forget_password.dart';
 import 'package:project_med/features/authentication/screens/password_configuration/reset_password.dart';
 import 'package:project_med/utils/constants/animations.dart';
 import 'package:project_med/utils/helpers/network_manager.dart';
