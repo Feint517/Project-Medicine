@@ -36,3 +36,4 @@ Future<void> main() async {
 
 //! known issues:
 //!    - success animation doesn't support light and dark mode
+//!    - password doesn't update when reseting it in the firestore
