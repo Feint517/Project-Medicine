@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:project_med/features/med/screens/home/home.dart';
+import 'package:project_med/features/reminder/screens/medication_reminder.dart';
 import 'package:project_med/utils/constants/colors.dart';
 import 'package:project_med/utils/helpers/helper_functions.dart';
 
@@ -47,7 +48,7 @@ class NavigationController extends GetxController {
     const HomeScreen(),
     Container(color: Colors.red),
     Container(color: Colors.purple),
-    Container(color: Colors.blue),
+    const MedReminderScreen(),
     Container(color: Colors.orange),
   ];
 }

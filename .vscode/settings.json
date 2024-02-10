@@ -4,7 +4,7 @@
     "**/.idea": true,
     "**/build": true,
     "**/linux": true,
-    "**/ios": true,
+    "**/ios": false,
     "**/macos": true,
     "**/web": true,
     "**/windows": true,

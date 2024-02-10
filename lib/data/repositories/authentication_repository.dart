@@ -93,7 +93,7 @@ class AuthenticationRepository extends GetxController {
     }
   }
 
-  //* [Email authentication] - signin
+  //* [Email authentication] - login
   Future<UserCredential> loginWithEmailAndPassword(
       String email, String password) async {
     try {
@@ -113,7 +113,6 @@ class AuthenticationRepository extends GetxController {
   }
 
   //* [Email authentication] - Reauthenticate user
-
   Future<void> reAuthenticateWithEmailAndPassword(
       String email, String password) async {
     try {
@@ -135,8 +134,6 @@ class AuthenticationRepository extends GetxController {
       throw ('Something went wrong, please try again');
     }
   }
-
-  //* [Re-authentication] - signin
 
   //* [Email authentication] - forget password
   Future<void> sendPasswordResetEmail(String email) async {

@@ -68,7 +68,9 @@ class UserModel {
     };
   }
 
-  //* factory method to create a UserModel from a firebase document snapshot
+  //* factory method to create a UserModel from a firebase document snapshot (recieve values)
+  //? factory class allows us to create multiple constructors for the same class
+  //? fromSnapshot is the name of the constructor
   factory UserModel.fromSnapshot(
     DocumentSnapshot<Map<String, dynamic>> document,
   ) {
