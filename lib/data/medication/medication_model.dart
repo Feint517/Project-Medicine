@@ -1,11 +1,15 @@
 class MedicationModel {
   final String name;
+  final String dosage;
+  final String voulume;
   final String type;
-  final int dose;
+  final String timing;
 
   MedicationModel({
-    required this.name,
-    required this.type,
-    required this.dose,
+    this.name = '',
+    this.dosage = '',
+    this.voulume = '',
+    this.type = '',
+    this.timing = '',
   });
 }

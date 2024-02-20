@@ -35,10 +35,9 @@ class MedicationTypes extends StatelessWidget {
                 TSizes.sm / 2,
               ),
               decoration: BoxDecoration(
-                color: backgroundColor!.withOpacity(0.5),
-                borderRadius: const BorderRadius.all(
-                  Radius.circular(35),
-                ),
+                color: backgroundColor!.withOpacity(0.7),
+                border: Border.all(color: Colors.grey),
+                borderRadius: const BorderRadius.all(Radius.circular(35)),
               ),
               child: Center(
                 child: Image(

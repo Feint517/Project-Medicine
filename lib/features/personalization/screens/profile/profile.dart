@@ -5,10 +5,10 @@ import 'package:iconsax/iconsax.dart';
 import 'package:project_med/common/widgets/appbar/appbar.dart';
 import 'package:project_med/common/widgets/custon_shapes/container/circular_image.dart';
 import 'package:project_med/common/widgets/loaders/shimmer.dart';
+import 'package:project_med/common/widgets/misc/custom_section_heading.dart';
 import 'package:project_med/features/personalization/controllers/user_controller.dart';
 import 'package:project_med/features/personalization/screens/profile/change_name.dart';
 import 'package:project_med/features/personalization/screens/profile/widgets/profile_menu.dart';
-import 'package:project_med/features/personalization/screens/settings/settings.dart';
 import 'package:project_med/utils/constants/image_strings.dart';
 import 'package:project_med/utils/constants/sizes.dart';
 

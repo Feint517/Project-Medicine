@@ -55,7 +55,7 @@ class UserModel {
         profilePicture: '',
       );
 
-  //* convert model to JSON structure to store datain firebase
+  //* convert model to JSON structure to store data in firebase
   Map<String, dynamic> toJson() {
     return {
       'FirstName': firstName,

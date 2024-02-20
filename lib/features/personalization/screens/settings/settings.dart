@@ -8,6 +8,7 @@ import 'package:project_med/common/widgets/list_tiles/settings_menu_tile.dart';
 import 'package:project_med/common/widgets/list_tiles/user_profile_tile.dart';
 import 'package:project_med/data/repositories/authentication_repository.dart';
 import 'package:project_med/features/personalization/screens/profile/profile.dart';
+import 'package:project_med/common/widgets/misc/custom_section_heading.dart';
 import 'package:project_med/utils/constants/colors.dart';
 import 'package:project_med/utils/constants/sizes.dart';
 
@@ -128,38 +129,4 @@ class SettingsScreen extends StatelessWidget {
   }
 }
 
-class CustomSectionHeading extends StatelessWidget {
-  const CustomSectionHeading({
-    super.key,
-    this.textColor,
-    this.showActionButton = true,
-    required this.title,
-    this.buttonTitle = 'View All',
-    this.onPressed,
-  });
 
-  final Color? textColor;
-  final bool showActionButton;
-  final String title, buttonTitle;
-  final void Function()? onPressed;
-
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        Text(
-          title,
-          style: Theme.of(context)
-              .textTheme
-              .headlineSmall!
-              .apply(color: textColor),
-          maxLines: 1,
-          overflow: TextOverflow.ellipsis,
-        ),
-        if (showActionButton)
-          TextButton(onPressed: onPressed, child: Text(buttonTitle))
-      ],
-    );
-  }
-}

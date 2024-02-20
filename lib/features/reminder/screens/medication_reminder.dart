@@ -1,35 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
+import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
-import 'package:intl/intl.dart';
 import 'package:project_med/common/widgets/appbar/appbar.dart';
 import 'package:project_med/common/widgets/custon_shapes/container/primary_header_container.dart';
-import 'package:project_med/common/widgets/misc/custom_date_picker_widget.dart';
-import 'package:project_med/features/reminder/screens/widgets/medication_types.dart';
+import 'package:project_med/features/reminder/controllers/reminder_controller.dart';
+import 'package:project_med/features/reminder/screens/medication_info.dart';
+import 'package:project_med/features/reminder/screens/widgets/medication_tile_dismissible.dart';
 import 'package:project_med/utils/constants/colors.dart';
-import 'package:project_med/utils/constants/image_strings.dart';
 import 'package:project_med/utils/constants/sizes.dart';
-import 'package:project_med/utils/helpers/helper_functions.dart';
+import 'package:easy_date_timeline/easy_date_timeline.dart';
 
 class MedReminderScreen extends StatelessWidget {
   const MedReminderScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    DateTime selectedDate = DateTime.now();
-    List<Widget> medTypes = [
-      const MedicationTypes(image: TImages.pill, title: 'Pill'),
-      const MedicationTypes(image: TImages.eyeDrop, title: 'Eye drop'),
-      const MedicationTypes(image: TImages.liquid, title: 'Liquid'),
-      const MedicationTypes(image: TImages.injection, title: 'Injection'),
-      const MedicationTypes(image: TImages.inhaler, title: 'Inhaler'),
-    ];
-    List<Widget> timing = [
-      const MedTimingSelector(name: 'Before eat'),
-      const MedTimingSelector(name: 'After eat'),
-      const MedTimingSelector(name: 'With food'),
-      const MedTimingSelector(name: 'Before sleep'),
-    ];
+    final controller = Get.put(ReminderController());
+
     return Scaffold(
       body: SingleChildScrollView(
         child: Column(
@@ -48,111 +36,12 @@ class MedReminderScreen extends StatelessWidget {
                     ),
                   ),
                   const Gap(TSizes.spaceBtwSections / 2),
-                  Padding(
-                    padding: const EdgeInsets.all(TSizes.defaultSpace),
+                  const Padding(
+                    padding: EdgeInsets.all(TSizes.defaultSpace),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(
-                          'Create\nNew Schedule',
-                          style: Theme.of(context).textTheme.headlineMedium,
-                        ),
-                        const Gap(TSizes.spaceBtwItems),
-                        ElevatedButton(
-                          onPressed: () {
-                            showModalBottomSheet(
-                              context: context,
-                              isScrollControlled: true,
-                              backgroundColor: TColors.primary,
-                              builder: (context) => Container(
-                                height: THelperFunctions.screenHeight() * 0.7,
-                                decoration: const BoxDecoration(
-                                  //color: TColors.primary,
-                                  borderRadius: BorderRadius.only(
-                                    topLeft: Radius.circular(25.0),
-                                    topRight: Radius.circular(25.0),
-                                  ),
-                                ),
-                                child: SingleChildScrollView(
-                                  child: Padding(
-                                    padding: const EdgeInsets.all(
-                                        TSizes.defaultSpace),
-                                    child: Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        SizedBox(
-                                          height: 150,
-                                          child: ListView.builder(
-                                            itemCount: medTypes.length,
-                                            scrollDirection: Axis.horizontal,
-                                            itemBuilder: (_, index) {
-                                              return medTypes[index];
-                                            },
-                                          ),
-                                        ),
-                                        const Gap(TSizes.spaceBtwItems),
-                                        Column(
-                                          crossAxisAlignment: CrossAxisAlignment.start,
-                                          children: [
-                                            const Text('Pill name'),
-                                            const Gap(TSizes.spaceBtwItems),
-                                            TextFormField(),
-                                          ],
-                                        ),
-                                        const Gap(TSizes.spaceBtwSections),
-                                        Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceBetween,
-                                          children: [
-                                            Column(
-                                              crossAxisAlignment: CrossAxisAlignment.start,
-                                              children: [
-                                                const Text('Dose'),
-                                                const Gap(TSizes.spaceBtwItems),
-                                                SizedBox(
-                                                  width: THelperFunctions
-                                                          .screenWidth() *
-                                                      0.4,
-                                                  child: TextFormField(),
-                                                ),
-                                              ],
-                                            ),
-                                            Column(
-                                              crossAxisAlignment: CrossAxisAlignment.start,
-                                              children: [
-                                                const Text('Type'),
-                                                const Gap(TSizes.spaceBtwItems),
-                                                SizedBox(
-                                                  width: THelperFunctions
-                                                          .screenWidth() *
-                                                      0.4,
-                                                  child: TextFormField(),
-                                                ),
-                                              ],
-                                            ),
-                                          ],
-                                        ),
-                                        const Gap(TSizes.spaceBtwItems),
-                                        SizedBox(
-                                          height: 42,
-                                          child: ListView.builder(
-                                            itemCount: timing.length,
-                                            scrollDirection: Axis.horizontal,
-                                            itemBuilder: (_, index) {
-                                              return timing[index];
-                                            },
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            );
-                          },
-                          child: const Text('Start'),
-                        ),
+                        CustomDayTimeline(),
                       ],
                     ),
                   ),
@@ -160,32 +49,57 @@ class MedReminderScreen extends StatelessWidget {
                 ],
               ),
             ),
-            CustomDatePicker(
-              DateTime.now(),
-              height: 100,
-              width: 80,
-              initialSelectedDate: DateTime.now(),
-              selectionColor: TColors.secondary,
-              selectedTextColor: TColors.white,
-              //deactivatedColor: TColors.secondary,
-              dateTextStyle: const TextStyle(
-                fontSize: 20,
-                fontWeight: FontWeight.w600,
-                color: TColors.grey,
+            Padding(
+              padding: const EdgeInsets.only(
+                right: TSizes.defaultSpace,
+                left: TSizes.defaultSpace,
               ),
-              dayTextStyle: const TextStyle(
-                fontSize: 14,
-                fontWeight: FontWeight.w600,
-                color: TColors.grey,
+              child: Column(
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        'To Take',
+                        style: Theme.of(context).textTheme.headlineMedium!,
+                      ),
+                      IconButton(
+                        onPressed: () => Get.to(
+                          const MedicationInfoScreen(),
+                          transition: Transition.downToUp,
+                        ),
+                        icon: const Icon(
+                          Iconsax.add,
+                          size: 40,
+                        ),
+                      ),
+                    ],
+                  ),
+                  const Gap(TSizes.spaceBtwSections),
+                  Obx(
+                    () => ListView.separated(
+                      physics:
+                          const NeverScrollableScrollPhysics(), //? to stop the scrolling in the ListView
+                      shrinkWrap: true,
+                      separatorBuilder: (context, index) =>
+                          const Gap(TSizes.spaceBtwItems / 2),
+                      itemCount: controller.medicationList.length,
+                      itemBuilder: (context, index) {
+                        final medication = controller.medicationList[index];
+                        return MedicationTile(
+                          list: controller.medicationList,
+                          index: index,
+                          name: medication.name,
+                          dose: medication.dosage,
+                          type: medication.type,
+                          timing: medication.timing,
+                        );
+                      },
+                    ),
+                  ),
+                  const Gap(TSizes.spaceBtwSections),
+                ],
               ),
-              monthTextStyle: const TextStyle(
-                fontSize: 12,
-                fontWeight: FontWeight.w600,
-                color: TColors.grey,
-              ),
-              onDateChange: (date) {
-                selectedDate = date;
-              },
             )
           ],
         ),
@@ -194,61 +108,84 @@ class MedReminderScreen extends StatelessWidget {
   }
 }
 
-// class CurrentDate extends StatelessWidget {
-//   const CurrentDate({
-//     super.key,
-//   });
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return Row(
-//       mainAxisAlignment: MainAxisAlignment.spaceBetween,
-//       children: [
-//         Column(
-//           crossAxisAlignment: CrossAxisAlignment.start,
-//           children: [
-//             Text(
-//               DateFormat.yMMMd().format(DateTime.now()),
-//               style: Theme.of(context).textTheme.bodyMedium,
-//             ),
-//             const Gap(TSizes.spaceBtwItems / 2),
-//             Text(
-//               'Today',
-//               style: Theme.of(context).textTheme.headlineMedium,
-//             )
-//           ],
-//         ),
-//         ElevatedButton(onPressed: () {}, child: const Icon(Iconsax.add)),
-//       ],
-//     );
-//   }
-// }
-
-class MedTimingSelector extends StatelessWidget {
-  const MedTimingSelector({super.key, required this.name});
-
-  final String name;
+class CustomDayTimeline extends StatelessWidget {
+  const CustomDayTimeline({
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () {},
-      child: Padding(
-        padding: const EdgeInsets.only(
-          right: TSizes.spaceBtwItems,
-        ),
-        child: Container(
-          width: 120,
-          decoration: const BoxDecoration(
-            color: TColors.secondary,
-            borderRadius: BorderRadius.all(Radius.circular(30)),
-          ),
-          child: Center(
-            child: Text(
-              name,
-              textAlign: TextAlign.center,
-              style: Theme.of(context).textTheme.bodyMedium,
+    return EasyDateTimeLine(
+      initialDate: DateTime.now(),
+      onDateChange: (selectedDate) {
+        //*`selectedDate` the new date selected.
+      },
+      headerProps: EasyHeaderProps(
+        monthPickerType: MonthPickerType.switcher,
+        dateFormatter: const DateFormatter.dayOnly(),
+        selectedDateStyle: Theme.of(context)
+            .textTheme
+            .headlineSmall!
+            .apply(color: TColors.white),
+        monthStyle: Theme.of(context)
+            .textTheme
+            .headlineSmall!
+            .apply(color: TColors.white),
+      ),
+      activeColor: const Color(0xff85A389),
+      dayProps: EasyDayProps(
+        height: 70.0,
+        width: 70.0,
+        dayStructure: DayStructure.dayNumDayStr,
+        activeDayStyle: const DayStyle(
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.all(Radius.circular(20)),
+            gradient: LinearGradient(
+              begin: Alignment.topCenter,
+              end: Alignment.bottomCenter,
+              colors: [
+                Color(0xff3371FF),
+                Color(0xff8426D6),
+              ],
             ),
+          ),
+          //borderRadius: 20,
+          dayStrStyle: TextStyle(
+            color: Colors.white,
+            fontSize: 13,
+          ),
+          dayNumStyle: TextStyle(
+            fontSize: 18.0,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+        todayHighlightStyle: TodayHighlightStyle.withBackground,
+        todayHighlightColor: TColors.secondary,
+        todayStyle: const DayStyle(
+          borderRadius: 20,
+          dayStrStyle: TextStyle(
+            color: Colors.white,
+            fontSize: 13,
+          ),
+          dayNumStyle: TextStyle(
+            fontSize: 18.0,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+        inactiveDayStyle: DayStyle(
+          decoration: BoxDecoration(
+            borderRadius: const BorderRadius.all(Radius.circular(20)),
+            border: Border.all(
+              color: TColors.secondary,
+              width: 1,
+            ),
+          ),
+          dayStrStyle: const TextStyle(
+            color: Colors.white,
+            fontSize: 13,
+          ),
+          dayNumStyle: const TextStyle(
+            fontSize: 18.0,
           ),
         ),
       ),

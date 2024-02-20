@@ -1,9 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:project_med/common/widgets/loaders/shimmer.dart';
-import 'package:project_med/utils/constants/colors.dart';
 import 'package:project_med/utils/constants/sizes.dart';
-import 'package:project_med/utils/helpers/helper_functions.dart';
 
 class CustomCircularImage extends StatelessWidget {
   const CustomCircularImage({
