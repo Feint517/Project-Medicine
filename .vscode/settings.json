@@ -4,7 +4,7 @@
     "**/.idea": true,
     "**/build": true,
     "**/linux": true,
-    "**/ios": false,
+    "**/ios": true,
     "**/macos": true,
     "**/web": true,
     "**/windows": true,
@@ -18,5 +18,14 @@
     "**/README.md": true
   },
   "java.compile.nullAnalysis.mode": "disabled",
-  "java.configuration.updateBuildConfiguration": "interactive"
+  "java.configuration.updateBuildConfiguration": "interactive",
+  "java.test.config": [
+    {
+      "name": "Test with AppMap",
+      "vmArgs": [
+        "-javaagent:${userHome}\\.appmap\\lib\\java\\appmap.jar",
+        "-Dappmap.output.directory=${command:appmap.getAppmapDir}"
+      ]
+    }
+  ]
 }

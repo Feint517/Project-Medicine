@@ -61,4 +61,7 @@ class TTexts {
   //* home appbar title
   static const String homeAppbarTitle = "Good morning";
   static const String homeAppbarSubtitle = "Feeling good today?";
+
+  //* home search
+  static const String homeSearch = "Search for your medication.";
 }
