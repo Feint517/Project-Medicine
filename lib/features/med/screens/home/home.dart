@@ -1,20 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
-import 'package:iconsax/iconsax.dart';
 import 'package:project_med/common/widgets/custon_shapes/container/primary_header_container.dart';
-import 'package:project_med/data/database_helper.dart';
+import 'package:project_med/data/services/database_service.dart';
 import 'package:project_med/features/med/screens/home/widgets/home_appbar.dart';
+import 'package:project_med/test_page.dart';
 import 'package:project_med/utils/constants/colors.dart';
 import 'package:project_med/utils/constants/sizes.dart';
-import 'package:project_med/utils/constants/text_strings.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final controller = Get.put(DatabaseHelper());
+    final controller = Get.put(DatabaseService());
     return Scaffold(
       body: SingleChildScrollView(
         child: Column(
@@ -44,10 +43,15 @@ class HomeScreen extends StatelessWidget {
               ),
               child: Column(
                 children: [
-                  const TextField(
-                    decoration: InputDecoration(
-                      prefixIcon: Icon(Iconsax.global_search),
-                      labelText: TTexts.homeSearch,
+                  const Gap(TSizes.spaceBtwItems),
+                  SizedBox(
+                    width:
+                        double.infinity, //? to make the sized button full width
+                    child: OutlinedButton(
+                      onPressed: () {
+                        controller.database;
+                      },
+                      child: const Text('Testing the Database'),
                     ),
                   ),
                   const Gap(TSizes.spaceBtwItems),
@@ -56,10 +60,9 @@ class HomeScreen extends StatelessWidget {
                         double.infinity, //? to make the sized button full width
                     child: OutlinedButton(
                       onPressed: () {
-                        //DatabaseHelper.instance.initDatabase();
-                        controller.initDatabase();
+                        Get.to(() => const TestingPage());
                       },
-                      child: const Text('Testing the Database'),
+                      child: const Text('Go to testing page'),
                     ),
                   ),
                 ],

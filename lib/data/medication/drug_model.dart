@@ -1,18 +1,18 @@
 class DrugModel {
-  final int? drugId;
-  final String? drugName;
-  final String? drugDescription;
+  final int drugId;
+  final String drugName;
+  final String drugDescription;
 
   DrugModel({
-    this.drugId,
-    this.drugName,
-    this.drugDescription,
+    required this.drugId,
+    required this.drugName,
+    required this.drugDescription,
   });
 
   factory DrugModel.fromSqfliteDatabase(Map<String, dynamic> map) => DrugModel(
-    drugId: map['drugID']?.toInt() ?? 0,
-    drugName: map['drugName'] ?? '',
-    drugDescription: map['drugDescription'] ?? '',
+    drugId: map['id']?.toInt() ?? 0,
+    drugName: map['name'] ?? '',
+    drugDescription: map['description'] ?? '',
   );
 
   // //? constructor to convert data from a map
