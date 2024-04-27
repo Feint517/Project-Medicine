@@ -26,6 +26,7 @@ class SettingsScreen extends StatelessWidget {
               child: Column(
                 children: [
                   CustomAppBar(
+                    showBackArrow: true,
                     title: Text(
                       'Account',
                       style: Theme.of(context)
@@ -114,7 +115,8 @@ class SettingsScreen extends StatelessWidget {
                   SizedBox(
                     width: double.infinity,
                     child: OutlinedButton(
-                      onPressed: () => AuthenticationRepository.instance.logout(),
+                      onPressed: () =>
+                          AuthenticationRepository.instance.logout(),
                       child: const Text('Log out'),
                     ),
                   ),
@@ -128,5 +130,3 @@ class SettingsScreen extends StatelessWidget {
     );
   }
 }
-
-

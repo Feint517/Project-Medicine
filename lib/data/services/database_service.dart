@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:path/path.dart';
@@ -8,9 +9,6 @@ import 'dart:async';
 
 class DatabaseService {
   static DatabaseService get instance => Get.find();
-
-
-  
 
   static const databaseName = 'test_database.db';
   static const databaseVersion = 1;
@@ -30,40 +28,64 @@ class DatabaseService {
     var databasePath = await getDatabasesPath();
     String path = join(databasePath, databaseName);
 
-    //* check existing
-    var exists = await databaseExists(path);
-    if (!exists) {
-      //* if database doesn't exist
+    if (kDebugMode) {
       print('================Copying database================');
-      try {
-        await Directory(dirname(path)).create(recursive: true);
-      } catch (_) {}
-      //* copy
-      ByteData data =
-          await rootBundle.load(join('assets/databases', databaseName));
-      List<int> bytes =
-          data.buffer.asUint8List(data.offsetInBytes, data.lengthInBytes);
-      //* write
-      await File(path).writeAsBytes(bytes, flush: true);
-      var database = await openDatabase(path, version: databaseVersion);
-      return database;
-    } else {
-      print('================Openning existing database================');
-      print(path);
-      var database = await openDatabase(path, version: databaseVersion);
-      return database;
     }
+    try {
+      await Directory(dirname(path)).create(recursive: true);
+    } catch (_) {}
+    //* copy
+    ByteData data =
+        await rootBundle.load(join('assets/databases', databaseName));
+    List<int> bytes =
+        data.buffer.asUint8List(data.offsetInBytes, data.lengthInBytes);
+    //* write
+    await File(path).writeAsBytes(bytes, flush: true);
+    var database = await openDatabase(path, version: databaseVersion);
+    return database;
+
+//*==================================================================================================
+    //* check existing
+    // var exists = await databaseExists(path);
+    // if (!exists) {
+    //   //* if database doesn't exist
+    //   if (kDebugMode) {
+    //     print('================Copying database================');
+    //   }
+    //   try {
+    //     await Directory(dirname(path)).create(recursive: true);
+    //   } catch (_) {}
+    //   //* copy
+    //   ByteData data =
+    //       await rootBundle.load(join('assets/databases', databaseName));
+    //   List<int> bytes =
+    //       data.buffer.asUint8List(data.offsetInBytes, data.lengthInBytes);
+    //   //* write
+    //   await File(path).writeAsBytes(bytes, flush: true);
+    //   var database = await openDatabase(path, version: databaseVersion);
+    //   return database;
+    // } else {
+    //   if (kDebugMode) {
+    //     print('================Opening existing database================');
+    //     print(path);
+    //   }
+    //   var database = await openDatabase(path, version: databaseVersion);
+    //   return database;
+    // }
   }
 
   //? CRUD operations
+  Future<List<DrugModel>> fetchAll() async {
+    final database = await DatabaseService().database;
+    final drugs = await database.rawQuery('''SELECT * FROM $table''');
+    return drugs.map((drug) => DrugModel.fromSqfliteDatabase(drug)).toList();
+  }
 
-//   Future<List<DrugModel>> fetchAll() async {
-  
-//   final List<Map<String, dynamic>> maps = await _database.query('drugs');
-//   return List.generate(maps.length, (i) {
-//     return DrugModel.fromMap(maps[i]);
-//   });
-// }
+  Future<List<DrugModel>> fetchByName(String name) async {
+    final database = await DatabaseService().database;
+    final drugs = await database.rawQuery('''SELECT * from $table WHERE id = ?''', [name]);
+    return drugs.map((drug) => DrugModel.fromSqfliteDatabase(drug)).toList();
+  }
 
   // Future<int> create(
   //     {required int drugID,
@@ -75,14 +97,6 @@ class DatabaseService {
   //     [drugID, drugName, drugDescription],
   //   );
   // }
-
-  Future<List<DrugModel>> fetchAll() async {
-    final database = await DatabaseService().database;
-    final drugs = await database.rawQuery('''SELECT * FROM $table''');
-    return drugs.map((drug) => DrugModel.fromSqfliteDatabase(drug)).toList();
-  }
-
-  
 
   // Future<DrugModel> fetchById(int id) async {
   //   final database = await DatabaseHelper().database;

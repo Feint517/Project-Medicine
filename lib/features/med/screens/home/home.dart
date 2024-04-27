@@ -36,7 +36,6 @@ class HomeScreen extends StatelessWidget {
                 ],
               ),
             ),
-            //const Text('just a place holder 2'),
             Padding(
               padding: const EdgeInsets.symmetric(
                 horizontal: TSizes.defaultSpace,

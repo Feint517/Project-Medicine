@@ -26,7 +26,7 @@ Future<void> main() async {
         Get.put(AuthenticationRepository()), //? invoke the authentication repo
   );
 
-  //* initialize authentification
+  //* initialize authentication
 
   //* load all the material design,  themes, localisations
 
@@ -36,6 +36,6 @@ Future<void> main() async {
 
 //! known issues:
 //!    - success animation doesn't support light and dark mode
-//!    - password doesn't update in the firestore when reseting it 
-//!    - it shows defaut profile picture while signin in with google instead of actural account picture
+//!    - password doesn't update in the firestore when resetting it
+//!    - it shows default profile picture while signing in with google instead of actual account picture
 
