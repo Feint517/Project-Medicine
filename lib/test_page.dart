@@ -21,7 +21,7 @@ class _TestingPageState extends State<TestingPage> {
 
   void fetchTodos() {
     setState(() {
-      futureTodos = todoDB.fetchAll();
+      //futureTodos = todoDB.fetchAll();
     });
   }
 

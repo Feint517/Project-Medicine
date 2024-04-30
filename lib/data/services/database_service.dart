@@ -4,6 +4,7 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:path/path.dart';
 import 'package:project_med/data/medication/drug_model.dart';
+import 'package:project_med/data/medication/interaction_model.dart';
 import 'package:sqflite/sqflite.dart';
 import 'dart:async';
 
@@ -12,7 +13,6 @@ class DatabaseService {
 
   static const databaseName = 'test_database.db';
   static const databaseVersion = 1;
-  static const table = 'drugs';
 
   static Database? _database;
 
@@ -75,16 +75,23 @@ class DatabaseService {
   }
 
   //? CRUD operations
-  Future<List<DrugModel>> fetchAll() async {
+  Future<List<DrugModel>> fetchAll({required String table}) async {
     final database = await DatabaseService().database;
     final drugs = await database.rawQuery('''SELECT * FROM $table''');
     return drugs.map((drug) => DrugModel.fromSqfliteDatabase(drug)).toList();
   }
 
-  Future<List<DrugModel>> fetchByName(String name) async {
+  Future<List<DrugModel>> fetchByName({required String name, required String table}) async {
     final database = await DatabaseService().database;
-    final drugs = await database.rawQuery('''SELECT * from $table WHERE id = ?''', [name]);
+    final drugs = await database.rawQuery('''SELECT * from $table WHERE name = ?''', [name]);
     return drugs.map((drug) => DrugModel.fromSqfliteDatabase(drug)).toList();
+  }
+
+
+  Future<List<InteractionModel>> fetchBy2Names({required String name1,required String name2, required String table}) async {
+    final database = await DatabaseService().database;
+    final interactions = await database.rawQuery('''SELECT * from $table WHERE drug1Name = ? AND drug2Name = ?''', [name1, name2]);
+    return interactions.map((interaction) => InteractionModel.fromSqfliteDatabase(interaction)).toList();
   }
 
   // Future<int> create(
