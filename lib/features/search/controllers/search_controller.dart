@@ -7,8 +7,8 @@ class DrugSearchController extends GetxController {
   final database = Get.put(DatabaseService());
 
   final tableName = 'drugs';
-  final searchedDrug1 = TextEditingController();
-  final searchedDrug2 = TextEditingController();
+  final tableName2 = 'interactions';
+  final searchedDrug = TextEditingController();
   final searchResult = [].obs;
 
   searchAll() async {
@@ -20,9 +20,18 @@ class DrugSearchController extends GetxController {
 
   searchDrug() async {
     searchResult.clear();
-    final name1 = searchedDrug1.text;
+    final name = searchedDrug.text;
     //final name2 = searchedDrug2.text;
-    final result = await database.fetchByName(name: name1, table: tableName);
+    final result = await database.fetchByName(name: name, table: tableName);
+    for (var i = 0; i < result.length; i++) {
+      searchResult.add(result[i]);
+    }
+  }
+
+  searchInteraction() async {
+    searchResult.clear();
+    final name = searchedDrug.text;
+    final result = await database.fetchByName2(name: name, table: tableName2);
     for (var i = 0; i < result.length; i++) {
       searchResult.add(result[i]);
     }

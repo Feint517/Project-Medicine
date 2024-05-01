@@ -63,6 +63,6 @@ class TTexts {
   static const String homeAppbarSubtitle = "Feeling good today?";
 
   //* drug search
-  static const String drugSearch1 = "Medication 1";
-  static const String drugSearch2 = "Medication 2";
+  static const String drugSearch1 = "Medication";
+  //static const String drugSearch2 = "Medication 2";
 }

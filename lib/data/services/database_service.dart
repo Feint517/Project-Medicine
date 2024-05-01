@@ -88,9 +88,9 @@ class DatabaseService {
   }
 
 
-  Future<List<InteractionModel>> fetchBy2Names({required String name1,required String name2, required String table}) async {
+  Future<List<InteractionModel>> fetchByName2({required String name, required String table}) async {
     final database = await DatabaseService().database;
-    final interactions = await database.rawQuery('''SELECT * from $table WHERE drug1Name = ? AND drug2Name = ?''', [name1, name2]);
+    final interactions = await database.rawQuery('''SELECT * from $table WHERE drug1Name = ?''', [name]);
     return interactions.map((interaction) => InteractionModel.fromSqfliteDatabase(interaction)).toList();
   }
 
