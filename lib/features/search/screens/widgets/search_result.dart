@@ -3,9 +3,7 @@ import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import 'package:project_med/features/search/controllers/search_controller.dart';
 import 'package:project_med/features/search/screens/widgets/interaction_info_tile.dart';
-import 'package:project_med/utils/constants/colors.dart';
 import 'package:project_med/utils/constants/sizes.dart';
-import 'package:project_med/utils/helpers/helper_functions.dart';
 
 class SearchResult extends StatelessWidget {
   const SearchResult({

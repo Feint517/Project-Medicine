@@ -4,11 +4,12 @@ import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:project_med/common/widgets/custon_shapes/container/primary_header_container.dart';
 import 'package:project_med/features/reminder/controllers/reminder_controller.dart';
+import 'package:project_med/features/reminder/controllers/reminder_controller2.dart';
 import 'package:project_med/features/reminder/screens/medication_reminder.dart';
+import 'package:project_med/features/reminder/screens/widgets/info_forms/pill_info_form.dart';
 import 'package:project_med/features/reminder/screens/widgets/info_forum.dart';
-import 'package:project_med/features/reminder/screens/widgets/medication_types.dart';
-import 'package:project_med/utils/constants/colors.dart';
-import 'package:project_med/utils/constants/image_strings.dart';
+import 'package:project_med/features/reminder/screens/widgets/medication_type_selector.dart';
+import 'package:project_med/navigation_menu.dart';
 import 'package:project_med/utils/constants/sizes.dart';
 
 class MedicationInfoScreen extends StatelessWidget {
@@ -16,15 +17,7 @@ class MedicationInfoScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final controller = Get.put(ReminderController());
-    List<String> names = ['Pill', 'Eye drop', 'Liquid', 'Injection', 'Inhaler'];
-    List<String> illustrations = [
-      TImages.pill,
-      TImages.eyeDrop,
-      TImages.liquid,
-      TImages.injection,
-      TImages.inhaler,
-    ];
+    final controller = Get.put(ReminderController2());
 
     return Scaffold(
       body: SingleChildScrollView(
@@ -35,7 +28,7 @@ class MedicationInfoScreen extends StatelessWidget {
               child: Gap(TSizes.spaceBtwSections * 2),
             ),
             IconButton(
-              onPressed: () => Get.off(() => const MedReminderScreen()),
+              onPressed: () => Get.off(() => const NavigationMenu()),
               icon: const Icon(Iconsax.arrow_circle_down4),
               iconSize: 40,
             ),
@@ -44,33 +37,23 @@ class MedicationInfoScreen extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  SizedBox(
-                    height: 150,
-                    child: ListView.builder(
-                      itemCount: names.length,
-                      scrollDirection: Axis.horizontal,
-                      itemBuilder: (conext, index) => Obx(
-                        () => MedicationTypes(
-                          image: illustrations[index],
-                          title: names[index],
-                          backgroundColor: controller.booleanTypeList[index]
-                              ? TColors.primary
-                              : Colors.transparent,
-                          onTap: () {
-                            controller.selectMedType(index);
-                          },
-                        ),
-                      ),
-                    ),
-                  ),
+                  const MedicationTypeSelector(),
                   const Gap(TSizes.spaceBtwItems),
-                  const InfoForum(),
+                  Obx(
+                    () {
+                      if (controller.selectedMedIndex.value == 0) {
+                        return const PillInfoForm();
+                      } else {
+                        return const InfoForum();
+                      }
+                    },
+                  ),
                   const Gap(TSizes.spaceBtwSections),
                   SizedBox(
                     width: double.infinity,
                     child: ElevatedButton(
                       onPressed: () {
-                        controller.addMedication();
+                        //controller.addMedication();
                       },
                       child: const Text('Save'),
                     ),

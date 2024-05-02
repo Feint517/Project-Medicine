@@ -35,7 +35,7 @@ class MedReminderScreen extends StatelessWidget {
                           .apply(color: TColors.white),
                     ),
                   ),
-                  const Gap(TSizes.spaceBtwSections / 2),
+                  const Gap(TSizes.spaceBtwSections / 3),
                   const Padding(
                     padding: EdgeInsets.all(TSizes.defaultSpace),
                     child: Column(
@@ -65,7 +65,7 @@ class MedReminderScreen extends StatelessWidget {
                       ),
                       IconButton(
                         onPressed: () => Get.to(
-                          const MedicationInfoScreen(),
+                          () => const MedicationInfoScreen(),
                           transition: Transition.downToUp,
                         ),
                         icon: const Icon(

@@ -7,8 +7,8 @@ import 'package:project_med/utils/constants/colors.dart';
 import 'package:project_med/utils/constants/sizes.dart';
 import 'package:project_med/utils/validators/validators.dart';
 
-class TestingPage extends StatelessWidget {
-  const TestingPage({super.key});
+class EyedropInfoForm extends StatelessWidget {
+  const EyedropInfoForm({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -24,15 +24,15 @@ class TestingPage extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Text('Pill name'),
+          const Text('Eye drop name:'),
           const Gap(TSizes.spaceBtwItems),
           TextFormField(
             controller: controller.medicationName,
             validator: (value) =>
-                TValidator.validateEmptyText('Medication name', value),
+                TValidator.validateEmptyText('Pill name', value),
           ),
           const Gap(TSizes.spaceBtwSections / 1.5),
-          const Text('Dose'),
+          const Text('Dose:'),
           const Gap(TSizes.spaceBtwItems),
           TextFormField(
             controller: controller.medicationDose,
@@ -40,7 +40,7 @@ class TestingPage extends StatelessWidget {
             validator: (value) => TValidator.validateEmptyText('Dose', value),
           ),
           const Gap(TSizes.spaceBtwSections / 1.5),
-          const Text('Timing'),
+          const Text('Timing:'),
           const Gap(TSizes.spaceBtwItems),
           SizedBox(
             height: 42,
