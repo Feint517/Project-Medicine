@@ -75,6 +75,9 @@ class PillInfoForm extends StatelessWidget {
               ),
             ),
           ),
+          const Gap(TSizes.spaceBtwSections / 1.5),
+          const Text(TTexts.date),
+          const Gap(TSizes.spaceBtwItems),
         ],
       ),
     );

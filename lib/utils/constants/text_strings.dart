@@ -74,6 +74,8 @@ class TTexts {
   static const String inhalerName = "Inhaler name:";
   static const String dose = "Dose:";
   static const String timing = "Timing:";
+  static const String frequency = "Frequency:";
+  static const String date = "Date:";
 
 
 }

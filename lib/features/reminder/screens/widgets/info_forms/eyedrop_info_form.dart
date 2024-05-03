@@ -33,7 +33,7 @@ class EyedropInfoForm extends StatelessWidget {
                 TValidator.validateEmptyText('Pill name', value),
           ),
           const Gap(TSizes.spaceBtwSections / 1.5),
-          const Text(TTexts.dose),
+          const Text(TTexts.frequency),
           const Gap(TSizes.spaceBtwItems),
           TextFormField(
             controller: controller.medicationDose,
