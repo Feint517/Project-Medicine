@@ -7,6 +7,7 @@ class ReminderController2 extends GetxController {
   //* variables
   final medicationName = TextEditingController();
   final medicationDose = TextEditingController();
+  final medicationFrequency = TextEditingController();
   GlobalKey<FormState> frequencyFormKey = GlobalKey<FormState>();
   RxList<bool> booleanTypeList = [false, false, false, false, false].obs;
   RxList<bool> booleanTimingList =
@@ -14,6 +15,19 @@ class ReminderController2 extends GetxController {
   String selectedMedType = '';
   RxInt selectedMedIndex = 0.obs;
   String selectedMedTiming = '';
+  String selectedInjectionSite = '';
+  RxList<bool> booleanInjectSiteList = [
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+  ].obs;
 
   //* methods
   selectMedType(index) {
@@ -86,5 +100,88 @@ class ReminderController2 extends GetxController {
           selectedMedTiming = 'Before sleep';
         }
     }
+  }
+
+  selectInjectionSite(index) {
+    booleanInjectSiteList.setAll(0,
+        [false, false, false, false, false, false, false, false, false, false]);
+    booleanInjectSiteList[index] = !booleanInjectSiteList[index];
+
+    switch (index) {
+      case 0:
+        {
+          selectedInjectionSite = 'Upper arm';
+          print('selected = $selectedInjectionSite');
+        }
+
+      case 1:
+        {
+          selectedInjectionSite = 'Thigh';
+          print('selected = $selectedInjectionSite');
+        }
+
+      case 2:
+        {
+          selectedInjectionSite = 'Buttocks';
+          print('selected = $selectedInjectionSite');
+        }
+
+      case 3:
+        {
+          selectedInjectionSite = 'Hip';
+          print('selected = $selectedInjectionSite');
+        }
+
+      case 4:
+        {
+          selectedInjectionSite = 'Abdomen';
+          print('selected = $selectedInjectionSite');
+        }
+
+      case 5:
+        {
+          selectedInjectionSite = 'Upper arm';
+          print('selected = $selectedInjectionSite');
+        }
+
+      case 6:
+        {
+          selectedInjectionSite = 'Forearm';
+          print('selected = $selectedInjectionSite');
+        }
+
+      case 7:
+        {
+          selectedInjectionSite = 'Back of the hands';
+          print('selected = $selectedInjectionSite');
+        }
+
+      case 8:
+        {
+          selectedInjectionSite = 'Front and back of the lower arm';
+          print('selected = $selectedInjectionSite');
+        }
+
+      case 9:
+        {
+          selectedInjectionSite = 'Front elbow pit';
+          print('selected = $selectedInjectionSite');
+        }
+    }
+  }
+
+  String? validateFrequency(String? value) {
+    if (value == null || value.isEmpty) {
+      return 'Please enter a frequency';
+    }
+
+    //* Custom validation: Check if the input follows the format "X times a day"
+    final RegExp frequencyPattern =
+        RegExp(r'^\d+\s+times\s+a\s+day$', caseSensitive: false);
+    if (!frequencyPattern.hasMatch(value)) {
+      return 'Invalid format. Enter like "3 times a day"';
+    }
+
+    return null; //? Return null if input is valid.
   }
 }

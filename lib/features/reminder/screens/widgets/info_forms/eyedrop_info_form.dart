@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
-import 'package:project_med/features/reminder/controllers/reminder_controller.dart';
+import 'package:project_med/features/reminder/controllers/reminder_controller2.dart';
 import 'package:project_med/features/reminder/screens/widgets/selecting_tile.dart';
 import 'package:project_med/utils/constants/colors.dart';
 import 'package:project_med/utils/constants/sizes.dart';
+import 'package:project_med/utils/constants/text_strings.dart';
 import 'package:project_med/utils/validators/validators.dart';
 
 class EyedropInfoForm extends StatelessWidget {
@@ -12,7 +13,7 @@ class EyedropInfoForm extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final controller = Get.put(ReminderController());
+    final controller = Get.put(ReminderController2());
     List<String> timings = [
       'Before eat',
       'After eat',
@@ -24,7 +25,7 @@ class EyedropInfoForm extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Text('Eye drop name:'),
+          const Text(TTexts.eyeDropName),
           const Gap(TSizes.spaceBtwItems),
           TextFormField(
             controller: controller.medicationName,
@@ -32,7 +33,7 @@ class EyedropInfoForm extends StatelessWidget {
                 TValidator.validateEmptyText('Pill name', value),
           ),
           const Gap(TSizes.spaceBtwSections / 1.5),
-          const Text('Dose:'),
+          const Text(TTexts.dose),
           const Gap(TSizes.spaceBtwItems),
           TextFormField(
             controller: controller.medicationDose,
@@ -40,7 +41,7 @@ class EyedropInfoForm extends StatelessWidget {
             validator: (value) => TValidator.validateEmptyText('Dose', value),
           ),
           const Gap(TSizes.spaceBtwSections / 1.5),
-          const Text('Timing:'),
+          const Text(TTexts.timing),
           const Gap(TSizes.spaceBtwItems),
           SizedBox(
             height: 42,

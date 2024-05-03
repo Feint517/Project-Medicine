@@ -64,5 +64,16 @@ class TTexts {
 
   //* drug search
   static const String drugSearch1 = "Medication";
-  //static const String drugSearch2 = "Medication 2";
+
+
+  //* treatment info
+  static const String pillName = "Pill name:";
+  static const String eyeDropName = "Eye drop name:";
+  static const String liquidName = "Liquid name:";
+  static const String injectionName = "Injection name:";
+  static const String inhalerName = "Inhaler name:";
+  static const String dose = "Dose:";
+  static const String timing = "Timing:";
+
+
 }

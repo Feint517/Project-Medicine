@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
-import 'package:project_med/features/reminder/controllers/reminder_controller.dart';
 import 'package:project_med/features/reminder/controllers/reminder_controller2.dart';
 import 'package:project_med/features/reminder/screens/widgets/selecting_tile.dart';
 import 'package:project_med/utils/constants/colors.dart';
 import 'package:project_med/utils/constants/sizes.dart';
+import 'package:project_med/utils/constants/text_strings.dart';
 import 'package:project_med/utils/validators/validators.dart';
 
 class PillInfoForm extends StatelessWidget {
@@ -25,7 +25,7 @@ class PillInfoForm extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Text('Pill name:'),
+          const Text(TTexts.pillName),
           const Gap(TSizes.spaceBtwItems),
           TextFormField(
             controller: controller.medicationName,
@@ -33,7 +33,7 @@ class PillInfoForm extends StatelessWidget {
                 TValidator.validateEmptyText('Pill name', value),
           ),
           const Gap(TSizes.spaceBtwSections / 1.5),
-          const Text('Dose:'),
+          const Text(TTexts.dose),
           const Gap(TSizes.spaceBtwItems),
           TextFormField(
             controller: controller.medicationDose,
@@ -41,7 +41,21 @@ class PillInfoForm extends StatelessWidget {
             validator: (value) => TValidator.validateEmptyText('Dose', value),
           ),
           const Gap(TSizes.spaceBtwSections / 1.5),
-          const Text('Timing:'),
+          const Text('Frequency:'),
+          const Gap(TSizes.spaceBtwItems),
+          TextFormField(
+            controller: controller.medicationFrequency,
+            validator: (value) => controller.validateFrequency(value),
+            decoration: const InputDecoration(
+              hintText: 'Enter frequency (e.g., 3 times a day)',
+              hintStyle: TextStyle(
+                fontSize: 13,
+                color: TColors.grey,
+              ),
+            ),
+          ),
+          const Gap(TSizes.spaceBtwSections / 1.5),
+          const Text(TTexts.timing),
           const Gap(TSizes.spaceBtwItems),
           SizedBox(
             height: 42,

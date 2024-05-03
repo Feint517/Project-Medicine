@@ -3,11 +3,12 @@ import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:project_med/common/widgets/custon_shapes/container/primary_header_container.dart';
-import 'package:project_med/features/reminder/controllers/reminder_controller.dart';
 import 'package:project_med/features/reminder/controllers/reminder_controller2.dart';
-import 'package:project_med/features/reminder/screens/medication_reminder.dart';
+import 'package:project_med/features/reminder/screens/widgets/info_forms/eyedrop_info_form.dart';
+import 'package:project_med/features/reminder/screens/widgets/info_forms/inhaler_info_form.dart';
+import 'package:project_med/features/reminder/screens/widgets/info_forms/injection_info_form.dart';
+import 'package:project_med/features/reminder/screens/widgets/info_forms/liquid_info_form.dart';
 import 'package:project_med/features/reminder/screens/widgets/info_forms/pill_info_form.dart';
-import 'package:project_med/features/reminder/screens/widgets/info_forum.dart';
 import 'package:project_med/features/reminder/screens/widgets/medication_type_selector.dart';
 import 'package:project_med/navigation_menu.dart';
 import 'package:project_med/utils/constants/sizes.dart';
@@ -41,10 +42,21 @@ class MedicationInfoScreen extends StatelessWidget {
                   const Gap(TSizes.spaceBtwItems),
                   Obx(
                     () {
-                      if (controller.selectedMedIndex.value == 0) {
-                        return const PillInfoForm();
-                      } else {
-                        return const InfoForum();
+                      switch (controller.selectedMedIndex.value) {
+                        case 0:
+                          return const PillInfoForm();
+                        case 1:
+                          return const EyedropInfoForm();
+                        case 2:
+                          return const LiquidInfoForm();
+                        case 3:
+                          return const InjectionInfoForm();
+                        case 4:
+                          return const InhalerInfoForm();
+                        default:
+                          return const SizedBox(
+                            height: 50,
+                          );
                       }
                     },
                   ),
