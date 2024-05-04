@@ -1,66 +1,32 @@
 import 'package:flutter/material.dart';
-import 'package:gap/gap.dart';
-import 'package:get/get.dart';
-import 'package:project_med/features/reminder/controllers/reminder_controller.dart';
-import 'package:project_med/features/reminder/screens/widgets/selecting_tile.dart';
-import 'package:project_med/utils/constants/colors.dart';
-import 'package:project_med/utils/constants/sizes.dart';
-import 'package:project_med/utils/validators/validators.dart';
+import 'package:iconsax/iconsax.dart';
+import 'package:day_night_time_picker/day_night_time_picker.dart';
+import 'package:intl/intl.dart';
 
 class TestingPage extends StatelessWidget {
   const TestingPage({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final controller = Get.put(ReminderController());
-    List<String> timings = [
-      'Before eat',
-      'After eat',
-      'With food',
-      'Before sleep'
-    ];
-    return Form(
-      key: controller.frequencyFormKey, //? assign the key
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          const Text('Pill name'),
-          const Gap(TSizes.spaceBtwItems),
-          TextFormField(
-            controller: controller.medicationName,
-            validator: (value) =>
-                TValidator.validateEmptyText('Medication name', value),
-          ),
-          const Gap(TSizes.spaceBtwSections / 1.5),
-          const Text('Dose'),
-          const Gap(TSizes.spaceBtwItems),
-          TextFormField(
-            controller: controller.medicationDose,
-            keyboardType: TextInputType.number,
-            validator: (value) => TValidator.validateEmptyText('Dose', value),
-          ),
-          const Gap(TSizes.spaceBtwSections / 1.5),
-          const Text('Timing'),
-          const Gap(TSizes.spaceBtwItems),
-          SizedBox(
-            height: 42,
-            child: ListView.builder(
-              itemCount: timings.length,
-              scrollDirection: Axis.horizontal,
-              itemBuilder: (context, index) => Obx(
-                () => SelectingContainer(
-                  name: timings[index],
-                  backgroundColor: controller.booleanTimingList[index]
-                      ? TColors.primary
-                      : Colors.transparent,
-                  onTap: () {
-                    controller.selectMedTiming(index);
-                  },
-                ),
-              ),
+    return Center(
+      child: IconButton(
+        icon: const Icon(Iconsax.add),
+        onPressed: () {
+          Navigator.of(context).push(
+            showPicker(
+              context: context,
+              value: Time(hour: 20, minute: 40),
+              sunrise: const TimeOfDay(hour: 6, minute: 0), // optional
+              sunset: const TimeOfDay(hour: 18, minute: 0), // optional
+              duskSpanInMinutes: 120, // optional
+              onChange: (onTimeChanged) {},
+              onChangeDateTime: (time) {
+                String formattedTime = DateFormat.Hm().format(time);
+                print(formattedTime);
+              },
             ),
-          ),
-        ],
+          );
+        },
       ),
     );
   }

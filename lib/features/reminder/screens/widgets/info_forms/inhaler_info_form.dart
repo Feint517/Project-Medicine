@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import 'package:project_med/features/reminder/controllers/reminder_controller2.dart';
+import 'package:project_med/features/reminder/screens/widgets/date_picker.dart';
+import 'package:project_med/features/reminder/screens/widgets/hour_picker.dart';
 import 'package:project_med/utils/constants/colors.dart';
 import 'package:project_med/utils/constants/sizes.dart';
 import 'package:project_med/utils/constants/text_strings.dart';
@@ -45,6 +47,12 @@ class InhalerInfoForm extends StatelessWidget {
               ),
             ),
           ),
+          const Gap(TSizes.spaceBtwSections / 1.5),
+          const DatePicker(),
+          const Gap(TSizes.spaceBtwItems),
+          const Gap(TSizes.spaceBtwSections / 1.5),
+          const HourPicker(),
+          const Gap(TSizes.spaceBtwItems),
         ],
       ),
     );

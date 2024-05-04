@@ -76,6 +76,7 @@ class TTexts {
   static const String timing = "Timing:";
   static const String frequency = "Frequency:";
   static const String date = "Date:";
+  static const String hour = "Hour:";
 
 
 }

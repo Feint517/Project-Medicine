@@ -1,5 +1,8 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
+import 'package:project_med/common/styles/loaders.dart';
 
 class ReminderController2 extends GetxController {
   static ReminderController2 get instance => Get.find();
@@ -13,7 +16,7 @@ class ReminderController2 extends GetxController {
   RxList<bool> booleanTimingList =
       [false, false, false, false, false, false].obs;
   String selectedMedType = '';
-  RxInt selectedMedIndex = 0.obs;
+  RxInt selectedMedIndex = 10.obs;
   String selectedMedTiming = '';
   String selectedInjectionSite = '';
   RxList<bool> booleanInjectSiteList = [
@@ -28,9 +31,44 @@ class ReminderController2 extends GetxController {
     false,
     false,
   ].obs;
+//* =========================//*
+  dynamic selectedDates;
+  List<String> formatedDates = [];
+  var finalList = [].obs;
+  //* =========================//*
+  dynamic formattedHour = ''.obs;
 
   //* methods
-  selectMedType(index) {
+
+  void selectDate(value) {
+    //? the user should alawys select a date
+    if (value == null) {
+      CustomLoaders.warningSnackBar(title: 'Please select a date');
+      return;
+    }
+    if (kDebugMode) {
+      print('value = $value');
+      print('value runtime type = ');
+      print(value.runtimeType);
+    }
+    selectedDates = value;
+    for (int i = 0; i < selectedDates.length; i++) {
+      formatedDates.add(DateFormat('yyyy-MM-dd').format(selectedDates[i]));
+      if (kDebugMode) {
+        print('selectedDates[$i]');
+        print(selectedDates[i]);
+      }
+      finalList.add(formatedDates[i]);
+    }
+    Get.back();
+  }
+
+  void selectHour(time) {
+    formattedHour.value = DateFormat.Hm().format(time);
+    print(formattedHour);
+  }
+
+  void selectMedType(index) {
     booleanTypeList.setAll(0, [false, false, false, false, false]);
     booleanTypeList[index] = !booleanTypeList[index];
     switch (index) {
@@ -72,7 +110,7 @@ class ReminderController2 extends GetxController {
     }
   }
 
-  selectMedTiming(index) {
+  void selectMedTiming(index) {
     booleanTimingList.setAll(0, [false, false, false, false, false]);
     booleanTimingList[index] = !booleanTimingList[index];
     switch (index) {
@@ -102,7 +140,7 @@ class ReminderController2 extends GetxController {
     }
   }
 
-  selectInjectionSite(index) {
+  void selectInjectionSite(index) {
     booleanInjectSiteList.setAll(0,
         [false, false, false, false, false, false, false, false, false, false]);
     booleanInjectSiteList[index] = !booleanInjectSiteList[index];
@@ -181,7 +219,6 @@ class ReminderController2 extends GetxController {
     if (!frequencyPattern.hasMatch(value)) {
       return 'Invalid format. Enter like "3 times a day"';
     }
-
     return null; //? Return null if input is valid.
   }
 }
