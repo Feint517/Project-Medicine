@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import 'package:path/path.dart';
 import 'package:project_med/data/medication/drug_model.dart';
 import 'package:project_med/data/medication/interaction_model.dart';
+import 'package:project_med/data/medication/treatment_model.dart';
 import 'package:sqflite/sqflite.dart';
 import 'dart:async';
 
@@ -73,25 +74,53 @@ class DatabaseService {
     //   return database;
     // }
   }
-
   //? CRUD operations
-  Future<List<DrugModel>> fetchAll({required String table}) async {
+  // Future<List<DrugModel>> fetchAll({required String table}) async {
+  //   final database = await DatabaseService().database;
+  //   final drugs = await database.rawQuery('''SELECT * FROM $table''');
+  //   return drugs.map((drug) => DrugModel.fromSqfliteDatabase(drug)).toList();
+  // }
+
+  Future<List<TreatmentModel>> fetchAllTreatment({required String table}) async {
     final database = await DatabaseService().database;
-    final drugs = await database.rawQuery('''SELECT * FROM $table''');
-    return drugs.map((drug) => DrugModel.fromSqfliteDatabase(drug)).toList();
+    final treatments = await database.rawQuery('''SELECT * FROM $table''');
+    return treatments.map((treatment) => TreatmentModel.fromSqfliteDatabase(treatment)).toList();
   }
 
-  Future<List<DrugModel>> fetchByName({required String name, required String table}) async {
+  // Future<List<DrugModel>> fetchByName(
+  //     {required String name, required String table}) async {
+  //   final database = await DatabaseService().database;
+  //   final drugs = await database
+  //       .rawQuery('''SELECT * from $table WHERE name = ?''', [name]);
+  //   return drugs.map((drug) => DrugModel.fromSqfliteDatabase(drug)).toList();
+  // }
+
+  Future<List<InteractionModel>> fetchByName(
+      {required String name, required String table}) async {
     final database = await DatabaseService().database;
-    final drugs = await database.rawQuery('''SELECT * from $table WHERE name = ?''', [name]);
-    return drugs.map((drug) => DrugModel.fromSqfliteDatabase(drug)).toList();
+    final interactions = await database
+        .rawQuery('''SELECT * from $table WHERE drug1Name = ?''', [name]);
+    return interactions
+        .map((interaction) => InteractionModel.fromSqfliteDatabase(interaction))
+        .toList();
   }
 
-
-  Future<List<InteractionModel>> fetchByName2({required String name, required String table}) async {
+  Future<int> saveToDatabase({
+    required String table,
+    required String type,
+    required String name,
+    required int dose,
+    required String frequency,
+    required String timing,
+    String injectingSite = '',
+    required String date,
+    required String hour,
+  }) async {
     final database = await DatabaseService().database;
-    final interactions = await database.rawQuery('''SELECT * from $table WHERE drug1Name = ?''', [name]);
-    return interactions.map((interaction) => InteractionModel.fromSqfliteDatabase(interaction)).toList();
+    return await database.rawInsert(
+      '''INSERT INTO $table (type,name,dose,frequency,timing,injectingSite,date,hour) VALUES (?,?,?,?,?,?,?,?)''',
+      [type, name, dose, frequency, timing, injectingSite, date, hour],
+    );
   }
 
   // Future<int> create(

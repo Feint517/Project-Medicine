@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:project_med/common/styles/loaders.dart';
 import 'package:project_med/features/reminder/controllers/reminder_controller2.dart';
 import 'package:project_med/utils/constants/colors.dart';
 import 'package:project_med/utils/constants/sizes.dart';

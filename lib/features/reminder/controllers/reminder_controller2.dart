@@ -3,14 +3,19 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:project_med/common/styles/loaders.dart';
+import 'package:project_med/data/medication/treatment_model.dart';
+import 'package:project_med/data/services/database_service.dart';
 
 class ReminderController2 extends GetxController {
   static ReminderController2 get instance => Get.find();
+  final database = Get.put(DatabaseService());
 
   //* variables
+  final tableName = 'treatments';
   final medicationName = TextEditingController();
-  final medicationDose = TextEditingController();
-  final medicationFrequency = TextEditingController();
+  final medicationDose = TextEditingController(
+      text: ''); //? defualt value in case it's not specified
+  final medicationFrequency = TextEditingController(text: '');
   GlobalKey<FormState> frequencyFormKey = GlobalKey<FormState>();
   RxList<bool> booleanTypeList = [false, false, false, false, false].obs;
   RxList<bool> booleanTimingList =
@@ -32,15 +37,41 @@ class ReminderController2 extends GetxController {
     false,
   ].obs;
 //* =========================//*
-  dynamic selectedDates;
-  List<String> formatedDates = [];
+  List<DateTime> selectedDates = [];
+  //dynamic selectedDates;
+  //List<String> formatedDates = [];
+  List<int> selectedDatesInt = [];
   var finalList = [].obs;
   //* =========================//*
   dynamic formattedHour = ''.obs;
+  //*============================//*
+  RxList<TreatmentModel> treatmentsList = <TreatmentModel>[].obs;
 
   //* methods
 
+  void fetchtreatments() async {
+    final result = await database.fetchAllTreatment(table: tableName);
+    for (var i = 0; i < result.length; i++) {
+      treatmentsList.add(result[i]);
+    }
+  }
+
+  saveMedication() {
+    final medicationDoseInt = int.parse(medicationDose.text);
+    database.saveToDatabase(
+      table: tableName,
+      type: selectedMedType,
+      name: medicationName.text,
+      dose: medicationDoseInt,
+      frequency: medicationFrequency.text,
+      timing: selectedMedTiming,
+      date: selectedDatesInt.join(','),
+      hour: formattedHour.value,
+    );
+  }
+
   void selectDate(value) {
+    selectedDatesInt.clear();
     //? the user should alawys select a date
     if (value == null) {
       CustomLoaders.warningSnackBar(title: 'Please select a date');
@@ -53,19 +84,25 @@ class ReminderController2 extends GetxController {
     }
     selectedDates = value;
     for (int i = 0; i < selectedDates.length; i++) {
-      formatedDates.add(DateFormat('yyyy-MM-dd').format(selectedDates[i]));
-      if (kDebugMode) {
-        print('selectedDates[$i]');
-        print(selectedDates[i]);
-      }
-      finalList.add(formatedDates[i]);
+      // formatedDates.add(DateFormat('yyyy-MM-dd').format(selectedDates[i]));
+      // if (kDebugMode) {
+      //   print('selectedDates[$i]');
+      //   print(selectedDates[i]);
+      // }
+      // finalList.add(formatedDates[i]);
+      selectedDatesInt.add(selectedDates[i].millisecondsSinceEpoch);
+    }
+    if (kDebugMode) {
+      print('selectedDatesInt runtime type = ');
+      print(selectedDatesInt.runtimeType);
+      print(selectedDatesInt);
     }
     Get.back();
   }
 
   void selectHour(time) {
     formattedHour.value = DateFormat.Hm().format(time);
-    print(formattedHour);
+    //print(formattedHour);
   }
 
   void selectMedType(index) {

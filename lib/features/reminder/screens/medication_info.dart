@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
@@ -65,7 +66,27 @@ class MedicationInfoScreen extends StatelessWidget {
                     width: double.infinity,
                     child: ElevatedButton(
                       onPressed: () {
-                        //controller.addMedication();
+                        if (kDebugMode) {
+                          print('Type:');
+                          print(controller.selectedMedType);
+                          print('Name:');
+                          print(controller.medicationName.text);
+                          print('Dose:');
+                          print(controller.medicationDose.text);
+                          print('Frequency:');
+                          print(controller.medicationFrequency.text);
+                          print('Timing');
+                          print(controller.selectedMedTiming);
+                          print('Injecting site');
+                          print(controller.selectedInjectionSite);
+                          //print('Date:');
+                          //print(controller.formatedDates);
+                          print('Hour:');
+                          print(controller.formattedHour);
+                          controller.saveMedication();
+                          controller.fetchtreatments();
+                          Get.back();
+                        }
                       },
                       child: const Text('Save'),
                     ),

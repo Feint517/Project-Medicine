@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
-import 'package:project_med/features/reminder/controllers/reminder_controller.dart';
+import 'package:project_med/features/reminder/controllers/reminder_controller2.dart';
 import 'package:project_med/utils/constants/colors.dart';
 import 'package:project_med/utils/constants/image_strings.dart';
 import 'package:project_med/utils/constants/sizes.dart';
@@ -19,7 +19,7 @@ class MedicationTile extends StatelessWidget {
   });
 
   final String name;
-  final String dose;
+  final int dose;
   final String type;
   final String timing;
   final List list;
@@ -27,11 +27,11 @@ class MedicationTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final controller = Get.put(ReminderController());
+    //final controller = Get.put(ReminderController2());
     return Dismissible(
       direction: DismissDirection.startToEnd, //? swipe from left to right
       onDismissed: (direction) async {
-        controller.removeMedication(index);
+        //controller.removeMedication(index);
         // if (direction == DismissDirection.startToEnd) {
         //   controller.removeMedication(index);
         // }
@@ -72,7 +72,7 @@ class MedicationTile extends StatelessWidget {
           children: [
             if (type == 'Pill')
               const Image(image: AssetImage(TImages.pill))
-            else if (type == 'Eye drop')
+            else if (type == 'Eye Drop')
               const Image(image: AssetImage(TImages.eyeDrop))
             else if (type == 'Liquid')
               const Image(image: AssetImage(TImages.liquid))
