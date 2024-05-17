@@ -3,7 +3,6 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:path/path.dart';
-import 'package:project_med/data/medication/drug_model.dart';
 import 'package:project_med/data/medication/interaction_model.dart';
 import 'package:project_med/data/medication/treatment_model.dart';
 import 'package:sqflite/sqflite.dart';
@@ -19,6 +18,9 @@ class DatabaseService {
 
   Future<Database> get database async {
     if (_database != null) {
+      if (kDebugMode) {
+        print('Local files database:');
+      }
       return _database!;
     }
     _database = await initDatabase();
@@ -26,6 +28,38 @@ class DatabaseService {
   }
 
   Future<Database> initDatabase() async {
+    var databasePath = await getDatabasesPath();
+    String path = join(databasePath, databaseName);
+    //* check existing
+    var exists = await databaseExists(path);
+    if (!exists) {
+      //* if database doesn't exist
+      if (kDebugMode) {
+        print('================Copying database================');
+      }
+      try {
+        await Directory(dirname(path)).create(recursive: true);
+      } catch (_) {}
+      //* copy
+      ByteData data =
+          await rootBundle.load(join('assets/databases', databaseName));
+      List<int> bytes =
+          data.buffer.asUint8List(data.offsetInBytes, data.lengthInBytes);
+      //* write
+      await File(path).writeAsBytes(bytes, flush: true);
+      var database = await openDatabase(path, version: databaseVersion);
+      return database;
+    } else {
+      if (kDebugMode) {
+        print('================Opening existing database================');
+        print(path);
+      }
+      var database = await openDatabase(path, version: databaseVersion);
+      return database;
+    }
+  }
+
+  Future<Database> copyDatabase() async {
     var databasePath = await getDatabasesPath();
     String path = join(databasePath, databaseName);
 
@@ -44,56 +78,19 @@ class DatabaseService {
     await File(path).writeAsBytes(bytes, flush: true);
     var database = await openDatabase(path, version: databaseVersion);
     return database;
-
-//*==================================================================================================
-    //* check existing
-    // var exists = await databaseExists(path);
-    // if (!exists) {
-    //   //* if database doesn't exist
-    //   if (kDebugMode) {
-    //     print('================Copying database================');
-    //   }
-    //   try {
-    //     await Directory(dirname(path)).create(recursive: true);
-    //   } catch (_) {}
-    //   //* copy
-    //   ByteData data =
-    //       await rootBundle.load(join('assets/databases', databaseName));
-    //   List<int> bytes =
-    //       data.buffer.asUint8List(data.offsetInBytes, data.lengthInBytes);
-    //   //* write
-    //   await File(path).writeAsBytes(bytes, flush: true);
-    //   var database = await openDatabase(path, version: databaseVersion);
-    //   return database;
-    // } else {
-    //   if (kDebugMode) {
-    //     print('================Opening existing database================');
-    //     print(path);
-    //   }
-    //   var database = await openDatabase(path, version: databaseVersion);
-    //   return database;
-    // }
-  }
-  //? CRUD operations
-  // Future<List<DrugModel>> fetchAll({required String table}) async {
-  //   final database = await DatabaseService().database;
-  //   final drugs = await database.rawQuery('''SELECT * FROM $table''');
-  //   return drugs.map((drug) => DrugModel.fromSqfliteDatabase(drug)).toList();
-  // }
-
-  Future<List<TreatmentModel>> fetchAllTreatment({required String table}) async {
-    final database = await DatabaseService().database;
-    final treatments = await database.rawQuery('''SELECT * FROM $table''');
-    return treatments.map((treatment) => TreatmentModel.fromSqfliteDatabase(treatment)).toList();
   }
 
-  // Future<List<DrugModel>> fetchByName(
-  //     {required String name, required String table}) async {
-  //   final database = await DatabaseService().database;
-  //   final drugs = await database
-  //       .rawQuery('''SELECT * from $table WHERE name = ?''', [name]);
-  //   return drugs.map((drug) => DrugModel.fromSqfliteDatabase(drug)).toList();
-  // }
+  //? Main CRUD operations ====================================================
+  Future<List<TreatmentModel>> fetchTreatmentsFromDate(
+      {required String table, required int convertedDate}) async {
+    //final database = await DatabaseService().database;
+    final database = await instance.database; //? try instance.database
+    final treatments = await database
+        .rawQuery('''SELECT * FROM $table Where date = ?''', [convertedDate]);
+    return treatments
+        .map((treatment) => TreatmentModel.fromJson(treatment))
+        .toList();
+  }
 
   Future<List<InteractionModel>> fetchByName(
       {required String name, required String table}) async {
@@ -105,78 +102,88 @@ class DatabaseService {
         .toList();
   }
 
-  Future<int> saveToDatabase({
-    required String table,
-    required String type,
-    required String name,
-    required int dose,
-    required String frequency,
-    required String timing,
-    String injectingSite = '',
-    required String date,
-    required String hour,
-  }) async {
+  Future<void> delete({required String table, required int id}) async {
     final database = await DatabaseService().database;
-    return await database.rawInsert(
-      '''INSERT INTO $table (type,name,dose,frequency,timing,injectingSite,date,hour) VALUES (?,?,?,?,?,?,?,?)''',
-      [type, name, dose, frequency, timing, injectingSite, date, hour],
+    await database.rawDelete('''DELETE FROM $table WHERE id = ?''', [id]);
+  }
+
+  Future<int> add({
+    required dynamic object,
+    required String table,
+  }) async {
+    final database = await instance.database;
+    if (kDebugMode) {
+      print('Item added to database.');
+    }
+    return await database.insert(
+      table,
+      object.toJson(),
+      conflictAlgorithm: ConflictAlgorithm.replace,
     );
   }
 
-  // Future<int> create(
-  //     {required int drugID,
-  //     required String drugName,
-  //     required String drugDescription}) async {
-  //   final database = await DatabaseHelper().database;
-  //   return await database.rawInsert(
-  //     '''INSERT INTO $table (drugID, drugName, drugDescription) VALUES (?,?)''',
-  //     [drugID, drugName, drugDescription],
-  //   );
-  // }
+  Future<int?> getCount({required String table}) async {
+    final database = await instance.database;
+    return Sqflite.firstIntValue(
+      await database.rawQuery('SELECT COUNT(*) FROM $table'),
+    );
+  }
 
-  // Future<DrugModel> fetchById(int id) async {
-  //   final database = await DatabaseHelper().database;
-  //   final drug = await database
-  //       .rawQuery('''SELECT * FROM $table WHERE drugID = ?''', [id]);
-  //   return DrugModel.fromSqfliteDatabase(drug.first);
-  // }
+  Future<List<dynamic>?> fetchAll({required String table}) async {
+    final database = await instance.database;
+    final List<Map<String, dynamic>> maps = await database.query(table);
+    if (maps.isEmpty) {
+      return null;
+    }
+    return List.generate(
+      maps.length,
+      (index) => TreatmentModel.fromJson(maps[index]),
+    );
+  }
 
-  // Future<int> update({
-  //   required int id,
-  //   String? drugName,
-  //   String? drugDescription,
+  // Future<int> saveToDatabase({
+  //   required String table,
+  //   required String type,
+  //   required String name,
+  //   required int dose,
+  //   required String frequency,
+  //   required String timing,
+  //   String injectingSite = '',
+  //   required int date,
+  //   required String hour,
   // }) async {
-  //   final database = await DatabaseHelper().database;
-  //   return await database.update(
-  //     table,
-  //     {
-  //       if (drugName != null) 'drugName': drugName,
-  //       'drugDescription': drugDescription,
-  //     },
-  //     where: 'drugID = ?',
-  //     conflictAlgorithm: ConflictAlgorithm.rollback,
-  //     whereArgs: [id],
+  //   final database = await DatabaseService().database;
+  //   return await database.rawInsert(
+  //     '''INSERT INTO $table (type,name,dose,frequency,timing,injectingSite,date,hour) VALUES (?,?,?,?,?,?,?,?)''',
+  //     [type, name, dose, frequency, timing, injectingSite, date, hour],
   //   );
   // }
 
-  // Future<void> delete(int id) async {
-  //   final database = await DatabaseHelper().database;
-  //   await database.rawDelete('''DELETE FROM $table WHERE drugID = ?''', [id]);
-  // }
+//? For Testing =======================================================
+  Future<List<TreatmentModel>> fetchAllTreatment(
+      {required String table}) async {
+    final database = await instance.database; //? try instance.database
+    final treatments = await database.rawQuery('''SELECT * FROM $table''');
+    return treatments
+        .map((treatment) => TreatmentModel.fromJson(treatment))
+        .toList();
+  }
 
-  // //* insert
-  // Future<int> insert(Map<String, dynamic> row) async {
-  //   Database? db = await instance.database;
-  //   return await db.insert(table, row,
-  //       conflictAlgorithm: ConflictAlgorithm.replace);
-  // }
+  Future<List<TreatmentModel>?> getAllTreatments(
+      {required String table}) async {
+    final database = await instance.database;
+    final List<Map<String, dynamic>> maps = await database.query(table);
+    if (maps.isEmpty) {
+      return null;
+    }
+    return List.generate(
+        maps.length, (index) => TreatmentModel.fromJson(maps[index]));
+  }
 
-  // //* select all
-  // Future<List> getAll() async {
-  //   Database? db = await instance.database;
-  //   var result = await db.query(table);
-  //   return result.toList();
-  // }
+  Future<void> deleteAll({required String table}) async {
+    final database = await DatabaseService().database;
+    await database.delete(table);
+  }
 
   // //* RAW query
   // Future<int?> getCount() async {
@@ -184,18 +191,5 @@ class DatabaseService {
   //   return Sqflite.firstIntValue(
   //     await db.rawQuery('SELECT COUNT(drugName) FROM $table'),
   //   );
-  // }
-
-  //* update
-  // Future<int> update(Map<String, dynamic> row) async {
-  //   Database? db = await instance.database;
-  //   String id = row[columnDrugName];
-  //   return await db.update(table, row, where: columnDrugName, whereArgs: [id]);
-  // }
-
-  //* delete
-  // Future<int> delete(String name) async {
-  //   Database? db = await instance.database;
-  //   return await db.delete(table, where: columnDrugName, whereArgs: [name]);
   // }
 }

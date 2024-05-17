@@ -4,7 +4,6 @@ import 'package:get/get.dart';
 import 'package:project_med/common/widgets/custon_shapes/container/primary_header_container.dart';
 import 'package:project_med/data/services/database_service.dart';
 import 'package:project_med/features/med/screens/home/widgets/home_appbar.dart';
-import 'package:project_med/test_page.dart';
 import 'package:project_med/utils/constants/colors.dart';
 import 'package:project_med/utils/constants/sizes.dart';
 
@@ -51,17 +50,6 @@ class HomeScreen extends StatelessWidget {
                         controller.database;
                       },
                       child: const Text('Testing the Database'),
-                    ),
-                  ),
-                  const Gap(TSizes.spaceBtwItems),
-                  SizedBox(
-                    width:
-                        double.infinity, //? to make the sized button full width
-                    child: OutlinedButton(
-                      onPressed: () {
-                        Get.to(() => const TestingPage());
-                      },
-                      child: const Text('Go to testing page'),
                     ),
                   ),
                 ],

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
-import 'package:project_med/features/reminder/controllers/reminder_controller2.dart';
+import 'package:project_med/features/reminder/controllers/reminder_controller.dart';
 import 'package:project_med/features/reminder/screens/widgets/date_picker.dart';
 import 'package:project_med/features/reminder/screens/widgets/hour_picker.dart';
 import 'package:project_med/features/reminder/screens/widgets/selecting_tile.dart';
@@ -27,7 +27,7 @@ class InjectionInfoForm extends StatelessWidget {
       'Front and back of the lower arm',
       'Front elbow pit',
     ];
-    final controller = Get.put(ReminderController2());
+    final controller = Get.put(ReminderController());
     List<String> timings = [
       'Before eat',
       'After eat',

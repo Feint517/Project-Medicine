@@ -5,7 +5,7 @@ import 'package:iconsax/iconsax.dart';
 import 'package:project_med/common/widgets/appbar/appbar.dart';
 import 'package:project_med/common/widgets/custon_shapes/container/primary_header_container.dart';
 import 'package:project_med/common/widgets/misc/custom_day_timeline.dart';
-import 'package:project_med/features/reminder/controllers/reminder_controller2.dart';
+import 'package:project_med/features/reminder/controllers/reminder_controller.dart';
 import 'package:project_med/features/reminder/screens/medication_info.dart';
 import 'package:project_med/features/reminder/screens/widgets/medication_tile_dismissible.dart';
 import 'package:project_med/utils/constants/colors.dart';
@@ -16,7 +16,7 @@ class MedReminderScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final controller = Get.put(ReminderController2());
+    final controller = Get.put(ReminderController());
 
     return Scaffold(
       body: SingleChildScrollView(
@@ -75,24 +75,26 @@ class MedReminderScreen extends StatelessWidget {
                       ),
                     ],
                   ),
-                  const Gap(TSizes.spaceBtwSections),
+                  const Gap(TSizes.spaceBtwSections / 4),
                   Obx(
                     () => ListView.separated(
                       physics:
                           const NeverScrollableScrollPhysics(), //? to stop the scrolling in the ListView
                       shrinkWrap: true,
                       separatorBuilder: (context, index) =>
-                          const Gap(TSizes.spaceBtwItems / 2),
+                          const Gap(TSizes.spaceBtwSections / 2),
                       itemCount: controller.treatmentsList.length,
                       itemBuilder: (context, index) {
                         final treatment = controller.treatmentsList[index];
                         return MedicationTile(
                           list: controller.treatmentsList,
-                          index: index,
+                          id: treatment.id,
                           name: treatment.name,
                           dose: treatment.dose,
                           type: treatment.type,
                           timing: treatment.timing,
+                          date: treatment.date,
+                          hour: treatment.hour,
                         );
                       },
                     ),
@@ -107,4 +109,3 @@ class MedReminderScreen extends StatelessWidget {
     );
   }
 }
-

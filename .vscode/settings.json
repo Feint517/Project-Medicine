@@ -27,5 +27,6 @@
         "-Dappmap.output.directory=${command:appmap.getAppmapDir}"
       ]
     }
-  ]
+  ],
+  "cSpell.words": ["Getx", "iconsax", "sqflite"]
 }

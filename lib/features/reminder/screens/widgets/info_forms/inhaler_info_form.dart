@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
-import 'package:project_med/features/reminder/controllers/reminder_controller2.dart';
+import 'package:project_med/features/reminder/controllers/reminder_controller.dart';
 import 'package:project_med/features/reminder/screens/widgets/date_picker.dart';
 import 'package:project_med/features/reminder/screens/widgets/hour_picker.dart';
 import 'package:project_med/utils/constants/colors.dart';
@@ -14,7 +14,7 @@ class InhalerInfoForm extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final controller = Get.put(ReminderController2());
+    final controller = Get.put(ReminderController());
     // List<String> timings = [
     //   'Before eat',
     //   'After eat',
@@ -38,7 +38,7 @@ class InhalerInfoForm extends StatelessWidget {
           const Gap(TSizes.spaceBtwItems),
           TextFormField(
             controller: controller.medicationFrequency,
-            validator: (value) => controller.validateFrequency(value),
+            //validator: (value) => controller.validateFrequency(value),
             decoration: const InputDecoration(
               hintText: 'Enter frequency (e.g., 3 times a day)',
               hintStyle: TextStyle(

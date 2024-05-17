@@ -3,7 +3,7 @@ import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:project_med/common/widgets/misc/multiple_dates_picker.dart';
-import 'package:project_med/features/reminder/controllers/reminder_controller2.dart';
+import 'package:project_med/features/reminder/controllers/reminder_controller.dart';
 import 'package:project_med/utils/constants/sizes.dart';
 import 'package:project_med/utils/constants/text_strings.dart';
 import 'package:project_med/utils/helpers/helper_functions.dart';
@@ -15,7 +15,7 @@ class DatePicker extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final controller = Get.put(ReminderController2());
+    final controller = Get.put(ReminderController());
     return Column(
       children: [
         Row(

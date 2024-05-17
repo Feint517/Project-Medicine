@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:project_med/features/reminder/controllers/reminder_controller2.dart';
+import 'package:project_med/features/reminder/controllers/reminder_controller.dart';
 import 'package:project_med/features/reminder/screens/widgets/medication_types.dart';
 import 'package:project_med/utils/constants/colors.dart';
 import 'package:project_med/utils/constants/image_strings.dart';
@@ -12,7 +12,7 @@ class MedicationTypeSelector extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final controller = Get.put(ReminderController2());
+    final controller = Get.put(ReminderController());
     List<String> names = ['Pill', 'Eye drop', 'Liquid', 'Injection', 'Inhaler'];
     List<String> illustrations = [
       TImages.pill,

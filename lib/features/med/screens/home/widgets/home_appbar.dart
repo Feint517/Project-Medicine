@@ -46,12 +46,12 @@ class HomeAppBar extends StatelessWidget {
           ),
         ],
       ),
-      actions: [
-        IconButton(
-          onPressed: () => Get.to(() => const SettingsScreen()),
-          icon: const Icon(Icons.settings),
-        )
-      ],
+      // actions: [
+      //   IconButton(
+      //     onPressed: () => Get.to(() => const SettingsScreen()),
+      //     icon: const Icon(Icons.settings),
+      //   )
+      // ],
     );
   }
 }

@@ -1,5 +1,8 @@
 import 'package:easy_date_timeline/easy_date_timeline.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:project_med/features/reminder/controllers/reminder_controller.dart';
 import 'package:project_med/utils/constants/colors.dart';
 
 class CustomDayTimeline extends StatelessWidget {
@@ -9,10 +12,18 @@ class CustomDayTimeline extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final controller = Get.put(ReminderController());
     return EasyDateTimeLine(
       initialDate: DateTime.now(),
       onDateChange: (selectedDate) {
         //*`selectedDate` the new date selected.
+        int transformedDate = selectedDate.millisecondsSinceEpoch;
+        if (kDebugMode) {
+          // print('=======================================');
+          // print('before transfrom selectedDate = $selectedDate');
+          // print('after transfrom selectedDate = $transformedDate');
+        }
+        controller.fetchTreatmentsByDate(convertedDate: transformedDate);
       },
       headerProps: EasyHeaderProps(
         monthPickerType: MonthPickerType.switcher,
@@ -49,6 +60,7 @@ class CustomDayTimeline extends StatelessWidget {
             fontSize: 13,
           ),
           dayNumStyle: TextStyle(
+            color: Colors.white,
             fontSize: 18.0,
             fontWeight: FontWeight.bold,
           ),
@@ -62,6 +74,7 @@ class CustomDayTimeline extends StatelessWidget {
             fontSize: 13,
           ),
           dayNumStyle: TextStyle(
+            color: Colors.white,
             fontSize: 18.0,
             fontWeight: FontWeight.bold,
           ),
@@ -79,6 +92,7 @@ class CustomDayTimeline extends StatelessWidget {
             fontSize: 13,
           ),
           dayNumStyle: const TextStyle(
+            color: Colors.white,
             fontSize: 18.0,
           ),
         ),

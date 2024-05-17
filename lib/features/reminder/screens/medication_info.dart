@@ -1,10 +1,9 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:project_med/common/widgets/custon_shapes/container/primary_header_container.dart';
-import 'package:project_med/features/reminder/controllers/reminder_controller2.dart';
+import 'package:project_med/features/reminder/controllers/reminder_controller.dart';
 import 'package:project_med/features/reminder/screens/widgets/info_forms/eyedrop_info_form.dart';
 import 'package:project_med/features/reminder/screens/widgets/info_forms/inhaler_info_form.dart';
 import 'package:project_med/features/reminder/screens/widgets/info_forms/injection_info_form.dart';
@@ -19,7 +18,7 @@ class MedicationInfoScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final controller = Get.put(ReminderController2());
+    final controller = Get.put(ReminderController());
 
     return Scaffold(
       body: SingleChildScrollView(
@@ -30,7 +29,10 @@ class MedicationInfoScreen extends StatelessWidget {
               child: Gap(TSizes.spaceBtwSections * 2),
             ),
             IconButton(
-              onPressed: () => Get.off(() => const NavigationMenu()),
+              onPressed: () {
+                Get.off(() => const NavigationMenu());
+                //controller.clearEverything();
+              },
               icon: const Icon(Iconsax.arrow_circle_down4),
               iconSize: 40,
             ),
@@ -66,27 +68,10 @@ class MedicationInfoScreen extends StatelessWidget {
                     width: double.infinity,
                     child: ElevatedButton(
                       onPressed: () {
-                        if (kDebugMode) {
-                          print('Type:');
-                          print(controller.selectedMedType);
-                          print('Name:');
-                          print(controller.medicationName.text);
-                          print('Dose:');
-                          print(controller.medicationDose.text);
-                          print('Frequency:');
-                          print(controller.medicationFrequency.text);
-                          print('Timing');
-                          print(controller.selectedMedTiming);
-                          print('Injecting site');
-                          print(controller.selectedInjectionSite);
-                          //print('Date:');
-                          //print(controller.formatedDates);
-                          print('Hour:');
-                          print(controller.formattedHour);
-                          controller.saveMedication();
-                          controller.fetchtreatments();
-                          Get.back();
-                        }
+                        //controller.validateEnteries();
+                        controller.saveMedication();
+                        Get.off(() => const NavigationMenu());
+                        //controller.clearEverything();
                       },
                       child: const Text('Save'),
                     ),

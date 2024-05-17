@@ -30,8 +30,8 @@ class TTexts {
   static const String terms = "Terms of use";
 
   //? authentication heading text
-  static const String loginTitle = "Welcome Back";
-  static const String loginSubtitle = "idk what to say here tbh";
+  static const String loginTitle = "Welcome!";
+  static const String loginSubtitle = "jump back to your account";
   static const String signUpTitile = "Let's create your account";
 
   //* forgot password screen
@@ -65,7 +65,6 @@ class TTexts {
   //* drug search
   static const String drugSearch1 = "Medication";
 
-
   //* treatment info
   static const String pillName = "Pill name:";
   static const String eyeDropName = "Eye drop name:";
@@ -77,6 +76,4 @@ class TTexts {
   static const String frequency = "Frequency:";
   static const String date = "Date:";
   static const String hour = "Hour:";
-
-
 }

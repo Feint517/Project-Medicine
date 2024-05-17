@@ -2,11 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
+import 'package:project_med/common/styles/loaders.dart';
 import 'package:project_med/common/widgets/appbar/appbar.dart';
 import 'package:project_med/common/widgets/custon_shapes/container/primary_header_container.dart';
 import 'package:project_med/common/widgets/list_tiles/settings_menu_tile.dart';
 import 'package:project_med/common/widgets/list_tiles/user_profile_tile.dart';
 import 'package:project_med/data/repositories/authentication_repository.dart';
+import 'package:project_med/data/services/database_service.dart';
 import 'package:project_med/features/personalization/screens/profile/profile.dart';
 import 'package:project_med/common/widgets/misc/custom_section_heading.dart';
 import 'package:project_med/utils/constants/colors.dart';
@@ -17,6 +19,7 @@ class SettingsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final database = Get.put(DatabaseService());
     return Scaffold(
       body: SingleChildScrollView(
         child: Column(
@@ -26,7 +29,7 @@ class SettingsScreen extends StatelessWidget {
               child: Column(
                 children: [
                   CustomAppBar(
-                    showBackArrow: true,
+                    //showBackArrow: true,
                     title: Text(
                       'Account',
                       style: Theme.of(context)
@@ -82,7 +85,6 @@ class SettingsScreen extends StatelessWidget {
                     subtitle: "idk what to say",
                     onTap: () {},
                   ),
-
                   //* app Setting
                   const Gap(TSizes.spaceBtwSections),
                   const CustomSectionHeading(
@@ -91,18 +93,35 @@ class SettingsScreen extends StatelessWidget {
                   ),
                   const Gap(TSizes.spaceBtwItems),
                   SettingsMenuTile(
-                    icon: Iconsax.document,
-                    title: "Data",
-                    subtitle: "idk what to say",
-                    onTap: () {},
+                    icon: Iconsax.trash,
+                    title: "Delete saved treatments",
+                    subtitle: "Delete all your saved treatments from storage.",
+                    onTap: () {
+                      database.deleteAll(table: 'treatments');
+                      CustomLoaders.successSnackBar(
+                        title: 'All saved data is deleted.',
+                      );
+                    },
                   ),
                   const Gap(TSizes.spaceBtwItems),
                   SettingsMenuTile(
-                    icon: Iconsax.location,
-                    title: "Location",
-                    subtitle: "idk what to say",
-                    trailing: Switch(value: false, onChanged: (value) {}),
+                    icon: Iconsax.document,
+                    title: "Copy new database",
+                    subtitle: "Copy new database data from assets.",
+                    onTap: () {
+                      database.copyDatabase();
+                      CustomLoaders.successSnackBar(
+                        title: 'Database copied successfully.',
+                      );
+                    },
                   ),
+                  const Gap(TSizes.spaceBtwItems),
+                  // SettingsMenuTile(
+                  //   icon: Iconsax.location,
+                  //   title: "Location",
+                  //   subtitle: "idk what to say",
+                  //   trailing: Switch(value: false, onChanged: (value) {}),
+                  // ),
                   SettingsMenuTile(
                     icon: Iconsax.sun,
                     title: "Color Mode",
