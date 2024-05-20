@@ -7,8 +7,7 @@ class TAnimations {
   static const String onBoarding3 =
       "assets/lottie/on_boarding_animations/pill.json";
 
-
   //* misc animations
   static const String check = "assets/lottie/misc/loading_dots.json";
-  static const String success = "assets/lottie/misc/success.json";
+  static const String success = "assets/lottie/misc/success2.json";
 }

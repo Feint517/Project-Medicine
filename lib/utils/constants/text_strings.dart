@@ -1,16 +1,16 @@
 class TTexts {
-  //? on boarding text
-  static const String onBoardingTitle1 = "hello";
-  static const String onBoardingTitle2 = "what if";
-  static const String onBoardingTitle3 = "idk";
+  //* on boarding text
+  static const String onBoardingTitle1 = "Welcome to 'codeName-prject-med'";
+  static const String onBoardingTitle2 = "Hassle-free experience";
+  static const String onBoardingTitle3 = "Never miss you medication time";
 
   static const String onBoardingSubTitle1 =
-      "just a place holder for the moment";
-  static const String onBoardingSubTitle2 = "kdvdjbvdvlkdbdvd";
+      "Manage your medication, and check for any potential interactions witha a click of a button. ";
+  static const String onBoardingSubTitle2 = "Get detailed review of any medical interaction.";
   static const String onBoardingSubTitle3 =
-      "i have nothing to say here at the moment";
+      "Store your medications list to your profile to never forget about it.";
 
-  //? authentication Forum text
+  //* authentication Forum text
   static const String firstName = "First Name";
   static const String lasttName = "Last Name";
   static const String email = "Email";
@@ -29,7 +29,7 @@ class TTexts {
   static const String and = "and";
   static const String terms = "Terms of use";
 
-  //? authentication heading text
+  //* authentication heading text
   static const String loginTitle = "Welcome!";
   static const String loginSubtitle = "jump back to your account";
   static const String signUpTitile = "Let's create your account";

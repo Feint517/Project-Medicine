@@ -38,10 +38,10 @@ class NavigationMenu extends StatelessWidget {
               icon: Icon(Iconsax.search_normal),
               label: 'Search',
             ),
-            // NavigationDestination(
-            //   icon: Icon(Iconsax.global_edit),
-            //   label: 'Testing',
-            // ),
+            NavigationDestination(
+              icon: Icon(Iconsax.global_edit),
+              label: 'Testing',
+            ),
             NavigationDestination(
               icon: Icon(Iconsax.bag_happy),
               label: 'Medication',
@@ -63,7 +63,7 @@ class NavigationController extends GetxController {
   final screens = [
     const HomeScreen(),
     const SearchPage(),
-    //const TestingPage(),
+    const TestingPage(),
     const MedReminderScreen(),
     const SettingsScreen(),
   ];

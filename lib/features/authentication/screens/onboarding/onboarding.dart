@@ -29,11 +29,11 @@ class OnBoardingScreen extends StatelessWidget {
                 title: TTexts.onBoardingTitle1,
                 subtitle: TTexts.onBoardingSubTitle1,
               ),
-              // OnBoardingPage(
-              //   animation: TAnimations.onBoarding2,
-              //   title: TTexts.onBoardingTitle2,
-              //   subtitle: TTexts.onBoardingSubTitle2,
-              // ),
+              OnBoardingPage(
+                animation: TAnimations.onBoarding2,
+                title: TTexts.onBoardingTitle2,
+                subtitle: TTexts.onBoardingSubTitle2,
+              ),
               OnBoardingPage(
                 animation: TAnimations.onBoarding3,
                 title: TTexts.onBoardingTitle3,
