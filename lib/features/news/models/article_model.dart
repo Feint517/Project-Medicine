@@ -1,22 +1,22 @@
 class ArticleModel {
-  final Source source;
-  final String author;
+  final Source? source;
+  final String? author;
   final String title;
   final String description;
   final String url;
-  final String urlToImage;
-  final String publishedAt;
-  final String content;
+  final String? urlToImage;
+  final String? publishedAt;
+  final String? content;
 
   ArticleModel({
-    required this.source,
-    required this.author,
+    this.source,
+    this.author,
     required this.title,
     required this.description,
     required this.url,
-    required this.urlToImage,
+    this.urlToImage,
     required this.publishedAt,
-    required this.content,
+    this.content,
   });
 }
 

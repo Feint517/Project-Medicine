@@ -3,7 +3,6 @@ import 'package:get/get.dart';
 import 'package:project_med/common/widgets/appbar/appbar.dart';
 import 'package:project_med/common/widgets/loaders/shimmer.dart';
 import 'package:project_med/features/personalization/controllers/user_controller.dart';
-import 'package:project_med/features/personalization/screens/settings/settings.dart';
 import 'package:project_med/utils/constants/colors.dart';
 import 'package:project_med/utils/constants/text_strings.dart';
 

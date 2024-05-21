@@ -1,36 +1,114 @@
 import 'package:flutter/material.dart';
+import 'package:iconsax/iconsax.dart';
+import 'package:project_med/features/news/controllers/news_controller.dart';
+import 'package:project_med/utils/constants/colors.dart';
 import 'package:project_med/utils/constants/sizes.dart';
 import 'package:project_med/utils/helpers/helper_functions.dart';
 
 class ArticleTile extends StatelessWidget {
-  const ArticleTile({super.key});
+  const ArticleTile({
+    super.key,
+    this.author,
+    required this.title,
+    required this.url,
+    this.urlToImage,
+  });
+
+  final String? author;
+  final String title;
+  final String url;
+  final String? urlToImage;
 
   @override
   Widget build(BuildContext context) {
+    final controller = NewsController.instance;
+    bool hasAuthor = true;
+    if (author == null || author!.isEmpty) {
+      hasAuthor = false;
+    }
+    bool hasImage = true;
+    if (urlToImage == null || urlToImage!.isEmpty) {
+      hasImage = false;
+    }
     return Container(
-      padding: const EdgeInsets.all(TSizes.md),
-      width: THelperFunctions.screenWidth() * 0.9,
-      height: 100,
+      padding: const EdgeInsets.only(left: TSizes.sm),
+      width: THelperFunctions.screenWidth() * 0.5,
+      height: 150,
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(37),
+        border: Border.all(
+          width: 0.75,
+          color: TColors.primary,
+        ),
+        borderRadius: BorderRadius.circular(25),
       ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          SizedBox(
-            width: THelperFunctions.screenWidth() * 0.60,
-            height: 100,
-            child: const Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text('title'),
-                Text('author name'),
-              ],
+          Padding(
+            padding: const EdgeInsets.fromLTRB(20, 10, 20, 10),
+            child: SizedBox(
+              width: THelperFunctions.screenWidth() * 0.60,
+              height: 150,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    title,
+                    style: Theme.of(context).textTheme.labelMedium,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      hasAuthor
+                          ? Text(
+                              author!.toLowerCase(),
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .bodyMedium!
+                                  .apply(color: TColors.primary),
+                            )
+                          : const SizedBox(),
+                      Container(
+                        height: 33,
+                        width: 33,
+                        decoration: const BoxDecoration(
+                          color: TColors.primary,
+                          borderRadius: BorderRadius.all(
+                            Radius.circular(10),
+                          ),
+                        ),
+                        child: Center(
+                          child: IconButton(
+                            onPressed: () {
+                              controller.launchingUrl(url);
+                            },
+                            icon: const Icon(
+                              Iconsax.global_search,
+                              size: 17,
+                              color: TColors.white,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
             ),
           ),
           SizedBox(
-            width: THelperFunctions.screenWidth() * 0.25,
-            height: 100,
+            width: THelperFunctions.screenWidth() * 0.23,
+            height: 150,
+            child: ClipRRect(
+              borderRadius: const BorderRadius.all(Radius.circular(20)),
+              child: hasImage
+                  ? Image.network(
+                      fit: BoxFit.fitHeight,
+                      urlToImage!,
+                    )
+                  : const SizedBox(),
+            ),
           ),
         ],
       ),
