@@ -81,7 +81,7 @@ class SettingsScreen extends StatelessWidget {
                   ),
                   SettingsMenuTile(
                     icon: Iconsax.safe_home,
-                    title: "idk",
+                    title: "Get Help",
                     subtitle: "idk what to say",
                     onTap: () {},
                   ),

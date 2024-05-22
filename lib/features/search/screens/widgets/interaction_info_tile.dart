@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
+import 'package:iconsax/iconsax.dart';
 import 'package:project_med/utils/constants/colors.dart';
 import 'package:project_med/utils/constants/sizes.dart';
 import 'package:project_med/utils/helpers/helper_functions.dart';
@@ -21,8 +22,11 @@ class InteractionInfoTile extends StatelessWidget {
     return Container(
       width: THelperFunctions.screenWidth() * 0.9,
       decoration: BoxDecoration(
-        color: TColors.primary,
-        borderRadius: BorderRadius.circular(37),
+        border: Border.all(
+          width: 2,
+          color: TColors.primary,
+        ),
+        borderRadius: BorderRadius.circular(25),
       ),
       child: Padding(
         padding: const EdgeInsets.all(10),
@@ -32,27 +36,19 @@ class InteractionInfoTile extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
-                Text(
-                  drug1,
-                  style: Theme.of(context)
-                      .textTheme
-                      .titleSmall!
-                      .apply(color: TColors.white),
+                Text(drug1, style: Theme.of(context).textTheme.titleSmall),
+                // Text(
+                //   'with',
+                //   style: Theme.of(context)
+                //       .textTheme
+                //       .titleSmall!
+                //       .apply(color: Colors.red),
+                // ),
+                const Icon(
+                  Iconsax.danger,
+                  color: Colors.red,
                 ),
-                Text(
-                  'with',
-                  style: Theme.of(context)
-                      .textTheme
-                      .titleSmall!
-                      .apply(color: Colors.red),
-                ),
-                Text(
-                  drug2,
-                  style: Theme.of(context)
-                      .textTheme
-                      .titleSmall!
-                      .apply(color: TColors.white),
-                ),
+                Text(drug2, style: Theme.of(context).textTheme.titleSmall),
               ],
             ),
             const Gap(TSizes.spaceBtwItems / 2),
@@ -63,13 +59,7 @@ class InteractionInfoTile extends StatelessWidget {
                   .titleLarge!
                   .apply(color: Colors.green),
             ),
-            Text(
-              explanation,
-              style: Theme.of(context)
-                  .textTheme
-                  .titleSmall!
-                  .apply(color: TColors.white),
-            ),
+            Text(explanation, style: Theme.of(context).textTheme.titleSmall),
           ],
         ),
       ),

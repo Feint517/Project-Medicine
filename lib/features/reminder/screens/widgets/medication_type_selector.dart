@@ -4,6 +4,7 @@ import 'package:project_med/features/reminder/controllers/reminder_controller.da
 import 'package:project_med/features/reminder/screens/widgets/medication_types.dart';
 import 'package:project_med/utils/constants/colors.dart';
 import 'package:project_med/utils/constants/image_strings.dart';
+import 'package:project_med/utils/helpers/helper_functions.dart';
 
 class MedicationTypeSelector extends StatelessWidget {
   const MedicationTypeSelector({
@@ -12,6 +13,7 @@ class MedicationTypeSelector extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final isDarkMode = THelperFunctions.isDarkMode(context);
     final controller = Get.put(ReminderController());
     List<String> names = ['Pill', 'Eye drop', 'Liquid', 'Injection', 'Inhaler'];
     List<String> illustrations = [
@@ -32,7 +34,9 @@ class MedicationTypeSelector extends StatelessWidget {
             title: names[index],
             backgroundColor: controller.booleanTypeList[index]
                 ? TColors.primary
-                : Colors.transparent,
+                : isDarkMode
+                    ? TColors.black
+                    : TColors.white,
             onTap: () {
               controller.selectMedType(index);
             },

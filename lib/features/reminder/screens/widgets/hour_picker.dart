@@ -43,22 +43,39 @@ class HourPicker extends StatelessWidget {
           ],
         ),
         const Gap(TSizes.spaceBtwItems),
-        Container(
-          width: THelperFunctions.screenWidth(),
-          height: 60,
-          decoration: BoxDecoration(
-            border: Border.all(width: 1, color: Colors.grey),
-            borderRadius: BorderRadius.circular(40),
-          ),
-          child: Center(
-            child: Obx(
-              () {
-                if (controller.formattedHour.value.isEmpty) {
-                  return const Text('No hour is selected...');
-                } else {
-                  return Text(controller.formattedHour!.value);
-                }
-              },
+        GestureDetector(
+          onTap: () {
+            Navigator.of(context).push(
+              showPicker(
+                context: context,
+                value: Time(hour: 20, minute: 40),
+                sunrise: const TimeOfDay(hour: 6, minute: 0), // optional
+                sunset: const TimeOfDay(hour: 18, minute: 0), // optional
+                duskSpanInMinutes: 120, // optional
+                onChange: (onTimeChanged) {},
+                onChangeDateTime: (time) {
+                  controller.selectHour(time);
+                },
+              ),
+            );
+          },
+          child: Container(
+            width: THelperFunctions.screenWidth(),
+            height: 60,
+            decoration: BoxDecoration(
+              border: Border.all(width: 1, color: Colors.grey),
+              borderRadius: BorderRadius.circular(40),
+            ),
+            child: Center(
+              child: Obx(
+                () {
+                  if (controller.formattedHour.value.isEmpty) {
+                    return const Text('No hour is selected...');
+                  } else {
+                    return Text(controller.formattedHour!.value);
+                  }
+                },
+              ),
             ),
           ),
         ),

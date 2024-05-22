@@ -92,11 +92,28 @@ class DatabaseService {
         .toList();
   }
 
-  Future<List<InteractionModel>> fetchByName(
-      {required String name, required String table}) async {
+  // Future<List<InteractionModel>> fetchByName(
+  //     {required String name, required String table}) async {
+  //   final database = await DatabaseService().database;
+  //   final interactions = await database
+  //       .rawQuery('''SELECT * from $table WHERE drug1Name = ?''', [name]);
+  //   return interactions
+  //       .map((interaction) => InteractionModel.fromSqfliteDatabase(interaction))
+  //       .toList();
+  // }
+
+  Future<List<InteractionModel>> fetchByName2({
+    required String drug1,
+    required String drug2,
+    required String table,
+  }) async {
     final database = await DatabaseService().database;
-    final interactions = await database
-        .rawQuery('''SELECT * from $table WHERE drug1Name = ?''', [name]);
+    final interactions = await database.query(
+      'interactions',
+      where:
+          '(drug1Name = ? AND drug2Name = ?) OR (drug1Name = ? AND drug2Name = ?)',
+      whereArgs: [drug1, drug2, drug2, drug1],
+    );
     return interactions
         .map((interaction) => InteractionModel.fromSqfliteDatabase(interaction))
         .toList();

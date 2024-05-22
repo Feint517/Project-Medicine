@@ -27,7 +27,7 @@ class SelectingContainer extends StatelessWidget {
           decoration: BoxDecoration(
             color: backgroundColor!.withOpacity(0.7),
             borderRadius: const BorderRadius.all(Radius.circular(30)),
-            border: Border.all(color: Colors.grey),
+            border: Border.all(color: TColors.primary),
           ),
           child: Center(
             child: Text(

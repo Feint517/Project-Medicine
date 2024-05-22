@@ -18,7 +18,9 @@ class NewsController extends GetxController {
   RxList<ArticleModel> articlesRx = <ArticleModel>[].obs;
 
   void fetchArticles() async {
-    print('fetchArticles is called.');
+    if (kDebugMode) {
+      print('fetchArticles is called.');
+    }
     const url =
         'https://newsapi.org/v2/top-headlines?country=us&category=health&apiKey=82022c43312743c2a74da0f0a75fc9ba';
     final uri = Uri.parse(url);
@@ -71,6 +73,11 @@ class NewsController extends GetxController {
       if (articles[j].title == '[Removed]' ||
           articles[j].title.contains('sexual')) {
         articles.removeAt(j);
+      }
+      if (articles[j].author != null) {
+        if (articles[j].author!.contains('https')) {
+          articles.removeAt(j);
+        }
       }
     }
   }

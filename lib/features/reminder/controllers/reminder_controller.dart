@@ -5,6 +5,7 @@ import 'package:intl/intl.dart';
 import 'package:project_med/common/styles/loaders.dart';
 import 'package:project_med/data/medication/treatment_model.dart';
 import 'package:project_med/data/services/database_service.dart';
+import 'package:project_med/navigation_menu.dart';
 
 class ReminderController extends GetxController {
   static ReminderController get instance => Get.find();
@@ -266,26 +267,17 @@ class ReminderController extends GetxController {
     }
   }
 
-  // void clearEverything() {
-  //   selectedMedIndex.value = 10;
-  //   medicationName.clear();
-  //   medicationDose.clear();
-  //   formattedHour.value = '';
-  // }
+  void validateAndSaveEnteries() {
+    if (medicationName.text.isEmpty ||
+        medicationDose.text.isEmpty ||
+        medicationFrequency.text.isEmpty) {
+      CustomLoaders.warningSnackBar(title: 'Please enter valid info.');
+      return;
+    }
+    saveMedication();
+    Get.off(() => const NavigationMenu());
+  }
 
-  // void validateEnteries() {
-  //   if (medicationName.text.isEmpty &&
-  //       medicationDose.text.isEmpty &&
-  //       medicationFrequency.text.isEmpty) {
-  //     CustomLoaders.warningSnackBar(title: 'Please enter valid info.');
-  //     return;
-  //   }
-  // }
-
-  // String? validateFrequency(String? value) {
-  //   if (value == null || value.isEmpty) {
-  //     return 'Please enter a frequency';
-  //   }
 
   //   //* Custom validation: Check if the input follows the format "X times a day"
   //   final RegExp frequencyPattern =

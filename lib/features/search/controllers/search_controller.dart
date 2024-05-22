@@ -8,7 +8,8 @@ class DrugSearchController extends GetxController {
 
   final tableName = 'drugs';
   final tableName2 = 'interactions';
-  final searchedDrug = TextEditingController();
+  final searchedDrug1 = TextEditingController();
+  final searchedDrug2 = TextEditingController();
   final searchResult = [].obs;
 
   // searchAll() async {
@@ -30,8 +31,13 @@ class DrugSearchController extends GetxController {
 
   searchInteraction() async {
     searchResult.clear();
-    final name = searchedDrug.text;
-    final result = await database.fetchByName(name: name, table: tableName2);
+    final name1 = searchedDrug1.text;
+    final name2 = searchedDrug2.text;
+    final result = await database.fetchByName2(
+      drug1: name1,
+      drug2: name2,
+      table: tableName2,
+    );
     for (var i = 0; i < result.length; i++) {
       searchResult.add(result[i]);
     }

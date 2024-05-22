@@ -32,25 +32,31 @@ class DatePicker extends StatelessWidget {
           ],
         ),
         const Gap(TSizes.spaceBtwItems),
-        Container(
-          width: THelperFunctions.screenWidth(),
-          height: 60,
-          decoration: BoxDecoration(
-            border: Border.all(width: 1, color: Colors.grey),
-            borderRadius: BorderRadius.circular(40),
-          ),
-          child: Center(
-            child: Obx(
-              () {
-                if (controller.finalList.isEmpty) {
-                  return const Text('No date is selected...');
-                } else {
-                  return Text(
-                    controller.finalList.join(' , '),
-                    overflow: TextOverflow.ellipsis,
-                  );
-                }
-              },
+        GestureDetector(
+          onTap: () {
+            controller.finalList.clear();
+            Get.to(() => const MultipleDatesPicker());
+          },
+          child: Container(
+            width: THelperFunctions.screenWidth(),
+            height: 60,
+            decoration: BoxDecoration(
+              border: Border.all(width: 1, color: Colors.grey),
+              borderRadius: BorderRadius.circular(40),
+            ),
+            child: Center(
+              child: Obx(
+                () {
+                  if (controller.finalList.isEmpty) {
+                    return const Text('No date is selected...');
+                  } else {
+                    return Text(
+                      controller.finalList.join(' , '),
+                      overflow: TextOverflow.ellipsis,
+                    );
+                  }
+                },
+              ),
             ),
           ),
         ),

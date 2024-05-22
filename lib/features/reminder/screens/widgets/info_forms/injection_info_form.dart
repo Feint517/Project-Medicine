@@ -8,6 +8,7 @@ import 'package:project_med/features/reminder/screens/widgets/selecting_tile.dar
 import 'package:project_med/utils/constants/colors.dart';
 import 'package:project_med/utils/constants/sizes.dart';
 import 'package:project_med/utils/constants/text_strings.dart';
+import 'package:project_med/utils/helpers/helper_functions.dart';
 import 'package:project_med/utils/validators/validators.dart';
 
 class InjectionInfoForm extends StatelessWidget {
@@ -15,6 +16,7 @@ class InjectionInfoForm extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final isDarkMode = THelperFunctions.isDarkMode(context);
     List<String> injectionSites = [
       'Upper arm',
       'Thigh',
@@ -88,7 +90,9 @@ class InjectionInfoForm extends StatelessWidget {
                   name: injectionSites[index],
                   backgroundColor: controller.booleanInjectSiteList[index]
                       ? TColors.primary
-                      : Colors.transparent,
+                      : isDarkMode
+                          ? TColors.black
+                          : TColors.white,
                   onTap: () {
                     controller.selectInjectionSite(index);
                   },
@@ -98,10 +102,9 @@ class InjectionInfoForm extends StatelessWidget {
           ),
           const Gap(TSizes.spaceBtwSections / 1.5),
           const DatePicker(),
-          const Gap(TSizes.spaceBtwItems),
           const Gap(TSizes.spaceBtwSections / 1.5),
           const HourPicker(),
-          const Gap(TSizes.spaceBtwItems),
+          const Gap(TSizes.spaceBtwSections / 1.5),
         ],
       ),
     );

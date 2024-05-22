@@ -8,13 +8,11 @@ class MedicationTypes extends StatelessWidget {
     super.key,
     required this.image,
     required this.title,
-    this.textColor = TColors.white,
     this.backgroundColor = TColors.white,
     this.onTap,
   });
 
   final String image, title;
-  final Color textColor;
   final Color? backgroundColor;
   final void Function()? onTap;
 
@@ -36,8 +34,8 @@ class MedicationTypes extends StatelessWidget {
               ),
               decoration: BoxDecoration(
                 color: backgroundColor!.withOpacity(0.7),
-                border: Border.all(color: Colors.grey),
-                borderRadius: const BorderRadius.all(Radius.circular(35)),
+                border: Border.all(color: TColors.primary),
+                borderRadius: const BorderRadius.all(Radius.circular(30)),
               ),
               child: Center(
                 child: Image(
@@ -52,9 +50,7 @@ class MedicationTypes extends StatelessWidget {
               child: Text(
                 title,
                 textAlign: TextAlign.center,
-                style: Theme.of(context).textTheme.labelMedium!.apply(
-                      color: textColor,
-                    ),
+                style: Theme.of(context).textTheme.labelMedium,
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
               ),

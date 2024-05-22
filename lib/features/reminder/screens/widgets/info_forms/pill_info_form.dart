@@ -8,6 +8,7 @@ import 'package:project_med/features/reminder/screens/widgets/selecting_tile.dar
 import 'package:project_med/utils/constants/colors.dart';
 import 'package:project_med/utils/constants/sizes.dart';
 import 'package:project_med/utils/constants/text_strings.dart';
+import 'package:project_med/utils/helpers/helper_functions.dart';
 import 'package:project_med/utils/validators/validators.dart';
 
 class PillInfoForm extends StatelessWidget {
@@ -15,6 +16,7 @@ class PillInfoForm extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final isDarkMode = THelperFunctions.isDarkMode(context);
     final controller = Get.put(ReminderController());
     List<String> timings = [
       'Before eat',
@@ -69,7 +71,9 @@ class PillInfoForm extends StatelessWidget {
                   name: timings[index],
                   backgroundColor: controller.booleanTimingList[index]
                       ? TColors.primary
-                      : Colors.transparent,
+                      : isDarkMode
+                          ? TColors.black
+                          : TColors.white,
                   onTap: () {
                     controller.selectMedTiming(index);
                   },
@@ -79,10 +83,9 @@ class PillInfoForm extends StatelessWidget {
           ),
           const Gap(TSizes.spaceBtwSections / 1.5),
           const DatePicker(),
-          const Gap(TSizes.spaceBtwItems),
           const Gap(TSizes.spaceBtwSections / 1.5),
           const HourPicker(),
-          const Gap(TSizes.spaceBtwItems),
+          const Gap(TSizes.spaceBtwSections / 1.5),
         ],
       ),
     );

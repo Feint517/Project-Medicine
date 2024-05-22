@@ -33,9 +33,9 @@ class SearchSection extends StatelessWidget {
                     .apply(color: TColors.white),
               ),
             ),
-            const Gap(TSizes.spaceBtwSections),
+            const Gap(TSizes.spaceBtwSections / 2),
             TextFormField(
-              controller: controller.searchedDrug,
+              controller: controller.searchedDrug1,
               decoration: InputDecoration(
                 prefixIcon: const Icon(Iconsax.search_zoom_in),
                 labelText: TTexts.drugSearch1,
@@ -47,6 +47,19 @@ class SearchSection extends StatelessWidget {
               ),
             ),
             const Gap(TSizes.spaceBtwSections / 2),
+            TextFormField(
+              controller: controller.searchedDrug2,
+              decoration: InputDecoration(
+                prefixIcon: const Icon(Iconsax.search_zoom_in),
+                labelText: TTexts.drugSearch2,
+                labelStyle: Theme.of(context)
+                    .textTheme
+                    .titleMedium!
+                    .apply(color: TColors.white),
+                floatingLabelStyle: const TextStyle(color: TColors.white),
+              ),
+            ),
+            const Gap(TSizes.spaceBtwItems / 1.5),
             OutlinedButton(
               onPressed: () {
                 controller.searchInteraction();

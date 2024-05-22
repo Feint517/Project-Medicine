@@ -6,7 +6,8 @@ class TTexts {
 
   static const String onBoardingSubTitle1 =
       "Manage your medication, and check for any potential interactions witha a click of a button. ";
-  static const String onBoardingSubTitle2 = "Get detailed review of any medical interaction.";
+  static const String onBoardingSubTitle2 =
+      "Get detailed review of any medical interaction.";
   static const String onBoardingSubTitle3 =
       "Store your medications list to your profile to never forget about it.";
 
@@ -63,7 +64,8 @@ class TTexts {
   static const String homeAppbarSubtitle = "Feeling good today?";
 
   //* drug search
-  static const String drugSearch1 = "Medication";
+  static const String drugSearch1 = "Medication 1 name";
+  static const String drugSearch2 = "Medication 2 name";
 
   //* treatment info
   static const String pillName = "Pill name:";

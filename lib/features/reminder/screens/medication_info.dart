@@ -68,10 +68,7 @@ class MedicationInfoScreen extends StatelessWidget {
                     width: double.infinity,
                     child: ElevatedButton(
                       onPressed: () {
-                        //controller.validateEnteries();
-                        controller.saveMedication();
-                        Get.off(() => const NavigationMenu());
-                        //controller.clearEverything();
+                        controller.validateAndSaveEnteries();
                       },
                       child: const Text('Save'),
                     ),

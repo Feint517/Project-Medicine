@@ -49,10 +49,9 @@ class InhalerInfoForm extends StatelessWidget {
           ),
           const Gap(TSizes.spaceBtwSections / 1.5),
           const DatePicker(),
-          const Gap(TSizes.spaceBtwItems),
           const Gap(TSizes.spaceBtwSections / 1.5),
           const HourPicker(),
-          const Gap(TSizes.spaceBtwItems),
+          const Gap(TSizes.spaceBtwSections / 1.5),
         ],
       ),
     );
