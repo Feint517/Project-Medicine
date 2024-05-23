@@ -2,6 +2,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
+import 'package:project_med/features/reminder/controllers/countdown_controller.dart';
 import 'package:project_med/features/reminder/controllers/reminder_controller.dart';
 import 'package:project_med/utils/constants/colors.dart';
 import 'package:project_med/utils/constants/image_strings.dart';
@@ -19,7 +20,6 @@ class MedicationTile extends StatelessWidget {
     required this.list,
     required this.date,
     required this.hour,
-    //required this.index,
   });
 
   final int id;
@@ -30,19 +30,22 @@ class MedicationTile extends StatelessWidget {
   final List list;
   final int date;
   final String hour;
-  //final int index;
 
   @override
   Widget build(BuildContext context) {
     final controller = Get.put(ReminderController());
+    final countdown = Get.put(CountdownController());
     return Dismissible(
       key: ValueKey<List>(list),
       direction: DismissDirection.startToEnd, //? swipe from left to right
       onDismissed: (direction) async {
         controller.deleteTreatment(id: id);
         controller.fetchTreatmentsByDate(convertedDate: date);
+        countdown.findNextMedication();
         if (direction == DismissDirection.startToEnd) {
           controller.deleteTreatment(id: id);
+          controller.fetchTreatmentsByDate(convertedDate: date);
+          countdown.findNextMedication();
         }
       },
       background: Container(

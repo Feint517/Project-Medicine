@@ -83,7 +83,6 @@ class DatabaseService {
   //? Main CRUD operations ====================================================
   Future<List<TreatmentModel>> fetchTreatmentsFromDate(
       {required String table, required int convertedDate}) async {
-    //final database = await DatabaseService().database;
     final database = await instance.database; //? try instance.database
     final treatments = await database
         .rawQuery('''SELECT * FROM $table Where date = ?''', [convertedDate]);
@@ -157,24 +156,6 @@ class DatabaseService {
       (index) => TreatmentModel.fromJson(maps[index]),
     );
   }
-
-  // Future<int> saveToDatabase({
-  //   required String table,
-  //   required String type,
-  //   required String name,
-  //   required int dose,
-  //   required String frequency,
-  //   required String timing,
-  //   String injectingSite = '',
-  //   required int date,
-  //   required String hour,
-  // }) async {
-  //   final database = await DatabaseService().database;
-  //   return await database.rawInsert(
-  //     '''INSERT INTO $table (type,name,dose,frequency,timing,injectingSite,date,hour) VALUES (?,?,?,?,?,?,?,?)''',
-  //     [type, name, dose, frequency, timing, injectingSite, date, hour],
-  //   );
-  // }
 
 //? For Testing =======================================================
   Future<List<TreatmentModel>> fetchAllTreatment(

@@ -49,14 +49,6 @@ class InjectionInfoForm extends StatelessWidget {
                 TValidator.validateEmptyText('Injection name', value),
           ),
           const Gap(TSizes.spaceBtwSections / 1.5),
-          // const Text(TTexts.dose),
-          // const Gap(TSizes.spaceBtwItems),
-          // TextFormField(
-          //   controller: controller.medicationDose,
-          //   keyboardType: TextInputType.number,
-          //   validator: (value) => TValidator.validateEmptyText('Dose', value),
-          // ),
-          // const Gap(TSizes.spaceBtwSections / 1.5),
           const Text(TTexts.timing),
           const Gap(TSizes.spaceBtwItems),
           SizedBox(

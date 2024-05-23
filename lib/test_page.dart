@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_timer_countdown/flutter_timer_countdown.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
-import 'package:project_med/features/news/controllers/news_controller.dart';
-import 'package:project_med/features/news/screens/widgets/article_tile.dart';
+import 'package:project_med/features/reminder/controllers/countdown_controller.dart';
 import 'package:project_med/utils/constants/sizes.dart';
 
 class TestingPage extends StatelessWidget {
@@ -10,38 +10,39 @@ class TestingPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final controller = Get.put(NewsController());
+    final controller = Get.put(CountdownController());
+    bool isThereTreatment = true;
+    if (controller.nextTreatment != null) {
+      isThereTreatment = true;
+    } else {
+      isThereTreatment = false;
+    }
     return Scaffold(
-      body: Obx(
-        () => ListView.separated(
-          shrinkWrap: true,
-          separatorBuilder: (context, index) => const Column(
-            children: [
-              Gap(TSizes.spaceBtwItems / 2),
-              Divider(
-                thickness: 0.5,
-                indent: 25,
-                endIndent: 25,
-              ),
-              Gap(TSizes.spaceBtwItems / 2),
-            ],
-          ),
-          itemCount: controller.articlesRx.length,
-          itemBuilder: (context, index) {
-            final article = controller.articlesRx[index];
-            return ArticleTile(
-              author: article.author,
-              title: article.title,
-              url: article.url,
-              urlToImage: article.urlToImage,
-            );
-          },
+      body: Center(
+        child: Column(
+          children: [
+            SizedBox(
+              height: 100,
+              child: isThereTreatment
+                  ? TimerCountdown(
+                      format: CountDownTimerFormat.daysHoursMinutesSeconds,
+                      enableDescriptions: false,
+                      endTime: controller.nextTreatmentDateRx.value!,
+                      onEnd: () {
+                        return;
+                      },
+                    )
+                  : const SizedBox(),
+            ),
+            const Gap(TSizes.spaceBtwSections),
+            ElevatedButton(
+              onPressed: () async {
+                controller.findNextMedication();
+              },
+              child: const Text('testing'),
+            )
+          ],
         ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          controller.fetchArticles();
-        },
       ),
     );
   }

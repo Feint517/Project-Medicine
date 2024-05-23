@@ -38,7 +38,6 @@ class InhalerInfoForm extends StatelessWidget {
           const Gap(TSizes.spaceBtwItems),
           TextFormField(
             controller: controller.medicationFrequency,
-            //validator: (value) => controller.validateFrequency(value),
             decoration: const InputDecoration(
               hintText: 'Enter frequency (e.g., 3 times a day)',
               hintStyle: TextStyle(

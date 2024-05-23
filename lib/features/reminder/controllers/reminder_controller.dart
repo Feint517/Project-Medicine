@@ -15,7 +15,7 @@ class ReminderController extends GetxController {
   final tableName = 'treatments';
   final medicationName = TextEditingController();
   final medicationDose = TextEditingController(
-      text: ''); //? default value in case it's not specified
+      text: '0'); //? default value in case it's not specified
   final medicationFrequency = TextEditingController(text: '');
   GlobalKey<FormState> frequencyFormKey = GlobalKey<FormState>();
   RxList<bool> booleanTypeList = [false, false, false, false, false].obs;
@@ -43,6 +43,7 @@ class ReminderController extends GetxController {
   dynamic formattedHour = ''.obs;
   //*============================//*
   RxList<TreatmentModel> treatmentsList = <TreatmentModel>[].obs;
+  //*============================//*
 
   //* methods
   Future<int> assignId() async {
@@ -195,15 +196,6 @@ class ReminderController extends GetxController {
     }
     DateTime selectedDate = value;
     selectedDateInt = selectedDate.millisecondsSinceEpoch;
-    //for (int i = 0; i < selectedDates.length; i++) {
-    //selectedDatesInt.add(selectedDates[i].millisecondsSinceEpoch);
-    // formatedDates.add(DateFormat('yyyy-MM-dd').format(selectedDates[i]));
-    // if (kDebugMode) {
-    //   print('selectedDates[$i]');
-    //   print(selectedDates[i]);
-    // }
-    // finalList.add(formatedDates[i]);
-    //}
     if (kDebugMode) {
       print('selectedDateInt runtime type = ');
       print(selectedDateInt.runtimeType);
@@ -223,6 +215,7 @@ class ReminderController extends GetxController {
       print('id = $assignId()');
       print('type: $selectedMedType');
       print('name: ${medicationName.text}');
+      print('dose: ${medicationDose.text}');
       print('frequency: ${medicationFrequency.text}');
       print('timing: $selectedMedTiming');
       print('injeting site: $selectedInjectionSite');
@@ -230,17 +223,20 @@ class ReminderController extends GetxController {
       print('hour: $formattedHour');
       print('===========================');
     }
+    var myInt = int.parse(medicationDose.text);
     database.add(
-        object: TreatmentModel(
-          id: await assignId(),
-          type: selectedMedType,
-          name: medicationName.text,
-          frequency: medicationFrequency.text,
-          timing: selectedMedTiming,
-          date: selectedDateInt,
-          hour: formattedHour.value,
-        ),
-        table: tableName);
+      object: TreatmentModel(
+        id: await assignId(),
+        type: selectedMedType,
+        name: medicationName.text,
+        dose: myInt,
+        frequency: medicationFrequency.text,
+        timing: selectedMedTiming.toLowerCase(),
+        date: selectedDateInt,
+        hour: formattedHour.value,
+      ),
+      table: tableName,
+    );
   }
 
   void deleteTreatment({required int id}) async {
@@ -268,16 +264,59 @@ class ReminderController extends GetxController {
   }
 
   void validateAndSaveEnteries() {
-    if (medicationName.text.isEmpty ||
-        medicationDose.text.isEmpty ||
-        medicationFrequency.text.isEmpty) {
-      CustomLoaders.warningSnackBar(title: 'Please enter valid info.');
-      return;
+    switch (selectedMedIndex.value) {
+      case 0:
+        {
+          if (medicationName.text.isEmpty ||
+              medicationDose.text.isEmpty ||
+              medicationFrequency.text.isEmpty) {
+            CustomLoaders.warningSnackBar(title: 'Please enter valid info.');
+            return;
+          }
+        }
+      case 1:
+        {
+          if (medicationName.text.isEmpty || medicationFrequency.text.isEmpty) {
+            CustomLoaders.warningSnackBar(title: 'Please enter valid info.');
+            return;
+          }
+        }
+      case 2:
+        {
+          if (medicationName.text.isEmpty || medicationDose.text.isEmpty) {
+            CustomLoaders.warningSnackBar(title: 'Please enter valid info.');
+            return;
+          }
+        }
+      case 3:
+        {
+          if (medicationName.text.isEmpty) {
+            CustomLoaders.warningSnackBar(title: 'Please enter valid info.');
+            return;
+          }
+        }
+      case 4:
+        {
+          if (medicationName.text.isEmpty || medicationFrequency.text.isEmpty) {
+            CustomLoaders.warningSnackBar(title: 'Please enter valid info.');
+            return;
+          }
+        }
     }
+
     saveMedication();
     Get.off(() => const NavigationMenu());
+    clearEverything();
   }
 
+  void clearEverything() {
+    booleanTypeList.setAll(0, [false, false, false, false, false]);
+    medicationName.clear();
+    medicationDose.clear();
+    medicationFrequency.clear();
+    booleanTimingList.setAll(0, [false, false, false, false, false]);
+    selectedMedIndex.value = 10;
+  }
 
   //   //* Custom validation: Check if the input follows the format "X times a day"
   //   final RegExp frequencyPattern =

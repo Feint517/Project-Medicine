@@ -40,7 +40,7 @@ class EyedropInfoForm extends StatelessWidget {
           const Text(TTexts.frequency),
           const Gap(TSizes.spaceBtwItems),
           TextFormField(
-            controller: controller.medicationDose,
+            controller: controller.medicationFrequency,
             keyboardType: TextInputType.number,
             validator: (value) => TValidator.validateEmptyText('Dose', value),
           ),

@@ -1,5 +1,4 @@
 import 'package:easy_date_timeline/easy_date_timeline.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:project_med/features/reminder/controllers/reminder_controller.dart';
@@ -18,11 +17,6 @@ class CustomDayTimeline extends StatelessWidget {
       onDateChange: (selectedDate) {
         //*`selectedDate` the new date selected.
         int transformedDate = selectedDate.millisecondsSinceEpoch;
-        if (kDebugMode) {
-          // print('=======================================');
-          // print('before transfrom selectedDate = $selectedDate');
-          // print('after transfrom selectedDate = $transformedDate');
-        }
         controller.fetchTreatmentsByDate(convertedDate: transformedDate);
       },
       headerProps: EasyHeaderProps(
@@ -54,7 +48,6 @@ class CustomDayTimeline extends StatelessWidget {
               ],
             ),
           ),
-          //borderRadius: 20,
           dayStrStyle: TextStyle(
             color: Colors.white,
             fontSize: 13,

@@ -70,6 +70,7 @@ class MedReminderScreen extends StatelessWidget {
                         ),
                         icon: const Icon(
                           Iconsax.add,
+                          color: TColors.primary,
                           size: 40,
                         ),
                       ),
