@@ -3,7 +3,6 @@ import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:project_med/common/widgets/custon_shapes/container/primary_header_container.dart';
-import 'package:project_med/features/reminder/controllers/countdown_controller.dart';
 import 'package:project_med/features/reminder/controllers/reminder_controller.dart';
 import 'package:project_med/features/reminder/screens/widgets/info_forms/eyedrop_info_form.dart';
 import 'package:project_med/features/reminder/screens/widgets/info_forms/inhaler_info_form.dart';
@@ -20,7 +19,6 @@ class MedicationInfoScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final controller = Get.put(ReminderController());
-    final countdown = Get.put(CountdownController());
 
     return Scaffold(
       body: SingleChildScrollView(
@@ -34,6 +32,8 @@ class MedicationInfoScreen extends StatelessWidget {
               onPressed: () {
                 Get.off(() => const NavigationMenu());
                 controller.clearEverything();
+                controller.fetchTreatmentsByDate(
+                    convertedDate: DateTime.now().millisecondsSinceEpoch);
               },
               icon: const Icon(Iconsax.arrow_circle_down4),
               iconSize: 40,
@@ -70,9 +70,15 @@ class MedicationInfoScreen extends StatelessWidget {
                     width: double.infinity,
                     child: ElevatedButton(
                       onPressed: () {
-                        controller.validateAndSaveEnteries();
-                        
-                        countdown.findNextMedication();
+                        if (controller.validateEnteries()) {
+                          controller.saveMedication();
+                          controller.fetchTreatmentsByDate(
+                              convertedDate:
+                                  DateTime.now().millisecondsSinceEpoch);
+                          controller.findNextMedication();
+                        } else {
+                          return;
+                        }
                       },
                       child: const Text('Save'),
                     ),

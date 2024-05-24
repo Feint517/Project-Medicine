@@ -94,6 +94,7 @@ class MedReminderScreen extends StatelessWidget {
                           dose: treatment.dose,
                           type: treatment.type,
                           timing: treatment.timing,
+                          injectingSite: treatment.injectingSite,
                           date: treatment.date,
                           hour: treatment.hour,
                         );

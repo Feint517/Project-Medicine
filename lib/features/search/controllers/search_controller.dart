@@ -6,37 +6,19 @@ class DrugSearchController extends GetxController {
   static DrugSearchController get instance => Get.find();
   final database = Get.put(DatabaseService());
 
-  final tableName = 'drugs';
-  final tableName2 = 'interactions';
+  final tableName = 'interactions';
   final searchedDrug1 = TextEditingController();
   final searchedDrug2 = TextEditingController();
   final searchResult = [].obs;
-
-  // searchAll() async {
-  //   final result = await database.fetchAll(table: tableName);
-  //   for (var i = 0; i < result.length; i++) {
-  //     searchResult.add(result[i]);
-  //   }
-  // }
-
-  // searchDrug() async {
-  //   searchResult.clear();
-  //   final name = searchedDrug.text;
-  //   //final name2 = searchedDrug2.text;
-  //   final result = await database.fetchByName(name: name, table: tableName);
-  //   for (var i = 0; i < result.length; i++) {
-  //     searchResult.add(result[i]);
-  //   }
-  // }
 
   searchInteraction() async {
     searchResult.clear();
     final name1 = searchedDrug1.text;
     final name2 = searchedDrug2.text;
-    final result = await database.fetchByName2(
+    final result = await database.fetchByName(
       drug1: name1,
       drug2: name2,
-      table: tableName2,
+      table: tableName,
     );
     for (var i = 0; i < result.length; i++) {
       searchResult.add(result[i]);

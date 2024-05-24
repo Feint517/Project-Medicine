@@ -14,8 +14,8 @@ class NewsController extends GetxController {
     super.onInit();
   }
 
-  List<ArticleModel> articles = [];
   RxList<ArticleModel> articlesRx = <ArticleModel>[].obs;
+  List<String> bannedWords = ['[Removed]', 'sexual', 'Sex', 'Penis'];
 
   void fetchArticles() async {
     if (kDebugMode) {
@@ -31,7 +31,6 @@ class NewsController extends GetxController {
     try {
       final transformed = results.map((article) {
         return ArticleModel(
-          //source: article['source'],
           author: article['author'] ?? '',
           title: article['title'] ?? '',
           url: article['url'] ?? '',
@@ -41,43 +40,34 @@ class NewsController extends GetxController {
           content: article['content'] ?? '',
         );
       }).toList();
-      filterArticles(transformed);
-      await Future.delayed(const Duration(milliseconds: 500));
+
+      //* filtering unwanted articles
       for (int i = 0; i < transformed.length; i++) {
-        articlesRx.add(transformed[i]);
+        for (var word in bannedWords) {
+          if (transformed[i].title == word) {
+            transformed.removeAt(i);
+          }
+        }
+        if (transformed[i].urlToImage != null) {
+          if (transformed[i].urlToImage!.isEmpty) {
+            transformed.removeAt(i);
+          }
+        }
+        if (transformed[i].author != null) {
+          if (transformed[i].author!.contains('https')) {
+            transformed.removeAt(i);
+          }
+        }
       }
-      if (kDebugMode) {
-        print('fetchArticles completed.');
-        print('Number of articles = ${transformed.length}');
-        print('============================');
-        print('length of RxList = ${articlesRx.length}');
-        print('Article 2 info');
-        print('author: ${transformed[1].author}');
-        print('title: ${transformed[1].title}');
-        print('url: ${transformed[1].url}');
-        print('urlToImage: ${transformed[1].urlToImage}');
-        print('description: ${transformed[1].description}');
-        print('publishedAt: ${transformed[1].publishedAt}');
-        print('content: ${transformed[1].content}');
-        print('============================');
+
+      //* add filtered articles list to the obesrved list
+      for (int j = 0; j < transformed.length; j++) {
+        articlesRx.add(transformed[j]);
       }
+
     } catch (e) {
       if (kDebugMode) {
         print('ERROR: $e');
-      }
-    }
-  }
-
-  void filterArticles(List<ArticleModel> articles) {
-    for (int j = 0; j < articles.length; j++) {
-      if (articles[j].title == '[Removed]' ||
-          articles[j].title.contains('sexual')) {
-        articles.removeAt(j);
-      }
-      if (articles[j].author != null) {
-        if (articles[j].author!.contains('https')) {
-          articles.removeAt(j);
-        }
       }
     }
   }

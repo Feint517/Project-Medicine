@@ -61,7 +61,9 @@ class InjectionInfoForm extends StatelessWidget {
                   name: timings[index],
                   backgroundColor: controller.booleanTimingList[index]
                       ? TColors.primary
-                      : Colors.transparent,
+                      : isDarkMode
+                          ? TColors.black
+                          : TColors.white,
                   onTap: () {
                     controller.selectMedTiming(index);
                   },

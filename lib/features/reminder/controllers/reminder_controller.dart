@@ -15,7 +15,8 @@ class ReminderController extends GetxController {
   final tableName = 'treatments';
   final medicationName = TextEditingController();
   final medicationDose = TextEditingController(
-      text: '0'); //? default value in case it's not specified
+      text:
+          '0'); //? default value in case it's not specified, changing the value from 0 can cause issuses
   final medicationFrequency = TextEditingController(text: '');
   GlobalKey<FormState> frequencyFormKey = GlobalKey<FormState>();
   RxList<bool> booleanTypeList = [false, false, false, false, false].obs;
@@ -38,14 +39,59 @@ class ReminderController extends GetxController {
     false,
   ].obs;
   int selectedDateInt = 0;
-  var finalList = [].obs;
-  //* =========================//*
-  dynamic formattedHour = ''.obs;
-  //*============================//*
+  var formattedDate = ''.obs;
+  var formattedHour = ''.obs;
   RxList<TreatmentModel> treatmentsList = <TreatmentModel>[].obs;
   //*============================//*
+  TreatmentModel? nextTreatment;
+  DateTime nextTreatmentFullDate = DateTime.now();
+  var nextTreatmentDateRx = Rxn<DateTime>();
+  RxBool treatmentExist = false.obs;
+  //*============================//*
+
+  @override
+  void onInit() {
+    findNextMedication();
+    super.onInit();
+  }
 
   //* methods
+
+  findNextMedication() async {
+    List<TreatmentModel> treatmentsList = await fetchTreatments();
+    if (treatmentsList.isEmpty) {
+      treatmentExist.value = false;
+      return null;
+    }
+    treatmentsList.sort(
+      (a, b) => a.date.compareTo(b.date),
+    );
+
+    for (var treatment in treatmentsList) {
+      //* convert it to one DateTime Object
+      var dt = DateTime.fromMillisecondsSinceEpoch(treatment.date);
+      var splited = treatment.hour.split(':');
+      int hour = int.parse(splited[0]);
+      int minute = int.parse(splited[1]);
+      DateTime fullDate = DateTime(
+        dt.year,
+        dt.month,
+        dt.day,
+        hour,
+        minute,
+      );
+      if (fullDate.isAfter(DateTime.now())) {
+        nextTreatment = treatment;
+        nextTreatmentFullDate = fullDate;
+        nextTreatmentDateRx.value = fullDate;
+
+        treatmentExist.value = true;
+        break;
+      }
+    }
+    return null;
+  }
+
   Future<int> assignId() async {
     int id;
     if ((await database.getCount(table: tableName)) == null) {
@@ -77,7 +123,7 @@ class ReminderController extends GetxController {
         }
       case 3:
         {
-          selectedMedType = 'injection';
+          selectedMedType = 'Injection';
           selectedMedIndex.value = 3;
         }
       case 4:
@@ -97,24 +143,16 @@ class ReminderController extends GetxController {
     booleanTimingList[index] = !booleanTimingList[index];
     switch (index) {
       case 0:
-        {
-          selectedMedTiming = 'Before eat';
-        }
+        selectedMedTiming = 'Before eat';
 
       case 1:
-        {
-          selectedMedTiming = 'After eat';
-        }
+        selectedMedTiming = 'After eat';
 
       case 2:
-        {
-          selectedMedTiming = 'With food';
-        }
+        selectedMedTiming = 'With food';
 
       case 3:
-        {
-          selectedMedTiming = 'Before sleep';
-        }
+        selectedMedTiming = 'Before sleep';
     }
     if (kDebugMode) {
       print('$selectedMedTiming is selected');
@@ -128,54 +166,34 @@ class ReminderController extends GetxController {
 
     switch (index) {
       case 0:
-        {
-          selectedInjectionSite = 'Upper arm';
-        }
+        selectedInjectionSite = 'Upper arm';
 
       case 1:
-        {
-          selectedInjectionSite = 'Thigh';
-        }
+        selectedInjectionSite = 'Thigh';
 
       case 2:
-        {
-          selectedInjectionSite = 'Buttocks';
-        }
+        selectedInjectionSite = 'Buttocks';
 
       case 3:
-        {
-          selectedInjectionSite = 'Hip';
-        }
+        selectedInjectionSite = 'Hip';
 
       case 4:
-        {
-          selectedInjectionSite = 'Abdomen';
-        }
+        selectedInjectionSite = 'Abdomen';
 
       case 5:
-        {
-          selectedInjectionSite = 'Upper arm';
-        }
+        selectedInjectionSite = 'Upper arm';
 
       case 6:
-        {
-          selectedInjectionSite = 'Forearm';
-        }
+        selectedInjectionSite = 'Forearm';
 
       case 7:
-        {
-          selectedInjectionSite = 'Back of the hands';
-        }
+        selectedInjectionSite = 'Back of the hands';
 
       case 8:
-        {
-          selectedInjectionSite = 'Front and back of the lower arm';
-        }
+        selectedInjectionSite = 'Front and back of the lower arm';
 
       case 9:
-        {
-          selectedInjectionSite = 'Front elbow pit';
-        }
+        selectedInjectionSite = 'Front elbow pit';
     }
     if (kDebugMode) {
       print('selected injecting site = $selectedInjectionSite');
@@ -188,19 +206,9 @@ class ReminderController extends GetxController {
       CustomLoaders.warningSnackBar(title: 'Please select a date');
       return;
     }
-    if (kDebugMode) {
-      print('===========================');
-      print('value = $value');
-      print('value runtime type = ${value.runtimeType}');
-      print('===========================');
-    }
-    DateTime selectedDate = value;
-    selectedDateInt = selectedDate.millisecondsSinceEpoch;
-    if (kDebugMode) {
-      print('selectedDateInt runtime type = ');
-      print(selectedDateInt.runtimeType);
-      print(selectedDateInt);
-    }
+    selectedDateInt = value.millisecondsSinceEpoch;
+    formattedDate.value = DateFormat('yyyy-MM-dd').format(value);
+
     Get.back();
   }
 
@@ -209,21 +217,11 @@ class ReminderController extends GetxController {
   }
 
   void saveMedication() async {
-    if (kDebugMode) {
-      print('===========================');
-      print('Treatment info:');
-      print('id = $assignId()');
-      print('type: $selectedMedType');
-      print('name: ${medicationName.text}');
-      print('dose: ${medicationDose.text}');
-      print('frequency: ${medicationFrequency.text}');
-      print('timing: $selectedMedTiming');
-      print('injeting site: $selectedInjectionSite');
-      print('date: $selectedDateInt');
-      print('hour: $formattedHour');
-      print('===========================');
+    int myInt = 0;
+    if (medicationDose.text.isNotEmpty) {
+      myInt = int.parse(medicationDose.text);
     }
-    var myInt = int.parse(medicationDose.text);
+
     database.add(
       object: TreatmentModel(
         id: await assignId(),
@@ -232,15 +230,27 @@ class ReminderController extends GetxController {
         dose: myInt,
         frequency: medicationFrequency.text,
         timing: selectedMedTiming.toLowerCase(),
+        injectingSite: selectedInjectionSite,
         date: selectedDateInt,
         hour: formattedHour.value,
       ),
       table: tableName,
     );
+
+    treatmentExist.value = true;
+    Get.off(() => const NavigationMenu());
+  }
+
+  Future<List<TreatmentModel>> fetchTreatments() async {
+    List<TreatmentModel> treatments = await database.fetchAll(
+      table: 'treatments',
+      factory: (data) => TreatmentModel.fromJson(data),
+    );
+    return treatments;
   }
 
   void deleteTreatment({required int id}) async {
-    database.delete(table: tableName, id: id);
+    database.deleteById(table: tableName, id: id);
   }
 
   void fetchTreatmentsByDate({required int convertedDate}) async {
@@ -249,81 +259,89 @@ class ReminderController extends GetxController {
       table: tableName,
       convertedDate: convertedDate,
     );
-    if (kDebugMode) {
-      print('=======================================');
-      print('result length = ${result.length}');
-      print('resilt = $result');
-    }
     for (var i = 0; i < result.length; i++) {
       treatmentsList.add(result[i]);
     }
-    if (kDebugMode) {
-      print('=======================================');
-      print(treatmentsList);
-    }
   }
 
-  void validateAndSaveEnteries() {
+  bool validateEnteries() {
     switch (selectedMedIndex.value) {
       case 0:
         {
           if (medicationName.text.isEmpty ||
               medicationDose.text.isEmpty ||
-              medicationFrequency.text.isEmpty) {
+              medicationFrequency.text.isEmpty ||
+              selectedMedTiming.isEmpty ||
+              formattedDate.value.isEmpty ||
+              formattedHour.value.isEmpty) {
             CustomLoaders.warningSnackBar(title: 'Please enter valid info.');
-            return;
+            return false;
           }
+          return true;
         }
       case 1:
         {
-          if (medicationName.text.isEmpty || medicationFrequency.text.isEmpty) {
+          if (medicationName.text.isEmpty ||
+              medicationFrequency.text.isEmpty ||
+              selectedMedTiming.isEmpty ||
+              formattedDate.value.isEmpty ||
+              formattedHour.value.isEmpty) {
             CustomLoaders.warningSnackBar(title: 'Please enter valid info.');
-            return;
+            return false;
           }
         }
       case 2:
         {
-          if (medicationName.text.isEmpty || medicationDose.text.isEmpty) {
+          if (medicationName.text.isEmpty ||
+              medicationDose.text.isEmpty ||
+              selectedMedTiming.isEmpty ||
+              formattedDate.value.isEmpty ||
+              formattedHour.value.isEmpty) {
             CustomLoaders.warningSnackBar(title: 'Please enter valid info.');
-            return;
+            return false;
           }
+          return true;
         }
       case 3:
         {
-          if (medicationName.text.isEmpty) {
+          if (medicationName.text.isEmpty ||
+              selectedMedTiming.isEmpty ||
+              selectedInjectionSite.isEmpty ||
+              formattedDate.value.isEmpty ||
+              formattedHour.value.isEmpty) {
             CustomLoaders.warningSnackBar(title: 'Please enter valid info.');
-            return;
+            return false;
           }
+          return true;
         }
       case 4:
         {
-          if (medicationName.text.isEmpty || medicationFrequency.text.isEmpty) {
+          if (medicationName.text.isEmpty ||
+              medicationFrequency.text.isEmpty ||
+              formattedDate.value.isEmpty ||
+              formattedHour.value.isEmpty) {
             CustomLoaders.warningSnackBar(title: 'Please enter valid info.');
-            return;
+            return false;
           }
+          return true;
         }
     }
-
-    saveMedication();
-    Get.off(() => const NavigationMenu());
-    clearEverything();
+    return false;
   }
 
   void clearEverything() {
     booleanTypeList.setAll(0, [false, false, false, false, false]);
+    selectedMedIndex.value = 10;
+    selectedMedType = '';
     medicationName.clear();
     medicationDose.clear();
     medicationFrequency.clear();
     booleanTimingList.setAll(0, [false, false, false, false, false]);
-    selectedMedIndex.value = 10;
+    selectedMedTiming = '';
+    booleanInjectSiteList.setAll(0,
+        [false, false, false, false, false, false, false, false, false, false]);
+    selectedInjectionSite = '';
+    formattedDate.value = '';
+    formattedHour.value = '';
   }
-
-  //   //* Custom validation: Check if the input follows the format "X times a day"
-  //   final RegExp frequencyPattern =
-  //       RegExp(r'^\d+\s+times\s+a\s+day$', caseSensitive: false);
-  //   if (!frequencyPattern.hasMatch(value)) {
-  //     return 'Invalid format. Enter like "3 times a day"';
-  //   }
-  //   return null; //? Return null if input is valid.
-  // }
 }

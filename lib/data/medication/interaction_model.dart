@@ -14,5 +14,4 @@ class InteractionModel {
     drug2Name: map['drug2Name'] ?? '',
     explanation: map['explanation'] ?? '',
   );
-
 }

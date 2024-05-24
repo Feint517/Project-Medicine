@@ -10,7 +10,7 @@ class THelperFunctions {
     );
   }
 
-  static String truncaterext(String text, int maxLength) {
+  static String truncateText(String text, int maxLength) {
     if (text.length <= maxLength) {
       return text;
     } else {

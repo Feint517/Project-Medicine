@@ -9,8 +9,10 @@ import 'package:project_med/common/widgets/list_tiles/settings_menu_tile.dart';
 import 'package:project_med/common/widgets/list_tiles/user_profile_tile.dart';
 import 'package:project_med/data/repositories/authentication_repository.dart';
 import 'package:project_med/data/services/database_service.dart';
+import 'package:project_med/features/personalization/controllers/user_controller.dart';
 import 'package:project_med/features/personalization/screens/profile/profile.dart';
 import 'package:project_med/common/widgets/misc/custom_section_heading.dart';
+import 'package:project_med/features/reminder/controllers/reminder_controller.dart';
 import 'package:project_med/utils/constants/colors.dart';
 import 'package:project_med/utils/constants/sizes.dart';
 
@@ -20,6 +22,8 @@ class SettingsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final database = Get.put(DatabaseService());
+    final controller = Get.put(ReminderController());
+    final userController = UserController.instance;
     return Scaffold(
       body: SingleChildScrollView(
         child: Column(
@@ -29,7 +33,6 @@ class SettingsScreen extends StatelessWidget {
               child: Column(
                 children: [
                   CustomAppBar(
-                    //showBackArrow: true,
                     title: Text(
                       'Account',
                       style: Theme.of(context)
@@ -56,35 +59,36 @@ class SettingsScreen extends StatelessWidget {
                 children: [
                   //* account settings
                   const CustomSectionHeading(
-                    title: "Account",
+                    title: "Account details",
                     showActionButton: false,
                   ),
                   const Gap(TSizes.spaceBtwItems),
 
                   SettingsMenuTile(
-                    icon: Iconsax.safe_home,
-                    title: "My address",
-                    subtitle: "idk what to say",
-                    onTap: () {},
-                  ),
-                  SettingsMenuTile(
-                    icon: Iconsax.safe_home,
+                    icon: Iconsax.personalcard,
                     title: "Name",
-                    subtitle: "idk what to say",
+                    subtitle: userController.user.value.fullName,
                     onTap: () {},
                   ),
                   SettingsMenuTile(
                     icon: Iconsax.safe_home,
-                    title: "Security",
-                    subtitle: "idk what to say",
+                    title: "Phone Number",
+                    subtitle:
+                        '+213 ${userController.user.value.phoneNumber.substring(1)}',
                     onTap: () {},
                   ),
-                  SettingsMenuTile(
-                    icon: Iconsax.safe_home,
-                    title: "Get Help",
-                    subtitle: "idk what to say",
-                    onTap: () {},
-                  ),
+                  // SettingsMenuTile(
+                  //   icon: Iconsax.safe_home,
+                  //   title: "Security",
+                  //   subtitle: "idk what to say",
+                  //   onTap: () {},
+                  // ),
+                  // SettingsMenuTile(
+                  //   icon: Iconsax.safe_home,
+                  //   title: "Get Help",
+                  //   subtitle: "idk what to say",
+                  //   onTap: () {},
+                  // ),
                   //* app Setting
                   const Gap(TSizes.spaceBtwSections),
                   const CustomSectionHeading(
@@ -98,6 +102,7 @@ class SettingsScreen extends StatelessWidget {
                     subtitle: "Delete all your saved treatments from storage.",
                     onTap: () {
                       database.deleteAll(table: 'treatments');
+                      controller.treatmentsList.clear();
                       CustomLoaders.successSnackBar(
                         title: 'All saved data is deleted.',
                       );
@@ -122,12 +127,12 @@ class SettingsScreen extends StatelessWidget {
                   //   subtitle: "idk what to say",
                   //   trailing: Switch(value: false, onChanged: (value) {}),
                   // ),
-                  SettingsMenuTile(
-                    icon: Iconsax.sun,
-                    title: "Color Mode",
-                    subtitle: "idk what to say",
-                    trailing: Switch(value: true, onChanged: (value) {}),
-                  ),
+                  // SettingsMenuTile(
+                  //   icon: Iconsax.sun,
+                  //   title: "Color Mode",
+                  //   subtitle: "idk what to say",
+                  //   trailing: Switch(value: true, onChanged: (value) {}),
+                  // ),
 
                   //* Logout button
                   const Gap(TSizes.spaceBtwSections),

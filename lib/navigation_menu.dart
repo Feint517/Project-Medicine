@@ -5,7 +5,6 @@ import 'package:project_med/features/med/screens/home/home.dart';
 import 'package:project_med/features/personalization/screens/settings/settings.dart';
 import 'package:project_med/features/reminder/screens/medication_reminder.dart';
 import 'package:project_med/features/search/screens/search_page.dart';
-import 'package:project_med/test_page.dart';
 import 'package:project_med/utils/constants/colors.dart';
 import 'package:project_med/utils/helpers/helper_functions.dart';
 
@@ -38,10 +37,6 @@ class NavigationMenu extends StatelessWidget {
               icon: Icon(Iconsax.search_normal),
               label: 'Search',
             ),
-            // NavigationDestination(
-            //   icon: Icon(Iconsax.global_edit),
-            //   label: 'Testing',
-            // ),
             NavigationDestination(
               icon: Icon(Iconsax.bag_happy),
               label: 'Medication',
@@ -63,7 +58,6 @@ class NavigationController extends GetxController {
   final screens = [
     const HomeScreen(),
     const SearchPage(),
-    //const TestingPage(),
     const MedReminderScreen(),
     const SettingsScreen(),
   ];

@@ -10,7 +10,6 @@ import 'package:project_med/utils/helpers/network_manager.dart';
 import 'package:project_med/utils/popups/fullscreen_loader.dart';
 
 class LoginController extends GetxController {
-  //static LoginController get instance => Get.find();
 
   //* variables
   final localStorage = GetStorage();
@@ -54,8 +53,6 @@ class LoginController extends GetxController {
       }
 
       //* login user using email and password authentication
-      // final userCredentials = await AuthenticationRepository.instance
-      //     .loginWithEmailAndPassword(email.text.trim(), password.text.trim());
       await AuthenticationRepository.instance
           .loginWithEmailAndPassword(email.text.trim(), password.text.trim());
 

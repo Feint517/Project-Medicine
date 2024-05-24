@@ -32,6 +32,7 @@ class TreatmentModel {
         hour: '',
       );
 
+  //? a factory method to ensure fetching from database
   factory TreatmentModel.fromJson(Map<String, dynamic> json) => TreatmentModel(
         id: json['id'] ?? 0,
         type: json['type'] ?? '',

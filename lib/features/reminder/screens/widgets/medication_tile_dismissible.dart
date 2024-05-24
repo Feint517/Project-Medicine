@@ -2,7 +2,6 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
-import 'package:project_med/features/reminder/controllers/countdown_controller.dart';
 import 'package:project_med/features/reminder/controllers/reminder_controller.dart';
 import 'package:project_med/utils/constants/colors.dart';
 import 'package:project_med/utils/constants/image_strings.dart';
@@ -12,40 +11,41 @@ import 'package:project_med/utils/helpers/helper_functions.dart';
 class MedicationTile extends StatelessWidget {
   const MedicationTile({
     super.key,
+    required this.list,
     required this.id,
     required this.name,
     required this.dose,
     required this.type,
     required this.timing,
-    required this.list,
+    required this.injectingSite,
     required this.date,
     required this.hour,
   });
 
+  final List list;
   final int id;
   final String name;
   final int dose;
   final String type;
   final String timing;
-  final List list;
+  final String injectingSite;
   final int date;
   final String hour;
 
   @override
   Widget build(BuildContext context) {
     final controller = Get.put(ReminderController());
-    final countdown = Get.put(CountdownController());
     return Dismissible(
       key: ValueKey<List>(list),
       direction: DismissDirection.startToEnd, //? swipe from left to right
       onDismissed: (direction) async {
         controller.deleteTreatment(id: id);
         controller.fetchTreatmentsByDate(convertedDate: date);
-        countdown.findNextMedication();
+        controller.findNextMedication();
         if (direction == DismissDirection.startToEnd) {
           controller.deleteTreatment(id: id);
           controller.fetchTreatmentsByDate(convertedDate: date);
-          countdown.findNextMedication();
+          controller.findNextMedication();
         }
       },
       background: Container(
@@ -74,6 +74,9 @@ class MedicationTile extends StatelessWidget {
         onDoubleTap: () {
           if (kDebugMode) {
             print('id = $id');
+            print('name = $name');
+            print('type = $type');
+            print('injection site = $injectingSite');
           }
         },
         child: Container(
@@ -111,13 +114,40 @@ class MedicationTile extends StatelessWidget {
                           .apply(color: TColors.white),
                       overflow: TextOverflow.ellipsis,
                     ),
-                    Text(
-                      '$dose $timing',
-                      style: Theme.of(context)
-                          .textTheme
-                          .bodyMedium!
-                          .apply(color: TColors.white),
-                    ),
+                    if (type == 'Pill')
+                      Text(
+                        '$dose $timing',
+                        style: Theme.of(context)
+                            .textTheme
+                            .bodyMedium!
+                            .apply(color: TColors.white),
+                      )
+                    else if (type == 'Eye Drop')
+                      Text(
+                        timing,
+                        style: Theme.of(context)
+                            .textTheme
+                            .bodyMedium!
+                            .apply(color: TColors.white),
+                      )
+                    else if (type == 'Liquid')
+                      Text(
+                        '$dose drops $timing',
+                        style: Theme.of(context)
+                            .textTheme
+                            .bodyMedium!
+                            .apply(color: TColors.white),
+                      )
+                    else if (type == 'Injection')
+                      Text(
+                        '$timing at ${injectingSite.toLowerCase()}',
+                        style: Theme.of(context)
+                            .textTheme
+                            .bodyMedium!
+                            .apply(color: TColors.white),
+                      )
+                    else
+                      const SizedBox(),
                   ],
                 ),
               ),

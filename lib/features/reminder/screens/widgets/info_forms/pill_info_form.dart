@@ -9,7 +9,6 @@ import 'package:project_med/utils/constants/colors.dart';
 import 'package:project_med/utils/constants/sizes.dart';
 import 'package:project_med/utils/constants/text_strings.dart';
 import 'package:project_med/utils/helpers/helper_functions.dart';
-import 'package:project_med/utils/validators/validators.dart';
 
 class PillInfoForm extends StatelessWidget {
   const PillInfoForm({super.key});
@@ -33,8 +32,6 @@ class PillInfoForm extends StatelessWidget {
           const Gap(TSizes.spaceBtwItems),
           TextFormField(
             controller: controller.medicationName,
-            validator: (value) =>
-                TValidator.validateEmptyText('Pill name', value),
           ),
           const Gap(TSizes.spaceBtwSections / 1.5),
           const Text(TTexts.dose),
@@ -42,7 +39,6 @@ class PillInfoForm extends StatelessWidget {
           TextFormField(
             controller: controller.medicationDose,
             keyboardType: TextInputType.number,
-            validator: (value) => TValidator.validateEmptyText('Dose', value),
           ),
           const Gap(TSizes.spaceBtwSections / 1.5),
           const Text('Frequency:'),

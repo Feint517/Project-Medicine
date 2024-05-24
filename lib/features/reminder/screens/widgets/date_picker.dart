@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:project_med/common/widgets/misc/multiple_dates_picker.dart';
 import 'package:project_med/features/reminder/controllers/reminder_controller.dart';
+import 'package:project_med/utils/constants/colors.dart';
 import 'package:project_med/utils/constants/sizes.dart';
 import 'package:project_med/utils/constants/text_strings.dart';
 import 'package:project_med/utils/helpers/helper_functions.dart';
@@ -18,23 +19,20 @@ class DatePicker extends StatelessWidget {
     final controller = Get.put(ReminderController());
     return Column(
       children: [
-        Row(
+        const Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            const Text(TTexts.date),
-            IconButton(
-              onPressed: () {
-                controller.finalList.clear();
-                Get.to(() => const MultipleDatesPicker());
-              },
-              icon: const Icon(Iconsax.calendar),
+            Text(TTexts.date),
+            Icon(
+              Iconsax.calendar,
+              color: TColors.primary,
             ),
           ],
         ),
         const Gap(TSizes.spaceBtwItems),
         GestureDetector(
           onTap: () {
-            controller.finalList.clear();
+            //controller.finalList.clear();
             Get.to(() => const MultipleDatesPicker());
           },
           child: Container(
@@ -47,11 +45,11 @@ class DatePicker extends StatelessWidget {
             child: Center(
               child: Obx(
                 () {
-                  if (controller.finalList.isEmpty) {
+                  if (controller.formattedDate.isEmpty) {
                     return const Text('No date is selected...');
                   } else {
                     return Text(
-                      controller.finalList.join(' , '),
+                      controller.formattedDate.value,
                       overflow: TextOverflow.ellipsis,
                     );
                   }

@@ -109,16 +109,16 @@ class ProfileScreen extends StatelessWidget {
                 value: controller.user.value.phoneNumber,
                 onPressed: () {},
               ),
-              CustomProfileMenu(
-                title: "Gender",
-                value: "Male",
-                onPressed: () {},
-              ),
-              CustomProfileMenu(
-                title: "Date of birth",
-                value: "August 13, 2003",
-                onPressed: () {},
-              ),
+              // CustomProfileMenu(
+              //   title: "Gender",
+              //   value: "Male",
+              //   onPressed: () {},
+              // ),
+              // CustomProfileMenu(
+              //   title: "Date of birth",
+              //   value: "August 13, 2003",
+              //   onPressed: () {},
+              // ),
 
               const Divider(),
               const Gap(TSizes.spaceBtwItems),

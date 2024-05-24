@@ -3,7 +3,7 @@ import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:project_med/common/widgets/appbar/appbar.dart';
-import 'package:project_med/features/personalization/controllers/updaet_name_controller.dart';
+import 'package:project_med/features/personalization/controllers/update_name_controller.dart';
 import 'package:project_med/utils/constants/sizes.dart';
 import 'package:project_med/utils/constants/text_strings.dart';
 import 'package:project_med/utils/validators/validators.dart';

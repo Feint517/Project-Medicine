@@ -1,5 +1,4 @@
 class ArticleModel {
-  final Source? source;
   final String? author;
   final String title;
   final String description;
@@ -9,7 +8,6 @@ class ArticleModel {
   final String? content;
 
   ArticleModel({
-    this.source,
     this.author,
     required this.title,
     required this.description,

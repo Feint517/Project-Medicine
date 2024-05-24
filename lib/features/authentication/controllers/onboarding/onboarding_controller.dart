@@ -10,8 +10,7 @@ class OnBoardingController extends GetxController {
   //? variables
   final pageController = PageController(); 
   Rx<int> currentPageIndex = 0.obs;   //! means "obsever", listens to the stream and change the disign without stfl widgets
-
-  //get deviceStorage => null;
+  
 
   //? update current index when page scroll
   void updatePageIndicator(index) => currentPageIndex.value = index;
@@ -41,7 +40,8 @@ class OnBoardingController extends GetxController {
         print(storage.read('isFirstTime'));
       }
 
-      Get.offAll(() => const LoginScreen());   //?  Using a widget function instead of a widget fully guarantees that the widget and its controllers will be removed from memory when they are no longer used.
+      //?  Using a widget function instead of a widget fully guarantees that the widget and its controllers will be removed from memory when they are no longer used.
+      Get.offAll(() => const LoginScreen());   
       
     } else {
       int page = currentPageIndex.value + 1;

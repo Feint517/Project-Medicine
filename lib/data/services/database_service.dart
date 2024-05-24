@@ -8,6 +8,8 @@ import 'package:project_med/data/medication/treatment_model.dart';
 import 'package:sqflite/sqflite.dart';
 import 'dart:async';
 
+typedef ModelFactory<T> = T Function(Map<String, dynamic> data);
+
 class DatabaseService {
   static DatabaseService get instance => Get.find();
 
@@ -81,6 +83,7 @@ class DatabaseService {
   }
 
   //? Main CRUD operations ====================================================
+
   Future<List<TreatmentModel>> fetchTreatmentsFromDate(
       {required String table, required int convertedDate}) async {
     final database = await instance.database; //? try instance.database
@@ -91,17 +94,7 @@ class DatabaseService {
         .toList();
   }
 
-  // Future<List<InteractionModel>> fetchByName(
-  //     {required String name, required String table}) async {
-  //   final database = await DatabaseService().database;
-  //   final interactions = await database
-  //       .rawQuery('''SELECT * from $table WHERE drug1Name = ?''', [name]);
-  //   return interactions
-  //       .map((interaction) => InteractionModel.fromSqfliteDatabase(interaction))
-  //       .toList();
-  // }
-
-  Future<List<InteractionModel>> fetchByName2({
+  Future<List<InteractionModel>> fetchByName({
     required String drug1,
     required String drug2,
     required String table,
@@ -118,7 +111,7 @@ class DatabaseService {
         .toList();
   }
 
-  Future<void> delete({required String table, required int id}) async {
+  Future<void> deleteById({required String table, required int id}) async {
     final database = await DatabaseService().database;
     await database.rawDelete('''DELETE FROM $table WHERE id = ?''', [id]);
   }
@@ -128,9 +121,6 @@ class DatabaseService {
     required String table,
   }) async {
     final database = await instance.database;
-    if (kDebugMode) {
-      print('Item added to database.');
-    }
     return await database.insert(
       table,
       object.toJson(),
@@ -145,37 +135,11 @@ class DatabaseService {
     );
   }
 
-  Future<List<dynamic>?> fetchAll({required String table}) async {
+  Future<List<T>> fetchAll<T>(
+      {required String table, required ModelFactory<T> factory}) async {
     final database = await instance.database;
-    final List<Map<String, dynamic>> maps = await database.query(table);
-    if (maps.isEmpty) {
-      return null;
-    }
-    return List.generate(
-      maps.length,
-      (index) => TreatmentModel.fromJson(maps[index]),
-    );
-  }
-
-//? For Testing =======================================================
-  Future<List<TreatmentModel>> fetchAllTreatment(
-      {required String table}) async {
-    final database = await instance.database; //? try instance.database
-    final treatments = await database.rawQuery('''SELECT * FROM $table''');
-    return treatments
-        .map((treatment) => TreatmentModel.fromJson(treatment))
-        .toList();
-  }
-
-  Future<List<TreatmentModel>?> getAllTreatments(
-      {required String table}) async {
-    final database = await instance.database;
-    final List<Map<String, dynamic>> maps = await database.query(table);
-    if (maps.isEmpty) {
-      return null;
-    }
-    return List.generate(
-        maps.length, (index) => TreatmentModel.fromJson(maps[index]));
+    final results = await database.rawQuery('SELECT * FROM $table');
+    return results.map((data) => factory(data)).toList();
   }
 
   Future<void> deleteAll({required String table}) async {
@@ -183,11 +147,5 @@ class DatabaseService {
     await database.delete(table);
   }
 
-  // //* RAW query
-  // Future<int?> getCount() async {
-  //   Database? db = await instance.database;
-  //   return Sqflite.firstIntValue(
-  //     await db.rawQuery('SELECT COUNT(drugName) FROM $table'),
-  //   );
-  // }
+//? For Testing =======================================================
 }
