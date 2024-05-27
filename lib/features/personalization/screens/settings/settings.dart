@@ -68,14 +68,17 @@ class SettingsScreen extends StatelessWidget {
                     icon: Iconsax.personalcard,
                     title: "Name",
                     subtitle: userController.user.value.fullName,
-                    onTap: () {},
                   ),
                   SettingsMenuTile(
-                    icon: Iconsax.safe_home,
+                    icon: Iconsax.send_sqaure_2,
+                    title: "Email",
+                    subtitle: userController.user.value.email,
+                  ),
+                  SettingsMenuTile(
+                    icon: Iconsax.call,
                     title: "Phone Number",
                     subtitle:
                         '+213 ${userController.user.value.phoneNumber.substring(1)}',
-                    onTap: () {},
                   ),
                   // SettingsMenuTile(
                   //   icon: Iconsax.safe_home,
@@ -103,6 +106,7 @@ class SettingsScreen extends StatelessWidget {
                     onTap: () {
                       database.deleteAll(table: 'treatments');
                       controller.treatmentsList.clear();
+                      controller.treatmentExist.value = false;
                       CustomLoaders.successSnackBar(
                         title: 'All saved data is deleted.',
                       );

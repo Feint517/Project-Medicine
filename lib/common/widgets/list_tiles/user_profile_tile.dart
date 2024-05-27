@@ -30,12 +30,6 @@ class UserProfileTile extends StatelessWidget {
             height: 48,
             isNetworkImage: networkImage.isNotEmpty,
           );
-          // CustomCircularImage(
-          //   image: image,
-          //   width: 80,
-          //   height: 80,
-          //   isNetworkImage: networkImage.isNotEmpty,
-          // );
         },
       ),
       title: Text(

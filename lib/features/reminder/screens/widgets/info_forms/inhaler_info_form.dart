@@ -15,12 +15,6 @@ class InhalerInfoForm extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final controller = Get.put(ReminderController());
-    // List<String> timings = [
-    //   'Before eat',
-    //   'After eat',
-    //   'With food',
-    //   'Before sleep'
-    // ];
     return Form(
       key: controller.frequencyFormKey, //? assign the key
       child: Column(

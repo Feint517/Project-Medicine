@@ -46,7 +46,7 @@ class ChangeNameScreen extends StatelessWidget {
                           TValidator.validateEmptyText('First Name', value),
                       expands: false,
                       decoration: const InputDecoration(
-                          labelText: TTexts.lasttName,
+                          labelText: TTexts.lastName,
                           prefixIcon: Icon(Iconsax.user)),
                     ),
                     const Gap(TSizes.spaceBtwInputFields),
@@ -56,8 +56,9 @@ class ChangeNameScreen extends StatelessWidget {
                           TValidator.validateEmptyText('First Name', value),
                       expands: false,
                       decoration: const InputDecoration(
-                          labelText: TTexts.lasttName,
-                          prefixIcon: Icon(Iconsax.user)),
+                        labelText: TTexts.lastName,
+                        prefixIcon: Icon(Iconsax.user),
+                      ),
                     ),
                   ],
                 ),

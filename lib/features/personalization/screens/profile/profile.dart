@@ -8,6 +8,7 @@ import 'package:project_med/common/widgets/loaders/shimmer.dart';
 import 'package:project_med/common/widgets/misc/custom_section_heading.dart';
 import 'package:project_med/features/personalization/controllers/user_controller.dart';
 import 'package:project_med/features/personalization/screens/profile/change_name.dart';
+import 'package:project_med/features/personalization/screens/profile/change_phone_number.dart';
 import 'package:project_med/features/personalization/screens/profile/widgets/profile_menu.dart';
 import 'package:project_med/utils/constants/image_strings.dart';
 import 'package:project_med/utils/constants/sizes.dart';
@@ -33,26 +34,28 @@ class ProfileScreen extends StatelessWidget {
                 child: Column(
                   children: [
                     //* profile picture
-                    Obx(() {
-                      final networkImage = controller.user.value
-                          .profilePicture; //? check if there's a profile picture in the user model
-                      final image = networkImage.isNotEmpty
-                          ? networkImage
-                          : TImages.avatar;
+                    Obx(
+                      () {
+                        final networkImage = controller.user.value
+                            .profilePicture; //? check if there's a profile picture in the user model
+                        final image = networkImage.isNotEmpty
+                            ? networkImage
+                            : TImages.avatar;
 
-                      return controller.imageUploading.value
-                          ? const CustomShimmerEffect(
-                              width: 80,
-                              height: 80,
-                              radius: 80,
-                            )
-                          : CustomCircularImage(
-                              image: image,
-                              width: 80,
-                              height: 80,
-                              isNetworkImage: networkImage.isNotEmpty,
-                            );
-                    }),
+                        return controller.imageUploading.value
+                            ? const CustomShimmerEffect(
+                                width: 80,
+                                height: 80,
+                                radius: 80,
+                              )
+                            : CustomCircularImage(
+                                image: image,
+                                width: 80,
+                                height: 80,
+                                isNetworkImage: networkImage.isNotEmpty,
+                              );
+                      },
+                    ),
                     TextButton(
                       onPressed: () => controller.uploadUserProfilePicture(),
                       child: const Text('Change Porfile Picture'),
@@ -107,7 +110,7 @@ class ProfileScreen extends StatelessWidget {
               CustomProfileMenu(
                 title: "Phone",
                 value: controller.user.value.phoneNumber,
-                onPressed: () {},
+                onPressed: () => Get.to(() => const ChangePhoneNumberScreen()),
               ),
               // CustomProfileMenu(
               //   title: "Gender",

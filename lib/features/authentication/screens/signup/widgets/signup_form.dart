@@ -42,7 +42,7 @@ class SignupForm extends StatelessWidget {
                       TValidator.validateEmptyText('Last name', value),
                   expands: false,
                   decoration: const InputDecoration(
-                    labelText: TTexts.lasttName,
+                    labelText: TTexts.lastName,
                     prefixIcon: Icon(Iconsax.user),
                   ),
                 ),

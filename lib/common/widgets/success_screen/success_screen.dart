@@ -11,8 +11,6 @@ class SuccessScreen extends StatelessWidget {
     required this.title,
     required this.subtitle,
     required this.onPressed,
-    // required this.imageLight,
-    // required this.imageDark,
     required this.image,
   });
 
@@ -21,7 +19,6 @@ class SuccessScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    //final dark = THelperFunctions.isDarkMode(context);
     return Scaffold(
       body: SingleChildScrollView(
         child: Padding(
@@ -32,12 +29,6 @@ class SuccessScreen extends StatelessWidget {
                 image,
                 width: MediaQuery.of(context).size.width * 0.6,
               ),
-              // Image(
-              //   image: AssetImage(
-              //     dark ? imageDark : imageLight,
-              //   ),
-              //   width: THelperFunctions.screenWidth() * 0.6,
-              // ),
               const Gap(TSizes.spaceBtwSections),
 
               //* title and subtitle

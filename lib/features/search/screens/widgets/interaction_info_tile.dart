@@ -37,13 +37,6 @@ class InteractionInfoTile extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
                 Text(drug1, style: Theme.of(context).textTheme.titleSmall),
-                // Text(
-                //   'with',
-                //   style: Theme.of(context)
-                //       .textTheme
-                //       .titleSmall!
-                //       .apply(color: Colors.red),
-                // ),
                 const Icon(
                   Iconsax.danger,
                   color: Colors.red,
