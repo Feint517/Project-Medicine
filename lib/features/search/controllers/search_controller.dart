@@ -9,12 +9,14 @@ class DrugSearchController extends GetxController {
   final tableName = 'interactions';
   final searchedDrug1 = TextEditingController();
   final searchedDrug2 = TextEditingController();
+  RxBool searched = false.obs;
   final searchResult = [].obs;
 
   searchInteraction() async {
     searchResult.clear();
     final name1 = searchedDrug1.text;
     final name2 = searchedDrug2.text;
+    searched.value = true;
     final result = await database.fetchByName(
       drug1: name1,
       drug2: name2,

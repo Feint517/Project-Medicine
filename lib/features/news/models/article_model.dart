@@ -17,10 +17,3 @@ class ArticleModel {
     this.content,
   });
 }
-
-class Source {
-  final int id = 0;
-  final String name;
-
-  Source({required this.name});
-}

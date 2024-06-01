@@ -43,8 +43,6 @@ class ReminderController extends GetxController {
   var formattedHour = ''.obs;
   RxList<TreatmentModel> treatmentsList = <TreatmentModel>[].obs;
   //*============================//*
-  TreatmentModel? nextTreatment;
-  DateTime nextTreatmentFullDate = DateTime.now();
   var nextTreatmentDateRx = Rxn<DateTime>();
   RxBool treatmentExist = false.obs;
   //*============================//*
@@ -56,11 +54,11 @@ class ReminderController extends GetxController {
   }
 
   //* methods
-
   findNextMedication() async {
     List<TreatmentModel> treatmentsList = await fetchTreatments();
     if (treatmentsList.isEmpty) {
       treatmentExist.value = false;
+      nextTreatmentDateRx.value = DateTime(2030);
       return null;
     }
     treatmentsList.sort(
@@ -81,10 +79,7 @@ class ReminderController extends GetxController {
         minute,
       );
       if (fullDate.isAfter(DateTime.now())) {
-        nextTreatment = treatment;
-        nextTreatmentFullDate = fullDate;
         nextTreatmentDateRx.value = fullDate;
-
         treatmentExist.value = true;
         break;
       }
@@ -216,7 +211,7 @@ class ReminderController extends GetxController {
     formattedHour.value = DateFormat.Hm().format(time);
   }
 
-  void saveMedication() async {
+  Future<void> saveMedication() async {
     int myInt = 0;
     if (medicationDose.text.isNotEmpty) {
       myInt = int.parse(medicationDose.text);

@@ -53,7 +53,6 @@ dependencies:
   connectivity_plus: ^5.0.2
   image_picker: ^1.0.7
   cached_network_image: ^3.3.1
-  flutter_local_notifications: ^16.3.2
   flutter_timezone: ^1.0.8
   sqflite: ^2.3.3
   path: ^1.9.0

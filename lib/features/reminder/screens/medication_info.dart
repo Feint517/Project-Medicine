@@ -69,12 +69,15 @@ class MedicationInfoScreen extends StatelessWidget {
                   SizedBox(
                     width: double.infinity,
                     child: ElevatedButton(
-                      onPressed: () {
+                      onPressed: () async {
                         if (controller.validateEnteries()) {
-                          controller.saveMedication();
+                          //? Made it Future because writing to database take time and it should wait for it to finish before clearing the data
+                          await controller.saveMedication();
+                          controller.clearEverything();
                           controller.fetchTreatmentsByDate(
-                              convertedDate:
-                                  DateTime.now().millisecondsSinceEpoch);
+                            convertedDate:
+                                DateTime.now().millisecondsSinceEpoch,
+                          );
                           controller.findNextMedication();
                         } else {
                           return;

@@ -34,6 +34,7 @@ class ArticleTile extends StatelessWidget {
           print('title = $title');
           print('url = $url');
           print('urlToImage = $urlToImage');
+          print('urlToImage.isEmpty? = ${urlToImage!.isEmpty}');
           print('===========================');
         }
       },

@@ -26,10 +26,6 @@ Future<void> main() async {
         Get.put(AuthenticationRepository()), //? invoke the authentication repo
   );
 
-  //* initialize authentication
-
-  //* load all the material design,  themes, localisations
-
   runApp(const App());
 }
 
