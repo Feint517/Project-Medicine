@@ -1,6 +1,6 @@
 class TTexts {
   //* on boarding text
-  static const String onBoardingTitle1 = "Welcome to 'codeName-prject-med'";
+  static const String onBoardingTitle1 = "Welcome to TreatAR";
   static const String onBoardingTitle2 = "Hassle-free experience";
   static const String onBoardingTitle3 = "Never miss you medication time";
 

@@ -84,6 +84,7 @@ class ProfileScreen extends StatelessWidget {
               CustomProfileMenu(
                 title: 'Username',
                 value: controller.user.value.username,
+                showIcon: false,
                 onPressed: () {},
               ),
 
@@ -105,6 +106,7 @@ class ProfileScreen extends StatelessWidget {
               CustomProfileMenu(
                 title: "Email",
                 value: controller.user.value.email,
+                showIcon: false,
                 onPressed: () {},
               ),
               CustomProfileMenu(

@@ -49,19 +49,11 @@ class NewsController extends GetxController {
       //* filtering unwanted articles
       for (int i = 0; i < transformed.length; i++) {
         for (var word in bannedWords) {
-          if (transformed[i].title == word) {
+          if (transformed[i].title.contains(word)) {
             transformed.removeAt(i);
             if (kDebugMode) {
               print('removed because of title');
             }
-          }
-        }
-      }
-      for (int j = 0; j < transformed.length; j++) {
-        if (transformed[j].urlToImage!.isEmpty) {
-          transformed.removeAt(j);
-          if (kDebugMode) {
-            print('removed because of urlToImage');
           }
         }
       }
@@ -73,11 +65,17 @@ class NewsController extends GetxController {
           }
         }
       }
+      for (int j = 0; j < transformed.length; j++) {
+        if (transformed[j].urlToImage!.isEmpty) {
+          transformed.removeAt(j);
+          if (kDebugMode) {
+            print('removed because of urlToImage');
+          }
+        }
+      }
 
       //* add filtered articles list to the obesrved list
-      for (int x = 0; x < transformed.length; x++) {
-        articlesRx.add(transformed[x]);
-      }
+      articlesRx.assignAll(transformed);
     } catch (e) {
       if (kDebugMode) {
         print('ERROR: $e');

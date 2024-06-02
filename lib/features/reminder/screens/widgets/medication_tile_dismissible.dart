@@ -58,7 +58,10 @@ class MedicationTile extends StatelessWidget {
         child: Row(
           children: [
             const Gap(TSizes.sm),
-            const Icon(Icons.delete),
+            const Icon(
+              Icons.delete,
+              color: TColors.white,
+            ),
             const Gap(TSizes.md),
             Text(
               'Delete',

@@ -6,12 +6,14 @@ class CustomProfileMenu extends StatelessWidget {
   const CustomProfileMenu({
     super.key,
     this.icon = Iconsax.arrow_right_34,
+    this.showIcon = true,
     required this.onPressed,
     required this.title,
     required this.value,
   });
 
   final IconData icon;
+  final bool showIcon;
   final VoidCallback onPressed;
   final String title, value;
 
@@ -40,7 +42,7 @@ class CustomProfileMenu extends StatelessWidget {
                 overflow: TextOverflow.ellipsis,
               ),
             ),
-            Expanded(child: Icon(icon)),
+            Expanded(child: showIcon ? Icon(icon) : const SizedBox()),
           ],
         ),
       ),
